@@ -1,0 +1,3 @@
+set completion-ignore-case on
+set expand-tilde off
+set bell-style visible

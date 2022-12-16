@@ -1,0 +1,126 @@
+snippets:
+  - name: yyyymmdd
+    keyword: yyyymmdd
+    snippet: date "+%Y%m%d"
+    evaluate: true
+    global: true
+
+  - name: yyyy-mm-dd
+    keyword: yyyy-mm-dd
+    snippet: date "+%Y-%m-%d"
+    evaluate: true
+    global: true
+
+  - name: yyyy/mm/dd
+    keyword: yyyy/mm/dd
+    snippet: date "+%Y/%m/%d"
+    evaluate: true
+    global: true
+
+  - name: git
+    keyword: g
+    snippet: git
+
+  - name: git status
+    keyword: gs
+    snippet: git status --branch
+
+  - name: git switch
+    keyword: gsw
+    snippet: git switch
+
+  - name: git commit
+    keyword: gc
+    snippet: git commit
+
+  - name: git branch -a
+    keyword: gb
+    snippet: git branch -a
+
+  - name: git add
+    keyword: ga
+    snippet: git add
+
+  - name: git commit message
+    keyword: gcm
+    snippet: git commit -m '{{commit_message}}'
+
+  - name: git commit --amend --no-edit
+    keyword: gca
+    snippet: git commit --amend --no-edit
+
+  - name: git diff
+    keyword: gd
+    snippet: git diff
+
+  - name: git log
+    keyword: gl
+    snippet: git --no-pager log --graph --oneline -n 10
+
+  - name: git pull
+    keyword: gp
+    snippet: git pull
+
+  - name: git push
+    keyword: gpush
+    snippet: git push
+
+  - name: devnull
+    keyword: "devnull"
+    snippet: ">/dev/null 2>&1"
+    context:
+      lbuffer: '.+\s'
+
+  - name: awk sum
+    keyword: "awksum"
+    snippet: "| awk '{sum+=$NF{{field}}} END {print sum}'"
+    context:
+      lbuffer: '.+\s'
+
+  - name: awk ave
+    keyword: "awkave"
+    snippet: "| awk '{sum+=$NF{{field}}} END {print sum/NR}'"
+    context:
+      lbuffer: '.+\s'
+
+  - name: yay -Syu
+    keyword: yayu
+    snippet: yay -Syu
+
+  - name: yay -S
+    keyword: yays
+    snippet: yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S
+
+  - name: yay -Rns
+    keyword: yayr
+    snippet: yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs -ro yay -Rns
+
+completions:
+  - name: kill signal
+    patterns:
+      - "^kill -s $"
+    sourceCommand: "kill -l | tr ' ' '\\n'"
+    options:
+      --prompt: "'Kill Signal> '"
+
+  - name: kill pid
+    patterns:
+      - "^kill( .*)? $"
+    excludePatterns:
+      - " -[lns] $"
+    sourceCommand: "LANG=C ps -ef | sed 1d"
+    options:
+      --multi: true
+      --prompt: "'Kill Process> '"
+    callback: "awk '{print $2}'"
+
+  - name: chdir
+    patterns:
+      - "^cd $"
+    sourceCommand: "find . -path '*/.git' -prune -o -maxdepth 5 -type d -print0"
+    options:
+      --read0: true
+      --prompt: "'Chdir> '"
+      --preview: "cd {} && ls -a | sed '/^[.]*$/d'"
+    callback: "cut -z -c 3-"
+    callbackZero: true
