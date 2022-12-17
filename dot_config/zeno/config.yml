@@ -29,6 +29,10 @@ snippets:
     keyword: gsw
     snippet: git switch
 
+  - name: git switch -c
+    keyword: gswc
+    snippet: git switch -c
+
   - name: git commit
     keyword: gc
     snippet: git commit
