@@ -334,8 +334,8 @@ function works() {
 
 # Setting Include {{{1
 # --------------------
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+source ~/.local/share/fzf/shell/key-bindings.zsh
+source ~/.local/share/fzf/shell/completion.zsh
 source /usr/share/doc/pkgfile/command-not-found.zsh
 # }}}1
 

@@ -2,3 +2,19 @@
     type = "file"
     url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
     refreshPeriod = "168h"
+
+[".local/share/fzf"]
+    type = "archive"
+    {{ $fzfReleaseExt := "tar.gz" }}
+    {{ if eq .chezmoi.os "darwin" }}
+      {{ $fzfReleaseExt = "zip" }}
+    {{ end }}
+    url = "https://github.com/junegunn/fzf/releases/download/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/fzf-{{ (gitHubLatestRelease "junegunn/fzf").TagName }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.{{ $fzfReleaseExt }}"
+
+[".local/share/fzf/shell/key-bindings.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/key-bindings.zsh"
+
+[".local/share/fzf/shell/completion.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/completion.zsh"
