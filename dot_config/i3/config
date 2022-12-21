@@ -30,7 +30,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xterm
+bindsym $mod+Return exec urxvt
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -180,5 +180,4 @@ exec --no-startup-id redshift-gtk -l 35.650583:139.540667
 exec --no-startup-id "sh -c 'sleep 1; exec bash ~/Sync/screenlayout/dual.sh'"
 exec --no-startup-id "sh -c 'sleep 2; exec bash ~/.config/polybar/launch.sh'"
 exec --no-startup-id "sh -c 'sleep 2; exec feh --bg-scale ~/Sync/wallpaper/b1110b46-80ad-4585-b93c-cf4c550a625e.png --bg-fill ~/Sync/wallpaper/a9db2e1e-bab8-4071-8667-f0f23af9c6ca.png'"
-exec --no-startup-id "sh -c 'sleep 3; picom -b'"
 exec xautolock -detectsleep -time 15 -locker "i3lock -c 000000" -notify 60 -notifier "notify-send -u critical -t 10000 -- 'The screen will lock in 60 seconds.'" -corners +--- -cornerdelay 1 -cornerredelay 10

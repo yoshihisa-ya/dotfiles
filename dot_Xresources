@@ -1,6 +1,5 @@
 xterm*locale: true
-xterm*faceName: DejaVu Sans Mono:style=Book:antialias=true
-xterm*faceNameDoublesize: IPAPGothic:style=Regular
+xterm*faceName: MesloLGS NF
 xterm*faceSize: 9
 xterm*borderWidth: 0
 xterm*selectToClipboard: true
@@ -8,3 +7,32 @@ xterm*metaSendsEscape: true
 xterm*allowWindowOps: true
 XTerm*foreground: gray90
 XTerm*background: black
+
+urxvt.foreground: gray90
+urxvt.background: black
+urxvt.scrollBar: false
+
+XTerm.VT100.color3: rgb:f3/dc/55
+XTerm.VT100.color4: cornflowerblue
+URxvt.color12: rgb:5c/5c/ff
+
+URxvt.color4: CornflowerBlue
+
+URxvt*font: xft:MesloLGS NF-9,\
+    xft:IPAGothic-8.5
+URxvt.letterSpace: -1
+
+URxvt*inheritPixmap: true
+URxvt*.transparent: true
+URxvt*.shading: 20
+
+URxvt.perl-ext-common: clipboard,url-select,resize-font
+URxvt.resize-font.step: 2
+
+URxvt.clipboard.autocopy: true
+
+URxvt.cursorBlink:          false
+URxvt.cursorUnderline:      false
+URxvt.pointerBlank:         true
+URxvt.visualBell:           true
+URxvt.saveLines: 10000

@@ -390,7 +390,6 @@ augroup highlightIdegraphicSpace
 augroup END
 
 " colorscheme
-set termguicolors
 colorscheme morning
 
 " Git commit で差分を表示
