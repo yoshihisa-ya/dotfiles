@@ -8,6 +8,8 @@ export MAKEOBJDIRPREFIX=$HOME/.obj
 export ANSIBLE_NOCOWS=1
 export BR2_DL_DIR=~/buildroot/download
 
+fpath=(~/.local/share/zsh-completions $fpath)
+
 # Add color to the display of man
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -72,13 +74,14 @@ setopt completealiases
 
 # Alias {{{1
 # ----------
-alias ls='ls --color=auto'
+alias ls='lsd'
 alias vi='nvim'
 alias vim='nvim'
 alias grep="grep --color=auto"
 alias rm=" rm -iv"
 alias mv=" mv -iv"
 alias cp='cp -i --reflink=auto'
+alias cat='bat --paging=never'
 
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=sxiv
 alias -s {html,htm,pdf}=firefox

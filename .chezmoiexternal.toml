@@ -1,20 +1,45 @@
 [".local/share/nvim/site/autoload/plug.vim"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    refreshPeriod = "168h"
+  type = "file"
+  url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  refreshPeriod = "168h"
 
-[".local/share/fzf"]
-    type = "archive"
-    {{ $fzfReleaseExt := "tar.gz" }}
-    {{ if eq .chezmoi.os "darwin" }}
-      {{ $fzfReleaseExt = "zip" }}
-    {{ end }}
-    url = "https://github.com/junegunn/fzf/releases/download/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/fzf-{{ (gitHubLatestRelease "junegunn/fzf").TagName }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.{{ $fzfReleaseExt }}"
+[".local/bin/fzf"]
+  type = "file"
+  url = "https://github.com/junegunn/fzf/releases/download/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/fzf-{{ (gitHubLatestRelease "junegunn/fzf").TagName }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/fzf".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
 
 [".local/share/fzf/shell/key-bindings.zsh"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/key-bindings.zsh"
+  type = "file"
+  url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/key-bindings.zsh"
 
-[".local/share/fzf/shell/completion.zsh"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/completion.zsh"
+[".local/share/zsh-completions/_fzf"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/completion.zsh"
+
+[".local/bin/lsd"]
+  type = "file"
+  url = "https://github.com/Peltoche/lsd/releases/download/{{ (gitHubLatestRelease "Peltoche/lsd").TagName }}/lsd-{{ (gitHubLatestRelease "Peltoche/lsd").TagName }}-x86_64-unknown-linux-musl.tar.gz"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/lsd".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lsd-{{ (gitHubLatestRelease "Peltoche/lsd").TagName }}-x86_64-unknown-linux-musl/lsd"]
+
+[".local/bin/bat"]
+  type = "file"
+  url = "https://github.com/sharkdp/bat/releases/download/{{ (gitHubLatestRelease "sharkdp/bat").TagName }}/bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-x86_64-unknown-linux-musl.tar.gz"
+  executable = true
+  [".local/bin/bat".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-x86_64-unknown-linux-musl/bat"]
+
+[".local/share/zsh-completions/_bat"]
+  type = "file"
+  url = "https://github.com/sharkdp/bat/releases/download/{{ (gitHubLatestRelease "sharkdp/bat").TagName }}/bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-x86_64-unknown-linux-musl.tar.gz"
+  [".local/share/zsh-completions/_bat".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-x86_64-unknown-linux-musl/autocomplete/bat.zsh"]
