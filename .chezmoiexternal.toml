@@ -81,3 +81,12 @@
   [".local/bin/gh".filter]
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "gh_{{ (gitHubLatestRelease "cli/cli").TagName | trimPrefix "v" }}_linux_amd64/bin/gh"]
+
+[".local/bin/shellcheck"]
+  type = "file"
+  url = "https://github.com/koalaman/shellcheck/releases/download/{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}.linux.x86_64.tar.xz"
+  refreshPeriod = "168h"
+  executable = true
+  [".local/bin/shellcheck".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--xz", "--to-stdout", "shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck"]
