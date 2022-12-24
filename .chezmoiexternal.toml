@@ -58,3 +58,11 @@
   [".local/share/zsh-completions/_rg" .filter]
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-x86_64-unknown-linux-musl/complete/_rg"]
+
+[".local/bin/difft"]
+  type = "file"
+  url = "https://github.com/Wilfred/difftastic/releases/download/{{ (gitHubLatestRelease "Wilfred/difftastic").TagName }}/difft-x86_64-unknown-linux-gnu.tar.gz"
+  executable = true
+  [".local/bin/difft".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "difft"]
