@@ -370,3 +370,5 @@ if [[ -n $ZENO_LOADED ]]; then
   bindkey ' '  zeno-auto-snippet
   bindkey '^i' zeno-completion
 fi
+
+zinit light Aloxaf/fzf-tab
