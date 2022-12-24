@@ -15,3 +15,9 @@
 	prune = true
 [alias]
 	cleanup = !git branch --merged | egrep -v '(^\\*|master|main|develop)' | xargs git branch -d
+[diff]
+	tool = difftastic
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
