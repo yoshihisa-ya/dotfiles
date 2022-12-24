@@ -72,3 +72,12 @@
   url = "https://github.com/asdf-vm/asdf.git"
   [".asdf".clone]
     args = ["--branch", "v0.11.0"]
+
+[".local/bin/gh"]
+  type = "file"
+  url = "https://github.com/cli/cli/releases/download/{{ (gitHubLatestRelease "cli/cli").TagName }}/gh_{{ (gitHubLatestRelease "cli/cli").TagName | trimPrefix "v" }}_linux_amd64.tar.gz"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/gh".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "gh_{{ (gitHubLatestRelease "cli/cli").TagName | trimPrefix "v" }}_linux_amd64/bin/gh"]
