@@ -26,10 +26,12 @@ URxvt*inheritPixmap: true
 URxvt*.transparent: true
 URxvt*.shading: 20
 
-URxvt.perl-ext-common: clipboard,url-select,resize-font
+URxvt.perl-ext-common: clipboard,selection-to-clipboard,url-select,resize-font
 URxvt.resize-font.step: 2
 
 URxvt.clipboard.autocopy: true
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
 
 URxvt.cursorBlink:          false
 URxvt.cursorUnderline:      false
