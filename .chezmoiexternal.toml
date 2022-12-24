@@ -66,3 +66,9 @@
   [".local/bin/difft".filter]
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "difft"]
+
+[".asdf"]
+  type = "git-repo"
+  url = "https://github.com/asdf-vm/asdf.git"
+  [".asdf".clone]
+    args = ["--branch", "v0.11.0"]

@@ -1,5 +1,8 @@
 # vim: set foldmethod=marker :
 
+. $HOME/.asdf/asdf.sh
+fpath=(${ASDF_DIR}/completions $fpath)
+
 export PAGER=less
 export EDITOR=nvim
 export LESS='-g -i -M -R -W -x2 -S'
