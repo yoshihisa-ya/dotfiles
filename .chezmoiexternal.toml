@@ -90,3 +90,8 @@
   [".local/bin/shellcheck".filter]
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--xz", "--to-stdout", "shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck"]
+
+[".local/bin/nvim"]
+  type = "file"
+  url = "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+  executable = true
