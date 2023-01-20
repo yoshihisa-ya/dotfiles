@@ -95,3 +95,8 @@
   type = "file"
   url = "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
   executable = true
+
+[".local/bin/jq"]
+  type = "file"
+  url = "https://github.com/stedolan/jq/releases/download/{{ (gitHubLatestRelease "stedolan/jq").TagName }}/jq-linux64"
+  executable = true
