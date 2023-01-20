@@ -1,3 +1,3 @@
 #!/bin/bash
 
-nvim +PlugInstall +qall
+~/.local/bin/nvim +PlugInstall +qall
