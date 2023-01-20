@@ -341,8 +341,6 @@ function works() {
 # Setting Include {{{1
 # --------------------
 source ~/.local/share/fzf/shell/key-bindings.zsh
-source ~/.local/share/fzf/shell/completion.zsh
-source /usr/share/doc/pkgfile/command-not-found.zsh
 # }}}1
 
 ### Added by Zinit's installer
