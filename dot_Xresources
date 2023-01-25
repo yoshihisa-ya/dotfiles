@@ -1,6 +1,6 @@
 xterm*locale: true
-xterm*faceName: MesloLGS NF
-xterm*faceSize: 9
+xterm*faceName: DejaVuSansMono Nerd Font Mono:style=Book:antialias=true
+xterm*faceSize: 9.5
 xterm*borderWidth: 0
 xterm*selectToClipboard: true
 xterm*metaSendsEscape: true

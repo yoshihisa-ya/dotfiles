@@ -100,3 +100,8 @@
   type = "file"
   url = "https://github.com/stedolan/jq/releases/download/{{ (gitHubLatestRelease "stedolan/jq").TagName }}/jq-linux64"
   executable = true
+
+[".local/share/fonts/DejaVu Sans Mono Nerd Font Complete Mono.ttf"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.ttf"
+  refreshPeriod = "168h"
