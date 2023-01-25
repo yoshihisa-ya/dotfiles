@@ -105,3 +105,11 @@
   type = "file"
   url = "https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.ttf"
   refreshPeriod = "168h"
+
+[".local/bin/ghq"]
+  type = "file"
+  url = "https://github.com/x-motemen/ghq/releases/download/{{ (gitHubLatestRelease "x-motemen/ghq").TagName }}/ghq_linux_amd64.zip"
+  executable = true
+  [".local/bin/ghq".filter]
+    command = "bash"
+    args = ["-c", "tmpdir=$(mktemp -d); cat > $tmpdir/ghq_linux_amd64.zip && unzip -p $tmpdir/ghq_linux_amd64.zip ghq_linux_amd64/ghq"]
