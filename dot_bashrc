@@ -95,7 +95,7 @@ extract() {
 }
 
 function repos() {
-    local repo=$(ghq list --full-path | peco --query "$LBUFFER")
+    local repo=$(ghq list --full-path | fzf)
     if [ -n ${repo} ]; then
         echo ${repo}
         cd ${repo}

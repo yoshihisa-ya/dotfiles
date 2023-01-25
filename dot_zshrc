@@ -324,14 +324,14 @@ precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 # }}}1
 function repos() {
-    local repo=$(ghq list --full-path | peco --query "$LBUFFER")
+    local repo=$(ghq list --full-path | fzf)
     if [ -n ${repo} ]; then
         echo ${repo}
         cd ${repo}
     fi
 }
 function works() {
-    local work=$(find ${HOME}/work -mindepth 1 -maxdepth 1 -type d -not -path '*/\.*' | peco --query "$LBUFFER")
+    local work=$(find ${HOME}/work -mindepth 1 -maxdepth 1 -type d -not -path '*/\.*' | fzf)
     if [ -n ${work} ]; then
         echo ${work}
         cd ${work}
