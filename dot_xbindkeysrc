@@ -1,7 +1,7 @@
-"sudo xbacklight -inc 5"
+"sudo light -A 5"
   XF86MonBrightnessUp
 
-"sudo xbacklight -dec 5"
+"sudo light -U 5"
   XF86MonBrightnessDown
 
 "pactl set-sink-volume 0 +3%"
