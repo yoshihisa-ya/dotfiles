@@ -24,7 +24,7 @@ URxvt.print-pipe: "cat > /dev/null"
 
 URxvt*inheritPixmap: true
 URxvt*.transparent: true
-URxvt*.shading: 20
+URxvt*.shading: 40
 
 URxvt.perl-ext-common: default,matcher,clipboard,selection-to-clipboard,url-select
 
