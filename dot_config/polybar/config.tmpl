@@ -124,6 +124,13 @@ click-left = playerctl play-pause
 click-middle = playerctl next
 click-right = playerctl previous
 
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+use-actual-brightness = true
+format = <label>
+label = eDP-1 %percentage%%
+
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
