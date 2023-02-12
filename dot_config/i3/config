@@ -163,6 +163,15 @@ bindsym $mod+r mode "resize"
 #        tray_output       none
 #}
 
+for_window [all] title_window_icon on
+for_window [all] title_window_icon padding 3px
+
+gaps top 3
+gaps bottom 3
+gaps right 3
+gaps left 3
+gaps inner 3
+
 bindsym $mod+q exec --no-startup-id i3lock -c 000000
 
 bindsym XF86MonBrightnessDown exec sudo light -s sysfs/backlight/intel_backlight -U 5
