@@ -115,6 +115,15 @@ scroll-down = "#i3.next"
 cursor-click = pointer
 cursor-scroll = pointer
 
+[module/now-playing]
+type = custom/script
+tail = true
+exec = playerctl -F metadata --format "{{ status }}: {{ artist }} - {{ title }}"
+label = %output:0:35:...%
+click-left = playerctl play-pause
+click-middle = playerctl next
+click-right = playerctl previous
+
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
