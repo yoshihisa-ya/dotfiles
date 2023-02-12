@@ -188,4 +188,5 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 exec --no-startup-id redshift-gtk -l 35.650583:139.540667
 exec --no-startup-id "sh -c 'sleep 1; exec bash ~/Sync/screenlayout/default.sh'"
 exec --no-startup-id "sh -c 'sleep 2; exec bash ~/.config/polybar/launch.sh'"
+exec --no-startup-id "sh -c 'sleep 2; exec bash ~/bin/now-playing-notify.sh'"
 exec xautolock -detectsleep -time 15 -locker "i3lock -i ~/Sync/wallpaper/a9db2e1e-bab8-4071-8667-f0f23af9c6ca.png" -notify 60 -notifier "notify-send -u critical -t 10000 -- 'The screen will lock in 60 seconds.'" -corners +--- -cornerdelay 1 -cornerredelay 10
