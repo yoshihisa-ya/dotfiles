@@ -41,10 +41,12 @@ alert = #bd2c40
 
 [bar/main]
 inherit = bar/example
-modules-left = i3 mpd
+modules-left = i3 mpd now-playing
 modules-center =
-modules-right = xbacklight pulseaudio memory cpu wlan br0 enp1s0 battery temperature date powermenu
-{{- if ne .chezmoi.hostname "desktop" }}
+{{- if eq .chezmoi.hostname "desktop" }}
+modules-right = pulseaudio memory cpu br0 enp1s0 temperature date powermenu
+{{- else }}
+modules-right = backlight pulseaudio memory cpu wlan battery temperature date powermenu
 tray-position = right
 tray-detached = false
 tray-padding = 2
