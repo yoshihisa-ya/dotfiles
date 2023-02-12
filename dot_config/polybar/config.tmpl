@@ -396,7 +396,7 @@ menu-0-0 = reboot
 menu-0-0-exec = menu-open-1
 menu-0-1 = power off
 menu-0-1-exec = menu-open-2
-menu-0-2 = suspend
+menu-0-2 = suspend-then-hibernate
 menu-0-2-exec = menu-open-3
 
 menu-1-0 = cancel
@@ -409,8 +409,8 @@ menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
-menu-3-0 = suspend
-menu-3-0-exec = sudo systemctl suspend
+menu-3-0 = suspend-then-hibernate
+menu-3-0-exec = sudo systemctl suspend-then-hibernate
 menu-3-1 = cancel
 menu-3-1-exec = menu-open-0
 
