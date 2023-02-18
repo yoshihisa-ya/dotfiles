@@ -194,16 +194,8 @@ function pingtime() {
   ping $* | ts
 }
 
-function yays(){
-  yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S
-}
-
-function yayr(){
-  yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs -ro yay -Rns
-}
-
 function repos-tmux() {
-    local repo="$(ghq list --full-path | fzf)"
+    local repo="$(ghq list --full-path | fzf-tmux -p 80%)"
     [ -z "$repo" ] && return
     local session="${repo//./_}"
     session="${session##*/}"
@@ -324,14 +316,14 @@ precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 # }}}1
 function repos() {
-    local repo=$(ghq list --full-path | fzf)
+    local repo=$(ghq list --full-path | fzf-tmux -p 80%)
     if [ -n ${repo} ]; then
         echo ${repo}
         cd ${repo}
     fi
 }
 function works() {
-    local work=$(find ${HOME}/work -mindepth 1 -maxdepth 1 -type d -not -path '*/\.*' | fzf)
+    local work=$(find ${HOME}/work -mindepth 1 -maxdepth 1 -type d -not -path '*/\.*' | fzf-tmux -p 80%)
     if [ -n ${work} ]; then
         echo ${work}
         cd ${work}
@@ -367,6 +359,10 @@ zinit wait lucid for \
 
 zinit ice lucid depth"1" blockf
 zinit light yuki-yano/zeno.zsh
+export FZF_TMUX_OPTS="-p 80%"
+export ZENO_FZF_COMMAND=fzf-tmux
+export ZENO_ENABLE_FZF_TMUX=1
+export ZENO_FZF_TMUX_OPTIONS="-p 80%"
 if [[ -n $ZENO_LOADED ]]; then
   bindkey ' '  zeno-auto-snippet
   bindkey '^i' zeno-completion

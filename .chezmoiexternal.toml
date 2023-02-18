@@ -12,6 +12,11 @@
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
 
+[".local/bin/fzf-tmux"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/bin/fzf-tmux"
+  executable = true
+
 [".local/share/fzf/shell/key-bindings.zsh"]
   type = "file"
   url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/key-bindings.zsh"
