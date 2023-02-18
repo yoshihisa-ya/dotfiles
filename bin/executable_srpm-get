@@ -1,0 +1,25 @@
+#!/bin/bash
+
+CACHE_DIR=${XDG_CACHE_HOE:-"$HOME/.cache"}/mysrpmtools
+TARGETS="https://dl.rockylinux.org/vault/fullfilelist
+https://vault.centos.org/filelist.gz"
+
+getfiles() {
+    while read url; do
+        dir=$(dirname "${CACHE_DIR}/${url#https://}")
+        file=$(basename "${url#https://}")
+        filepath="${dir}/${file}"
+        curl -s -z ${filepath} -R -o ${filepath} --create-dirs ${url} && echo ${filepath} || return 1
+    done
+}
+
+extract_filelists() {
+    while read line; do
+        filelist=$(echo "${line}" | getfiles)
+        zcat -f ${filelist} | awk -F/ -v base="${line%/*}" '{if ($0 ~ /\.src\.rpm$/){printf ("%s/%s\n",base,substr($0,3))}}'
+    done
+}
+
+srpms=$(echo "${TARGETS}" | extract_filelists | fzf --multi)
+
+echo "${srpms}" | getfiles
