@@ -57,6 +57,10 @@ snippets:
     keyword: gd
     snippet: git diff
 
+  - name: git diff --staged
+    keyword: gds
+    snippet: git diff --staged
+
   - name: git log
     keyword: gl
     snippet: git --no-pager log --graph --oneline -n 10
