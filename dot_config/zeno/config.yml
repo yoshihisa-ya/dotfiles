@@ -61,6 +61,14 @@ snippets:
     keyword: gds
     snippet: git diff --staged
 
+  - name: git difftool
+    keyword: gdt
+    snippet: git difftool
+
+  - name: git difftool --staged
+    keyword: gdts
+    snippet: git difftool --staged
+
   - name: git log
     keyword: gl
     snippet: git --no-pager log --graph --oneline -n 10
