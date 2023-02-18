@@ -366,4 +366,5 @@ export ZENO_FZF_TMUX_OPTIONS="-p 80%"
 if [[ -n $ZENO_LOADED ]]; then
   bindkey ' '  zeno-auto-snippet
   bindkey '^i' zeno-completion
+  bindkey '^x' zeno-insert-snippet
 fi
