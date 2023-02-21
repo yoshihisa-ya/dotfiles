@@ -80,12 +80,12 @@
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "difft"]
 
-[".asdf"]
-  type = "git-repo"
-  url = "https://github.com/asdf-vm/asdf.git"
-  refreshPeriod = "168h"
-  [".asdf".clone]
-    args = ["--branch", "v0.11.0"]
+# [".asdf"]
+#   type = "git-repo"
+#   url = "https://github.com/asdf-vm/asdf.git"
+#   refreshPeriod = "168h"
+#   [".asdf".clone]
+#     args = ["--branch", "v0.11.0"]
 
 [".local/bin/gh"]
   type = "file"
