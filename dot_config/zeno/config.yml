@@ -109,11 +109,11 @@ snippets:
 
   - name: yay -S
     keyword: yays
-    snippet: yay -Slq | fzf-tmux -p 80% --multi --preview 'yay -Si {1}' | xargs -ro yay -S
+    snippet: yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S
 
   - name: yay -Rns
     keyword: yayr
-    snippet: yay -Qq | fzf-tmux -p 80% --multi --preview 'yay -Qi {1}' | xargs -ro yay -Rns
+    snippet: yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs -ro yay -Rns
 
 completions:
   - name: kill signal
