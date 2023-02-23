@@ -1,0 +1,6 @@
+{{ if (and (or (eq .chezmoi.hostname "desktop") (eq .chezmoi.hostname "nb")) (eq .chezmoi.username "yoshihisa") (eq .chezmoi.osRelease.id "arch")) -}}
+#!/bin/bash
+
+~/.local/bin/espanso service register
+~/.local/bin/espanso start
+{{- end }}

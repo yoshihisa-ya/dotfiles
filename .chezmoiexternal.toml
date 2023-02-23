@@ -139,3 +139,9 @@
   [".local/bin/navi".filter]
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "navi"]
+
+[".local/bin/espanso"]
+  type = "file"
+  url = "https://github.com/espanso/espanso/releases/latest/download/Espanso-X11.AppImage"
+  executable = true
+  refreshPeriod = "168h"
