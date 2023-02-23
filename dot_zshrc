@@ -65,6 +65,8 @@ zstyle ':completion:*:(rm|rmdir):*' menu false
 zstyle ':completion:*:ssh:*' users \
     yoshihisa\
     y-yamano\
+    rocky\
+    alma\
     ubuntu\
     root
 # zstyle ':completion:*:ssh:*' users-hosts \
