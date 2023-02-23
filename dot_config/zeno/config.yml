@@ -115,6 +115,26 @@ snippets:
     keyword: yayr
     snippet: yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs -ro yay -Rns
 
+  - name: chezmoi update
+    keyword: cu
+    snippet: chezmoi update
+
+  - name: chezmoi apply
+    keyword: ca
+    snippet: chezmoi apply
+
+  - name: chezmoi status
+    keyword: cs
+    snippet: chezmoi status
+
+  - name: chezmoi diff
+    keyword: cd
+    snippet: chezmoi diff
+
+  - name: chezmoi git pull -- --autostash --rebase && chezmoi diff
+    keyword: cc
+    snippet: chezmoi git pull -- --autostash --rebase && chezmoi diff
+
 completions:
   - name: kill signal
     patterns:
