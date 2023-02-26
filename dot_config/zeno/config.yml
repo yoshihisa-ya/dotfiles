@@ -116,23 +116,23 @@ snippets:
     snippet: yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs -ro yay -Rns
 
   - name: chezmoi update
-    keyword: cu
+    keyword: chezmoiu
     snippet: chezmoi update
 
   - name: chezmoi apply
-    keyword: ca
+    keyword: chezmoia
     snippet: chezmoi apply
 
   - name: chezmoi status
-    keyword: cs
+    keyword: chezmois
     snippet: chezmoi status
 
   - name: chezmoi diff
-    keyword: cd
+    keyword: chezmoid
     snippet: chezmoi diff
 
   - name: chezmoi git pull -- --autostash --rebase && chezmoi diff
-    keyword: cc
+    keyword: chezmoic
     snippet: chezmoi git pull -- --autostash --rebase && chezmoi diff
 
 completions:
