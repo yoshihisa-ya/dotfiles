@@ -1,7 +1,9 @@
-{{ if (and (or (eq .chezmoi.hostname "desktop") (eq .chezmoi.hostname "nb")) (eq .chezmoi.username "yoshihisa") (eq .chezmoi.osRelease.id "arch")) -}}
+{{ if eq .role "desktop" -}}
 #!/bin/bash
 
-ln -s ${HOME}/Sync/espanso/match ${HOME}/.config/espanso/match
-~/.local/bin/espanso service register
-~/.local/bin/espanso start
+{{ if .is_syncthing -}}
+test -e ${HOME}/.config/espanso/match || ln -s ${HOME}/Sync/espanso/match ${HOME}/.config/espanso/match
+{{ end -}}
+systemctl --user cat espanso.service || ~/.local/bin/espanso service register
+~/.local/bin/espanso start || :
 {{- end }}
