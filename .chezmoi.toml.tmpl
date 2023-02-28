@@ -1,0 +1,20 @@
+{{ $email := "yoshihisa.yamano@gmail.com" -}}
+{{ $name := "Yoshihisa Yamano" -}}
+{{ $is_work := false -}}
+{{ $is_autoinstall := false -}}
+
+{{ if stdinIsATTY -}}
+{{   $email = promptStringOnce . "email" "Your email address" "yoshihisa.yamano@gmail.com" -}}
+{{   $name = promptStringOnce . "name" "Your name (git name)" "Yoshihisa Yamano" -}}
+{{   $is_work = promptBoolOnce . "is_work" "Work machine" false -}}
+{{   $is_autoinstall = promptBoolOnce . "is_autoinstall" "Auto install packages with administrative privileges" false -}}
+{{ end -}}
+
+{{ $is_wsl := or (env "WSL_DISTRO_NAME") (env "IS_WSL") | not | not -}}
+
+[data]
+  email = {{ $email | quote }}
+  name = {{ $name | quote }}
+  is_work = {{ $is_work }}
+  is_autoinstall = {{ $is_autoinstall }}
+  is_wsl = {{ $is_wsl }}

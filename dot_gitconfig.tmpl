@@ -1,11 +1,6 @@
 [user]
-{{- if eq .chezmoi.username "yoshihisa" }}
-	email = yoshihisa.yamano@gmail.com
-	name = Yoshihisa Yamano
-{{- else }}
-	email = {{ .chezmoi.username }}@sakura.ad.jp
-	name = {{ .chezmoi.username }}
-{{- end }}
+	email = {{ .email }}
+	name = {{ .name }}
 [ghq]
 	root = /home/{{ .chezmoi.username }}/dev/src
 [pager]
