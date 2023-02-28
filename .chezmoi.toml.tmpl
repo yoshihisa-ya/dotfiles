@@ -14,7 +14,7 @@
 {{ if stdinIsATTY -}}
 {{   $email = promptStringOnce . "email" "Your email address" "yoshihisa.yamano@gmail.com" -}}
 {{   $name = promptStringOnce . "name" "Your name (git name)" "Yoshihisa Yamano" -}}
-{{   if not $is_wsl -}}
+{{   if (and (not $is_wsl) (eq .chezmoi.os "linux")) -}}
 {{     $role = promptStringOnce . "role" "Machine role [desktop|terminal]" "terminal" -}}
 {{   end -}}
 {{   $is_work = promptBoolOnce . "is_work" "Work machine" false -}}
