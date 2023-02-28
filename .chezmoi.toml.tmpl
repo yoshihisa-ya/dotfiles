@@ -1,20 +1,45 @@
 {{ $email := "yoshihisa.yamano@gmail.com" -}}
 {{ $name := "Yoshihisa Yamano" -}}
+{{ $role := "terminal" -}}
 {{ $is_work := false -}}
+{{ $work_github_url := "" -}}
+{{ $work_github_username := "" -}}
 {{ $is_autoinstall := false -}}
+{{ $is_syncthing := false -}}
+{{ $is_pass := true -}}
+{{ $is_bitwarden := false -}}
+
+{{ $is_wsl := or (env "WSL_DISTRO_NAME") (env "IS_WSL") | not | not -}}
 
 {{ if stdinIsATTY -}}
 {{   $email = promptStringOnce . "email" "Your email address" "yoshihisa.yamano@gmail.com" -}}
 {{   $name = promptStringOnce . "name" "Your name (git name)" "Yoshihisa Yamano" -}}
+{{   if not $is_wsl -}}
+{{     $role = promptStringOnce . "role" "Machine role [desktop|terminal]" "terminal" -}}
+{{   end -}}
 {{   $is_work = promptBoolOnce . "is_work" "Work machine" false -}}
+{{   if $is_work -}}
+{{     $work_github_url = promptStringOnce . "work_github_url" "GitHub Enterprise URL" "github.example.com" -}}
+{{     $work_github_username = promptStringOnce . "work_github_username" "GitHub Enterprise Username" "username" -}}
+{{   else -}}
+{{     $is_syncthing = promptBoolOnce . "is_syncthing" "Installed syncthing" false -}}
+{{     $is_bitwarden = promptBoolOnce . "is_bitwarden" "Installed Bitwarden CLI" false -}}
+{{   end -}}
+{{   $is_pass = promptBoolOnce . "is_pass" "Installed pass" true -}}
 {{   $is_autoinstall = promptBoolOnce . "is_autoinstall" "Auto install packages with administrative privileges" false -}}
 {{ end -}}
-
-{{ $is_wsl := or (env "WSL_DISTRO_NAME") (env "IS_WSL") | not | not -}}
 
 [data]
   email = {{ $email | quote }}
   name = {{ $name | quote }}
+  role = {{ $role | quote }}
   is_work = {{ $is_work }}
+  is_syncthing = {{ $is_syncthing }}
+  is_bitwarden = {{ $is_bitwarden }}
+  is_pass = {{ $is_pass }}
   is_autoinstall = {{ $is_autoinstall }}
   is_wsl = {{ $is_wsl }}
+
+[data.work]
+  work_github_url = {{ $work_github_url | quote }}
+  work_github_username = {{ $work_github_username | quote }}
