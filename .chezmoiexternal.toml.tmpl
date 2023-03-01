@@ -1,0 +1,150 @@
+{{ $arch := .chezmoi.arch | replace "amd64" "x86_64" | replace "arm64" "aarch64" -}}
+{{ $rustOS := .chezmoi.os | replace "linux" "unknown-linux-musl" | replace "darwin" "apple-darwin" | replace "windows" "pc-windows-msvc" -}}
+
+[".local/share/nvim/site/autoload/plug.vim"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  refreshPeriod = "168h"
+
+[".local/bin/fzf"]
+  type = "file"
+  url = "https://github.com/junegunn/fzf/releases/download/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/fzf-{{ (gitHubLatestRelease "junegunn/fzf").TagName }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/fzf".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
+
+[".local/bin/fzf-tmux"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/bin/fzf-tmux"
+  executable = true
+  refreshPeriod = "168h"
+
+[".local/share/fzf/shell/key-bindings.zsh"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/key-bindings.zsh"
+  refreshPeriod = "168h"
+
+[".local/share/zsh-completions/_fzf"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/completion.zsh"
+  refreshPeriod = "168h"
+
+[".local/bin/lsd"]
+  type = "file"
+  url = "https://github.com/Peltoche/lsd/releases/download/{{ (gitHubLatestRelease "Peltoche/lsd").TagName }}/lsd-{{ (gitHubLatestRelease "Peltoche/lsd").TagName }}-{{ $arch }}-{{ $rustOS }}.tar.gz"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/lsd".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lsd-{{ (gitHubLatestRelease "Peltoche/lsd").TagName }}-{{ $arch }}-{{ $rustOS }}/lsd"]
+
+[".local/bin/bat"]
+  type = "file"
+  url = "https://github.com/sharkdp/bat/releases/download/{{ (gitHubLatestRelease "sharkdp/bat").TagName }}/bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-{{ $arch }}-{{ $rustOS }}.tar.gz"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/bat".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-{{ $arch }}-{{ $rustOS }}/bat"]
+
+[".local/share/zsh-completions/_bat"]
+  type = "file"
+  url = "https://github.com/sharkdp/bat/releases/download/{{ (gitHubLatestRelease "sharkdp/bat").TagName }}/bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-{{ $arch }}-{{ $rustOS }}.tar.gz"
+  refreshPeriod = "168h"
+  [".local/share/zsh-completions/_bat".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-{{ $arch }}-{{ $rustOS }}/autocomplete/bat.zsh"]
+
+[".local/bin/rg"]
+  type = "file"
+  url = "https://github.com/BurntSushi/ripgrep/releases/download/{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}/ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-{{ $arch }}-{{ $rustOS }}.tar.gz"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/rg" .filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-{{ $arch }}-{{ $rustOS }}/rg"]
+
+[".local/share/zsh-completions/_rg"]
+  type = "file"
+  url = "https://github.com/BurntSushi/ripgrep/releases/download/{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}/ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-{{ $arch }}-{{ $rustOS }}.tar.gz"
+  refreshPeriod = "168h"
+  [".local/share/zsh-completions/_rg" .filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-{{ $arch }}-{{ $rustOS }}/complete/_rg"]
+
+[".local/bin/difft"]
+  type = "file"
+  url = "https://github.com/Wilfred/difftastic/releases/download/{{ (gitHubLatestRelease "Wilfred/difftastic").TagName }}/difft-{{ $arch }}-{{ $rustOS | replace "musl" "gnu" }}.tar.gz"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/difft".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "difft"]
+
+[".local/bin/gh"]
+  type = "file"
+  url = "https://github.com/cli/cli/releases/download/{{ (gitHubLatestRelease "cli/cli").TagName }}/gh_{{ (gitHubLatestRelease "cli/cli").TagName | trimPrefix "v" }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/gh".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "gh_{{ (gitHubLatestRelease "cli/cli").TagName | trimPrefix "v" }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}/bin/gh"]
+
+[".local/bin/shellcheck"]
+  type = "file"
+  url = "https://github.com/koalaman/shellcheck/releases/download/{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}.{{ .chezmoi.os }}.{{ $arch }}.tar.xz"
+  refreshPeriod = "168h"
+  executable = true
+  [".local/bin/shellcheck".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--xz", "--to-stdout", "shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck"]
+
+{{ if (and (eq .chezmoi.os "linux") (or (ne .chezmoi.osRelease.id "arch") (eq .is_autoinstall false))) }}
+[".local/bin/nvim"]
+  type = "file"
+  url = "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+  executable = true
+  refreshPeriod = "168h"
+{{ end }}
+
+{{ if (and (or (eq .chezmoi.os "linux") (eq .chezmoi.os "darwin") (eq .chezmoi.os "windows")) (eq .chezmoi.arch "amd64")) }}
+{{ $jqOS := .chezmoi.os | replace "darwin" "osx-amd64" | replace "linux" "linux64" | replace "windows" "win64" -}}
+[".local/bin/jq"]
+  type = "file"
+  url = "https://github.com/stedolan/jq/releases/download/{{ (gitHubLatestRelease "stedolan/jq").TagName }}/jq-{{ $jqOS }}"
+  executable = true
+  refreshPeriod = "168h"
+{{ end }}
+
+[".local/share/fonts/DejaVu Sans Mono Nerd Font Complete Mono.ttf"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.ttf"
+  refreshPeriod = "168h"
+
+[".local/bin/ghq"]
+  type = "file"
+  url = "https://github.com/x-motemen/ghq/releases/download/{{ (gitHubLatestRelease "x-motemen/ghq").TagName }}/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/ghq".filter]
+    command = "bash"
+    args = ["-c", "tmpdir=$(mktemp -d); cat > $tmpdir/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip && unzip -p $tmpdir/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}/ghq"]
+
+[".local/bin/navi"]
+  type = "file"
+  url = "https://github.com/denisidoro/navi/releases/download/{{ (gitHubLatestRelease "denisidoro/navi").TagName }}/navi-{{ (gitHubLatestRelease "denisidoro/navi").TagName }}-{{ $arch }}-{{ $rustOS }}.tar.gz"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/navi".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "navi"]
+
+{{ if (and (eq .role "desktop") (eq .chezmoi.os "linux")) -}}
+[".local/bin/espanso"]
+  type = "file"
+  url = "https://github.com/espanso/espanso/releases/latest/download/Espanso-X11.AppImage"
+  executable = true
+  refreshPeriod = "168h"
+{{ end -}}

@@ -1,3 +1,7 @@
 #!/bin/bash
 
-~/.local/bin/nvim +PlugInstall +qall
+if [ -f ~/.local/bin/nvim ]; then
+  ~/.local/bin/nvim +PlugInstall +qall
+else
+  nvim +PlugInstall +qall
+fi
