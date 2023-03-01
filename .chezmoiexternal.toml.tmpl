@@ -148,3 +148,9 @@
   executable = true
   refreshPeriod = "168h"
 {{ end -}}
+
+[".local/bin/shfmt"]
+  type = "file"
+  url = "https://github.com/mvdan/sh/releases/download/{{ (gitHubLatestRelease "mvdan/sh").TagName }}/shfmt_{{ (gitHubLatestRelease "mvdan/sh").TagName }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}"
+  executable = true
+  refreshPeriod = "168h"
