@@ -6,6 +6,16 @@
   url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
   refreshPeriod = "168h"
 
+{{ if (and (eq .chezmoi.os "linux") (or (ne .chezmoi.osRelease.id "arch") (and (eq .is_autoinstall false) (eq .chezmoi.osRelease.id "arch")))) }}
+[".local/bin/shellcheck"]
+  type = "file"
+  url = "https://github.com/koalaman/shellcheck/releases/download/{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}.{{ .chezmoi.os }}.{{ $arch }}.tar.xz"
+  refreshPeriod = "168h"
+  executable = true
+  [".local/bin/shellcheck".filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--xz", "--to-stdout", "shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck"]
+
 [".local/bin/fzf"]
   type = "file"
   url = "https://github.com/junegunn/fzf/releases/download/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/fzf-{{ (gitHubLatestRelease "junegunn/fzf").TagName }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
@@ -92,28 +102,24 @@
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "gh_{{ (gitHubLatestRelease "cli/cli").TagName | trimPrefix "v" }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}/bin/gh"]
 
-[".local/bin/shellcheck"]
-  type = "file"
-  url = "https://github.com/koalaman/shellcheck/releases/download/{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}.{{ .chezmoi.os }}.{{ $arch }}.tar.xz"
-  refreshPeriod = "168h"
-  executable = true
-  [".local/bin/shellcheck".filter]
-    command = "tar"
-    args = ["--extract", "--file", "/dev/stdin", "--xz", "--to-stdout", "shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck"]
-
-{{ if (and (eq .chezmoi.os "linux") (or (ne .chezmoi.osRelease.id "arch") (and (eq .is_autoinstall false) (eq .chezmoi.osRelease.id "arch")))) }}
 [".local/bin/nvim"]
   type = "file"
   url = "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
   executable = true
   refreshPeriod = "168h"
-{{ end }}
 
 {{ if (and (or (eq .chezmoi.os "linux") (eq .chezmoi.os "darwin") (eq .chezmoi.os "windows")) (eq .chezmoi.arch "amd64")) }}
 {{ $jqOS := .chezmoi.os | replace "darwin" "osx-amd64" | replace "linux" "linux64" | replace "windows" "win64" -}}
 [".local/bin/jq"]
   type = "file"
   url = "https://github.com/stedolan/jq/releases/download/{{ (gitHubLatestRelease "stedolan/jq").TagName }}/jq-{{ $jqOS }}"
+  executable = true
+  refreshPeriod = "168h"
+{{ end }}
+
+[".local/bin/shfmt"]
+  type = "file"
+  url = "https://github.com/mvdan/sh/releases/download/{{ (gitHubLatestRelease "mvdan/sh").TagName }}/shfmt_{{ (gitHubLatestRelease "mvdan/sh").TagName }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}"
   executable = true
   refreshPeriod = "168h"
 {{ end }}
@@ -148,9 +154,3 @@
   executable = true
   refreshPeriod = "168h"
 {{ end -}}
-
-[".local/bin/shfmt"]
-  type = "file"
-  url = "https://github.com/mvdan/sh/releases/download/{{ (gitHubLatestRelease "mvdan/sh").TagName }}/shfmt_{{ (gitHubLatestRelease "mvdan/sh").TagName }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}"
-  executable = true
-  refreshPeriod = "168h"

@@ -25,13 +25,16 @@ pkgs+=(apparmor)
 # shell
 pkgs+=(mosh)
 pkgs+=(xterm rxvt-unicode) # Using X11 Forwarding
+pkgs+=(jq)
+pkgs+=(fzf lsd bat ripgrep)
+pkgs+=(github-cli difftastic)
 # shell
 pkgs+=(deno) # Require yuki-yano/zeno.zsh
 pkgs+=(npm)  # Require vimls language server
 # filesystem
 pkgs+=(snapper snap-pac snapper-gui-git)
 # editor
-pkgs+=(neovim)
+pkgs+=(neovim shellcheck shfmt)
 # mail
 pkgs+=(isync getmail6 neomutt notmuch procmail)
 if [ "${ROLE}" == "desktop" ]; then
