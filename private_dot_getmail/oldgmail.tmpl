@@ -1,0 +1,13 @@
+[retriever]
+type = SimplePOP3SSLRetriever
+server = pop.gmail.com
+username = {{ (bitwarden "item" "mail/oldgmail").login.username }}
+port = 995
+password = {{ (bitwarden "item" "mail/oldgmail").login.password }}
+
+[destination]
+type = Maildir
+path = ~/mail/oldgmail/
+
+[options]
+delete = true

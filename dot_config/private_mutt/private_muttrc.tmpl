@@ -1,0 +1,34 @@
+set mbox_type=Maildir
+
+set folder=$HOME/mail/yamano
+set spoolfile=+/
+set tmpdir=/tmp
+
+set mailcap_path = ~/.config/mutt/mailcap
+auto_view text/html
+
+set sidebar_visible = yes
+bind index,pager B sidebar-toggle-visible
+bind index,pager \CP sidebar-prev
+bind index,pager \CN sidebar-next
+bind index,pager \CO sidebar-open
+mailboxes +/
+mailboxes `find ~/mail/yamano -mindepth 1 -type d -not \( -name new -o -name tmp -o -name cur \) -printf "+%P "`
+
+set realname = 'Yoshihisa Yamano'
+set from = {{ (bitwarden "item" "mail/yamano").login.username }}
+set use_from = yes
+set send_charset="us-ascii:iso-2022-jp"
+set signature = ~/.config/mutt/signature
+
+my_hdr Bcc: {{ (bitwarden "item" "mail/yamano").login.username }}
+unset record
+
+set sort = threads
+
+unset pgp_strict_enc
+
+set crypt_use_gpgme=yes
+set crypt_replysign=yes
+set crypt_replysignencrypted=yes
+set pgp_timeout=3600

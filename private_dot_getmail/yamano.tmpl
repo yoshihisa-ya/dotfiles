@@ -1,0 +1,13 @@
+[retriever]
+type = SimplePOP3SSLRetriever
+server = {{ (bitwardenFields "item" "mail/yamano").server.value }}
+username = {{ (bitwarden "item" "mail/yamano").login.username }}
+port = 995
+password = {{ (bitwarden "item" "mail/yamano").login.password }}
+
+[destination]
+type = MDA_external
+path = /usr/bin/procmail
+
+[options]
+delete = true

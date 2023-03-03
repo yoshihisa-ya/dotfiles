@@ -1,0 +1,9 @@
+set mbox_type=Maildir
+
+set folder=$HOME/mail/oldgmail
+set spoolfile=+/
+
+set mailcap_path = ~/.config/mutt/mailcap
+auto_view text/html
+
+set sort = threads

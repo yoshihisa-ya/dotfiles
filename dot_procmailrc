@@ -1,0 +1,54 @@
+PATH=/bin:/usr/bin
+MAILDIR=$HOME/mail/yamano
+DEFAULT=$MAILDIR/
+LOGFILE=$MAILDIR/procmail.log
+SHELL=/bin/bash
+
+:0
+* ^From: Red Hat Errata Notifications <errata@redhat.com>
+* ^Subject: \[Bug Fix Advisory\] RHBA.*
+ML/rhba-announce/
+
+:0
+* ^From: Red Hat Errata Notifications <errata@redhat.com>
+* ^Subject: \[Enhancement Advisory\] RHEA.*
+ML/rhea-announce/
+
+:0
+* ^List-Id: <mailman.list.kagolug.org>|"Kagoshima Linux User Group ML." <users.list.kagolug.org>
+ML/KagoLUG/
+
+:0
+* ^Delivered-To: announce@list.jpcert.or.jp
+ML/JPCERT/
+
+:0
+* ^Delivered-To: announce@jpcert.or.jp
+ML/JPCERT/
+
+:0
+* ^List-Id: .*<rhsa-announce.redhat.com>.*
+* ^Subject: .*Important.*
+{
+  foldername=ML/rhsa-announce
+
+  :0c
+  $foldername/
+
+  :0
+  * LASTFOLDER ?? /\/[^/]+$
+  { tail=$MATCH }
+
+  TRAP="mv $LASTFOLDER $foldername/cur/$tail:2,S"
+
+  HOST
+}
+
+:0
+* ^User-Agent: rss2email.*
+* ^List-Id: .*<\/[^.]*
+RSS/$MATCH/
+
+:0
+* ^((List-Id|X-(Mailing-)?List): .*<\/[^.]*)
+ML/$MATCH/

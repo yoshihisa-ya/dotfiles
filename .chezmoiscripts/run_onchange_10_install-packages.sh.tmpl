@@ -52,6 +52,7 @@ if [ "${ROLE}" == "desktop" ]; then
     pkgs+=(otf-ipafont otf-ipaexfont otf-ipamjfont ttf-dejavu ttf-sazanami ttf-hanazono xorg-mkfontscale noto-fonts-emoji)
     pkgs+=(pipewire pipewire-media-session pipewire-pulse pavucontrol)
     pkgs+=(wireshark-qt)
+    pkgs+=(bitwarden)
     if [ "${IS_WORK}" == "false" ]; then
         # vpn
         pkgs+=(networkmanager-openvpn openvpn openresolv wireguard-tools)
@@ -61,6 +62,9 @@ if [ "${ROLE}" == "desktop" ]; then
 else
     pkgs+=(qemu-base)
     pkgs+=(wireshark-cli)
+fi
+if [ "${IS_BITWARDEN:-false}" == "true" ]; then
+    pkgs+=(bitwarden-cli)
 fi
 
 $PKGINSTALL dmidecode

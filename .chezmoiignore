@@ -14,3 +14,8 @@ README.md
 {{- if (or (ne .role "desktop") (ne .chezmoi.os "linux") (eq .is_work true)) }}
 .config/mpd/
 {{- end}}
+{{- if ne .is_syncmaildir true }}
+.config/mutt/
+.getmail/
+.procmailrc
+{{- end}}

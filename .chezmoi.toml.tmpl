@@ -8,6 +8,7 @@
 {{ $is_syncthing := false -}}
 {{ $is_pass := true -}}
 {{ $is_bitwarden := false -}}
+{{ $is_syncmaildir := false -}}
 {{ $pkginstall := "" -}}
 
 {{ $is_wsl := or (env "WSL_DISTRO_NAME") (env "IS_WSL") | not | not -}}
@@ -26,6 +27,9 @@
 {{     $is_syncthing = promptBoolOnce . "is_syncthing" "Installed syncthing" false -}}
 {{     $is_bitwarden = promptBoolOnce . "is_bitwarden" "Installed Bitwarden CLI" false -}}
 {{   end -}}
+{{   if (and (not $is_work) $is_syncthing) -}}
+{{     $is_syncmaildir = promptBoolOnce . "is_syncmaildir" "Use shared maildir in Syncthing" false -}}
+{{   end -}}
 {{   $is_pass = promptBoolOnce . "is_pass" "Installed pass" true -}}
 {{   $is_autoinstall = promptBoolOnce . "is_autoinstall" "Auto install packages with administrative privileges" false -}}
 {{ end -}}
@@ -42,6 +46,7 @@
   is_syncthing = {{ $is_syncthing }}
   is_bitwarden = {{ $is_bitwarden }}
   is_pass = {{ $is_pass }}
+  is_syncmaildir = {{ $is_syncmaildir }}
   is_autoinstall = {{ $is_autoinstall }}
   is_wsl = {{ $is_wsl }}
 
@@ -55,6 +60,7 @@
   IS_SYNCTHING = {{ $is_syncthing | quote }}
   IS_BITWARDEN = {{ $is_bitwarden | quote }}
   IS_PASS = {{ $is_pass | quote }}
+  IS_SYNCMAILDIR = {{ $is_syncmaildir | quote }}
   IS_AUTOINSTALL = {{ $is_autoinstall | quote }}
   IS_WSL = {{ $is_wsl | quote }}
   PKGINSTALL = {{ $pkginstall | quote }}
