@@ -101,7 +101,7 @@
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--xz", "--to-stdout", "shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck"]
 
-{{ if (and (eq .chezmoi.os "linux") (or (ne .chezmoi.osRelease.id "arch") (eq .is_autoinstall false))) }}
+{{ if (and (eq .chezmoi.os "linux") (or (ne .chezmoi.osRelease.id "arch") (and (eq .is_autoinstall false) (eq .chezmoi.osRelease.id "arch")))) }}
 [".local/bin/nvim"]
   type = "file"
   url = "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
