@@ -1,0 +1,16 @@
+#!/bin/bash
+# vim:filetype=sh
+
+if [ "${CHEZMOI:-0}" -ne 1 ]; then
+    echo "Only available when using chezmoi." >&2
+    exit 1
+fi
+
+if [ "${IS_AUTOINSTALL:-false}" != "true" ] || [ "${PKGINSTALL}" == "" ]; then
+    exit 0
+fi
+
+if [ "${CHEZMOI_OS_RELEASE_ID}" == "arch" ]; then
+    sudo sed -i -e '/^HISTORY=/s/7/365/' -e 's/^SADC_OPTIONS=" *"/SADC_OPTIONS="-S XALL"/' /etc/conf.d/sysstat
+    sudo systemctl enable --now cronie.service sysstat.service
+fi

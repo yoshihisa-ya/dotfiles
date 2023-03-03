@@ -1,0 +1,85 @@
+#!/bin/bash
+# vim:filetype=sh
+
+if [ "${CHEZMOI:-0}" -ne 1 ]; then
+    echo "Only available when using chezmoi." >&2
+    exit 1
+fi
+
+if [ "${IS_AUTOINSTALL:-false}" != "true" ] || [ "${PKGINSTALL}" == "" ]; then
+    exit 0
+fi
+
+if [ "${CHEZMOI_OS_RELEASE_ID}" != "arch" ]; then
+    # ToDo: Support other distributions
+    exit 0
+fi
+
+pkgs=()
+is_virtual="false"
+# common
+pkgs+=(lsof rsync tmux whois tcpdump traceroute imagemagick wget dnsutils nmap linux-headers linux-docs nfs-utils strace gdb perf mlocate cronie sysstat crash unzip ethtool pacman-contrib)
+pkgs+=(bash-completion cpio dmidecode man-db man-pages usbutils iperf3 screen global)
+pkgs+=(pass pwgen cowsay dateutils moreutils iftop rpm-tools bc)
+pkgs+=(apparmor)
+# shell
+pkgs+=(mosh)
+pkgs+=(xterm rxvt-unicode) # Using X11 Forwarding
+# shell
+pkgs+=(deno) # Require yuki-yano/zeno.zsh
+pkgs+=(npm)  # Require vimls language server
+# filesystem
+pkgs+=(snapper snap-pac snapper-gui-git)
+# editor
+pkgs+=(neovim)
+# mail
+pkgs+=(isync getmail6 neomutt notmuch procmail)
+if [ "${ROLE}" == "desktop" ]; then
+    pkgs+=(xorg-server xorg-xinit xorg-xwininfo xorg-xrandr autorandr xclip arandr xautolock)
+    pkgs+=(i3-wm i3lock rofi papirus-icon-theme network-manager-applet feh dunst polybar siji-ng)
+    pkgs+=(freerdp remmina)
+    pkgs+=(sxiv mpv gimp)
+    pkgs+=(yt-dlp)
+    pkgs+=(mpd mpc playerctl)
+    pkgs+=(ranger ffmpegthumbnailer)
+    pkgs+=(ffmpeg)
+    pkgs+=(firefox firefox-i18n-ja profile-sync-daemon)
+    pkgs+=(ibus ibus-skk skk-jisyo)
+    pkgs+=(qemu-full libvirt virt-manager bridge-utils)
+    pkgs+=(otf-ipafont otf-ipaexfont otf-ipamjfont ttf-dejavu ttf-sazanami ttf-hanazono xorg-mkfontscale noto-fonts-emoji)
+    pkgs+=(pipewire pipewire-media-session pipewire-pulse pavucontrol)
+    pkgs+=(wireshark-qt)
+    if [ "${IS_WORK}" == "false" ]; then
+        # vpn
+        pkgs+=(networkmanager-openvpn openvpn openresolv wireguard-tools)
+        # Nextcloud
+        pkgs+=(nextcloud-client gnome-keyring libsecret)
+    fi
+else
+    pkgs+=(qemu-base)
+    pkgs+=(wireshark-cli)
+fi
+
+$PKGINSTALL dmidecode
+baseboard=$(sudo dmidecode --string=baseboard-product-name)
+
+if [ "$baseboard" == "KVM" ] || [ "$baseboard" == "Virtual Machine" ] || [ "$baseboard" == "VMware Virtual Platform" ] || [ "$baseboard" == "Xen" ]; then
+    is_virtual="true"
+fi
+
+if [ "$baseboard" == "PRIME H570-PLUS" ]; then
+    pkgs+=(mesa intel-gpu-tools intel-media-driver libva-utils)
+elif [ "$baseboard" == "20BTCTO1WW" ]; then
+    pkgs+=(mesa intel-gpu-tools intel-media-driver libva-utils)
+    pkgs+=(xf86-input-libinput xorg-xbacklight fprintd light xbindkeys)
+    pkgs+=(acpi acpi_call tlp)
+fi
+
+if [ "$is_virtual" == "false" ]; then
+    pkgs+=(redshift nvme-cli ddcutil lm_sensors)
+    if [ "$(sudo dmidecode --string=processor-manufacturer)" == "Intel(R) Corporation" ]; then
+        pkgs+=(intel-ucode)
+    fi
+fi
+
+$PKGINSTALL "${pkgs[@]}"
