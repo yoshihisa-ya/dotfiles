@@ -21,37 +21,48 @@ is_virtual="false"
 pkgs+=(lsof rsync tmux whois tcpdump traceroute imagemagick wget dnsutils nmap linux-headers linux-docs nfs-utils strace gdb perf mlocate cronie sysstat crash unzip ethtool pacman-contrib)
 pkgs+=(bash-completion cpio dmidecode man-db man-pages usbutils iperf3 screen global)
 pkgs+=(pass pwgen cowsay dateutils moreutils iftop rpm-tools bc)
+pkgs+=(git go)
 pkgs+=(apparmor)
+pkgs+=(openssh)
 # shell
 pkgs+=(mosh)
-pkgs+=(xterm rxvt-unicode) # Using X11 Forwarding
+pkgs+=(zsh)
 pkgs+=(jq)
 pkgs+=(fzf lsd bat ripgrep)
 pkgs+=(github-cli difftastic)
-# shell
+# shell tools
 pkgs+=(deno) # Require yuki-yano/zeno.zsh
 pkgs+=(npm)  # Require vimls language server
-# filesystem
-pkgs+=(snapper snap-pac snapper-gui-git)
+pkgs+=(ranger ffmpegthumbnailer)
+pkgs+=(wireshark-cli)
 # editor
 pkgs+=(neovim shellcheck shfmt)
 # mail
 pkgs+=(isync getmail6 neomutt notmuch procmail lynx)
-if [ "${ROLE}" == "desktop" ]; then
-    pkgs+=(xorg-server xorg-xinit xorg-xwininfo xorg-xrandr autorandr xclip arandr xautolock)
-    pkgs+=(i3-wm i3lock rofi papirus-icon-theme network-manager-applet feh dunst polybar siji-ng)
+if [ "$IS_WSL" == "false" ]; then
+    # filesystem
+    pkgs+=(snapper snap-pac snapper-gui-git)
+fi
+if [ "$IS_WSL" == "true" ] || [ "${ROLE}" == "desktop" ]; then
+    pkgs+=(xorg-xrdb xclip)
+    pkgs+=(xterm rxvt-unicode)
+    pkgs+=(ibus ibus-skk skk-jisyo)
     pkgs+=(freerdp remmina)
+    pkgs+=(wireshark-qt)
+    pkgs+=(otf-ipafont otf-ipaexfont otf-ipamjfont ttf-dejavu ttf-sazanami ttf-hanazono xorg-mkfontscale noto-fonts-emoji)
+    pkgs+=(libvirt virt-manager bridge-utils)
     pkgs+=(sxiv mpv gimp)
+    pkgs+=(firefox firefox-i18n-ja)
+fi
+if [ "${ROLE}" == "desktop" ]; then
+    pkgs+=(xorg-server xorg-xinit xorg-xwininfo xorg-xrandr autorandr arandr xautolock)
+    pkgs+=(i3-wm i3lock rofi papirus-icon-theme network-manager-applet feh dunst polybar siji-ng)
     pkgs+=(yt-dlp)
     pkgs+=(mpd mpc playerctl)
-    pkgs+=(ranger ffmpegthumbnailer)
     pkgs+=(ffmpeg)
-    pkgs+=(firefox firefox-i18n-ja profile-sync-daemon)
-    pkgs+=(ibus ibus-skk skk-jisyo)
-    pkgs+=(qemu-full libvirt virt-manager bridge-utils)
-    pkgs+=(otf-ipafont otf-ipaexfont otf-ipamjfont ttf-dejavu ttf-sazanami ttf-hanazono xorg-mkfontscale noto-fonts-emoji)
+    pkgs+=(profile-sync-daemon)
+    pkgs+=(qemu-full)
     pkgs+=(pipewire pipewire-media-session pipewire-pulse pavucontrol)
-    pkgs+=(wireshark-qt)
     pkgs+=(bitwarden)
     if [ "${IS_WORK}" == "false" ]; then
         # vpn
@@ -60,19 +71,26 @@ if [ "${ROLE}" == "desktop" ]; then
         pkgs+=(nextcloud-client gnome-keyring libsecret)
     fi
 else
-    pkgs+=(qemu-base)
-    pkgs+=(wireshark-cli)
+    if [ "$IS_WSL" == "true" ]; then
+        pkgs+=(qemu-full)
+    else
+        pkgs+=(qemu-base)
+    fi
 fi
 if [ "${IS_BITWARDEN:-false}" == "true" ]; then
     pkgs+=(bitwarden-cli)
 fi
 
-$PKGINSTALL dmidecode
-baseboard=$(sudo dmidecode --string=baseboard-product-name)
-
-if [ "$baseboard" == "KVM" ] || [ "$baseboard" == "Virtual Machine" ] || [ "$baseboard" == "VMware Virtual Platform" ] || [ "$baseboard" == "Xen" ]; then
+if [ "$IS_WSL" == "true" ]; then
     is_virtual="true"
+else
+    $PKGINSTALL dmidecode
+    baseboard=$(sudo dmidecode --string=baseboard-product-name)
+    if [ "$baseboard" == "KVM" ] || [ "$baseboard" == "Virtual Machine" ] || [ "$baseboard" == "VMware Virtual Platform" ] || [ "$baseboard" == "Xen" ]; then
+        is_virtual="true"
+    fi
 fi
+
 
 if [ "$baseboard" == "PRIME H570-PLUS" ]; then
     pkgs+=(mesa intel-gpu-tools intel-media-driver libva-utils)
