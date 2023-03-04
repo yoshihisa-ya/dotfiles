@@ -88,6 +88,9 @@ alias mv=" mv -iv"
 alias cp='cp -i --reflink=auto'
 alias cat='bat --paging=never'
 
+# /etc/ssh/ssh_config で SendEnv が設定されているのを無視する為。
+alias ssh='ssh -F ~/.ssh/config'
+
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=sxiv
 alias -s {html,htm,pdf}=firefox
 # alias -s {mp3,wma,wav}=rhythmbox
@@ -369,4 +372,5 @@ if [[ -n $ZENO_LOADED ]]; then
   bindkey ' '  zeno-auto-snippet
   bindkey '^i' zeno-completion
   bindkey '^x' zeno-insert-snippet
+  bindkey '^U' backward-kill-line
 fi
