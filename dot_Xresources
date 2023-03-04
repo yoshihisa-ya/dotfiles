@@ -27,7 +27,9 @@ URxvt*.transparent: true
 URxvt*.shading: 20
 URxvt*.fading: 60
 
-URxvt.perl-ext-common: default,matcher,clipboard,selection-to-clipboard,url-select
+URxvt.perl-ext-common: default,matcher,clipboard,selection-to-clipboard,url-select,xim-onthespot
+URxvt.inputMethod: ibus
+URxvt.preeditType: OnTheSpot
 
 URxvt.clipboard.autocopy: true
 URxvt.keysym.M-c: perl:clipboard:copy
