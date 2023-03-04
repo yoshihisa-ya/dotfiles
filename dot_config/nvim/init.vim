@@ -16,6 +16,10 @@ Plug 'hrsh7th/cmp-calc'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
+" tag
+Plug 'vim-scripts/gtags.vim'
 
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -192,9 +196,24 @@ lua << END
   ['<C-Space>'] = cmp.mapping.complete(),
   ['<C-e>'] = cmp.mapping.abort(),
   ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  ['<Tab>'] = function(fallback)
+    if cmp.visible() then
+      cmp.select_next_item()
+    else
+      fallback()
+    end
+  end,
+  ['<S-Tab>'] = function(fallback)
+    if cmp.visivle() then
+      cmp.select_prev_item()
+    else
+      fallback()
+    end
+  end,
   }),
       sources = cmp.config.sources({
       { name = 'nvim_lsp' },
+      { name = 'vsnip' },
       }, {
       { name = 'buffer' },
       }, {
@@ -251,7 +270,24 @@ lua << END
     local opts = {}
     opts.on_attach = on_attach
     opts.capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+    opts.capabilities.textDocument.completion.completionItem.snippetSupport = true
+    if server.name == 'gopls' then
+      opts.settings = {
+        gopls = {
+          experimentalPostfixCompletions = true,
+          analyses = {
+            unusedparams = true,
+            shadow = true,
+            },
+          staticcheck = true,
+          },
+        }
+      opts.init_options = {
+        usePlaceholders = true,
+        }
+    end
     server:setup(opts)
+    vim.cmd [[ do User LspAttachBuffers ]]
   end)
 END
 
@@ -339,6 +375,9 @@ call defx#custom#option('_', {
       \ 'resume': 1,
       \ })
 
+" Gtags
+let Gtags_Auto_Map = 1
+
 " }}}
 
 " Basic {{{
@@ -375,6 +414,14 @@ nnoremap N Nzz
 nnoremap ZZ <Nop>
 " Shougo/defx.nvim
 nnoremap <silent> <Leader>f :<C-u> Defx -toggle<CR>
+" junegunn/fzf
+nnoremap <silent> <Leader>,g :GFiles<CR>
+nnoremap <silent> <Leader>,G :GFiles?<CR>
+nnoremap <silent> <Leader>,f :Files<CR>
+nnoremap <silent> <Leader>,r :Rg<CR>
+nnoremap <silent> <Leader>,c :Commits<CR>
+nnoremap <silent> <Leader>,b :Buffers<CR>
+nnoremap <silent> <Leader>,h :History<CR>
 "}}}
 
 " Display {{{
