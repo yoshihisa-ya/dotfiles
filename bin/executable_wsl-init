@@ -1,4 +1,5 @@
 #!/bin/bash
 
 xrdb ~/.Xresources
+feh --bg-scale ~/.local/share/wallpaper.jpg
 ibus-daemon -drxR
