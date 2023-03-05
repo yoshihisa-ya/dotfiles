@@ -41,6 +41,7 @@ fi
 if [ "$IS_WSL" == "true" ] || [ "${ROLE}" == "desktop" ]; then
     pkgs+=(xorg-xrdb xclip)
     pkgs+=(xterm rxvt-unicode)
+    pkgs+=(feh)
     pkgs+=(ibus ibus-skk skk-jisyo)
     pkgs+=(freerdp remmina)
     pkgs+=(wireshark-qt)
@@ -85,7 +86,6 @@ else
         is_virtual="true"
     fi
 fi
-
 
 if [ "$baseboard" == "PRIME H570-PLUS" ]; then
     pkgs+=(mesa intel-gpu-tools intel-media-driver libva-utils)
