@@ -35,6 +35,10 @@ pkgs+=(wireshark-cli)
 pkgs+=(neovim shellcheck shfmt)
 # mail
 pkgs+=(isync getmail6 neomutt notmuch procmail lynx)
+if [ "$IS_WSL" == "true" ]; then
+    # WSL
+    pkgs+=(wsl-open)
+fi
 if [ "$IS_WSL" == "false" ]; then
     # filesystem
     pkgs+=(snapper snap-pac snapper-gui-git)

@@ -9,3 +9,7 @@ if [ "${CHEZMOI_OS_RELEASE_ID}" == "arch" ]; then
     sudo sed -i -e '/^HISTORY=/s/7/365/' -e 's/^SADC_OPTIONS=" *"/SADC_OPTIONS="-S XALL"/' /etc/conf.d/sysstat
     sudo systemctl enable --now cronie.service sysstat.service
 fi
+
+if [ "$IS_WSL" == "true" ]; then
+    sudo ln -sf "$(which wsl-open)" /usr/local/bin/xdg-open
+fi
