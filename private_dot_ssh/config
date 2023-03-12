@@ -1,0 +1,10 @@
+Include ~/.ssh/conf.d/*
+
+Host *
+  HashKnownHosts no
+  TCPKeepAlive yes
+  ServerAliveInterval 30
+  ServerAliveCountMax 10
+  ControlMaster auto
+  ControlPath ~/.ssh/cm-%r@%h:%p
+  ControlPersist 60
