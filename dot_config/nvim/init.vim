@@ -440,7 +440,7 @@ augroup highlightIdegraphicSpace
 augroup END
 
 " colorscheme
-colorscheme morning
+" colorscheme morning
 
 " Git commit で差分を表示
 autocmd FileType gitcommit DiffGitCached | wincmd x | resize 10
