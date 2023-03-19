@@ -169,9 +169,9 @@ function mkwork() {
 
 function chwallpaper() {
   if [[ $1 == "boot" ]]; then
-    feh --bg-scale ~/Sync/wallpaper/b1110b46-80ad-4585-b93c-cf4c550a625e.png --bg-fill ~/Sync/wallpaper/a9db2e1e-bab8-4071-8667-f0f23af9c6ca.png
+    feh --bg-scale ~/Sync/wallpaper/b1110b46-80ad-4585-b93c-cf4c550a625e.png --bg-scale ~/Sync/wallpaper/b1110b46-80ad-4585-b93c-cf4c550a625e.png --bg-fill ~/Sync/wallpaper/a9db2e1e-bab8-4071-8667-f0f23af9c6ca.png
   else
-    feh --bg-fill ~/Sync/wallpaper/2ec475b3-173e-4ecb-b594-38bc3ca6e36a.jpg --bg-fill ~/Sync/wallpaper/a9db2e1e-bab8-4071-8667-f0f23af9c6ca.png
+    feh --bg-fill ~/Sync/wallpaper/2ec475b3-173e-4ecb-b594-38bc3ca6e36a.jpg --bg-fill ~/Sync/wallpaper/2ec475b3-173e-4ecb-b594-38bc3ca6e36a.jpg --bg-fill ~/Sync/wallpaper/a9db2e1e-bab8-4071-8667-f0f23af9c6ca.png
   fi
 }
 

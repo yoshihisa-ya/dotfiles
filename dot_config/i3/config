@@ -172,6 +172,8 @@ gaps right 3
 gaps left 3
 gaps inner 3
 
+workspace "10" output HDMI-1
+
 bindsym $mod+q exec --no-startup-id i3lock -c 000000
 
 bindsym XF86MonBrightnessDown exec sudo light -s sysfs/backlight/intel_backlight -U 5

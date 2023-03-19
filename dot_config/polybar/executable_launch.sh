@@ -10,6 +10,7 @@ echo "Polybar launched..."
 if [ $(hostname) == "desktop" ]; then
     MONITOR=DP-1-8 polybar --reload main &
     MONITOR=DP-1-1-8 polybar --reload secondary &
+    MONITOR=HDMI-1 polybar --reload 4k &
 elif type "xrandr"; then
     for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
         MONITOR=$m polybar --reload main &
