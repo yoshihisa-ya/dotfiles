@@ -8,3 +8,4 @@ Host *
   ControlMaster auto
   ControlPath ~/.ssh/cm-%r@%h:%p
   ControlPersist 60
+  IPQoS none
