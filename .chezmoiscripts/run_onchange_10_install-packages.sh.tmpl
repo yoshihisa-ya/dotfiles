@@ -19,6 +19,7 @@ pkgs+=(pass pwgen cowsay dateutils moreutils iftop rpm-tools bc)
 pkgs+=(git go)
 pkgs+=(apparmor)
 pkgs+=(openssh)
+pkgs+=(ipmitool)
 pkgs+=(libnewt) # whiptail
 # shell
 pkgs+=(mosh)
@@ -33,10 +34,13 @@ pkgs+=(ranger ffmpegthumbnailer)
 pkgs+=(wireshark-cli)
 pkgs+=(busybox)
 pkgs+=(hugo)
+pkgs+=(ansible ansible-lint)
 # editor
 pkgs+=(neovim shellcheck shfmt)
 # mail
 pkgs+=(isync getmail6 neomutt notmuch procmail lynx)
+# package management
+pkgs+=(porg)
 if [ "$IS_WSL" == "true" ]; then
     # WSL
     pkgs+=(wsl-open)
