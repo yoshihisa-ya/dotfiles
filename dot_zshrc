@@ -231,7 +231,7 @@ setopt prompt_bang              # プロンプト文字列内の!を次に保存
 setopt prompt_percent           # %記号の展開を行う。
 setopt prompt_cr                # プロンプト文字列発生時に、復帰文字(CR)を出力する。
 setopt prompt_sp                # PROMPT_CRオプションを改善する。
-unsetopt transient_rprompt      # コマンド実行時に、右プロンプトを消去しない。
+setopt transient_rprompt        # コマンド実行時に、右プロンプトを消去する。
 # }}}1
 
 # History {{{1
