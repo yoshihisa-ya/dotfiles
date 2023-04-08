@@ -1,6 +1,7 @@
 {{ $email := "yoshihisa.yamano@gmail.com" -}}
 {{ $name := "Yoshihisa Yamano" -}}
 {{ $role := "terminal" -}}
+{{ $git_gpgsign := "" -}}
 {{ $is_work := false -}}
 {{ $work_github_url := "" -}}
 {{ $work_github_username := "" -}}
@@ -19,6 +20,7 @@
 {{   if (and (not $is_wsl) (eq .chezmoi.os "linux")) -}}
 {{     $role = promptStringOnce . "role" "Machine role [desktop|terminal]" "terminal" -}}
 {{   end -}}
+{{   $git_gpgsign = promptStringOnce . "git_gpgsign" "Git gpg key" -}}
 {{   $is_work = promptBoolOnce . "is_work" "Work machine" false -}}
 {{   if $is_work -}}
 {{     $work_github_url = promptStringOnce . "work_github_url" "GitHub Enterprise URL" "github.example.com" -}}
@@ -42,6 +44,7 @@
   email = {{ $email | quote }}
   name = {{ $name | quote }}
   role = {{ $role | quote }}
+  git_gpgsign = {{ $git_gpgsign | quote }}
   is_work = {{ $is_work }}
   is_syncthing = {{ $is_syncthing }}
   is_bitwarden = {{ $is_bitwarden }}
