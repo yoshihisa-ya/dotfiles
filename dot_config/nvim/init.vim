@@ -60,9 +60,6 @@ Plug 'fuenor/JpFormat.vim'
 Plug 'skanehira/translate.vim'
 Plug 'tyru/eskk.vim'
 
-" syntax checker
-Plug 'vim-syntastic/syntastic'
-
 call plug#end()
 " }}}
 
