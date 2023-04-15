@@ -281,25 +281,27 @@ bindkey '^[^H' backward-kill-bash-word
 
 # Change Directory {{{1
 # ---------------------
-DIRSTACKSIZE=50                         # ディレクトリスタック数。
-setopt auto_cd                          # ディレクトリ名だけで移動。
-setopt auto_pushd                       # cdコマンドで自動スタック。
-setopt cdable_vars                      # /で始まらない && 存在しない場合、前に~を補って名前付きディレクトリへ。
-setopt pushd_ignore_dups                # ディレクトリスタックに同じものは追加しない。
-unsetopt pushd_minus                    # ディレクトリスタック書く要素アクセス時に+,-を反転しない。
-unsetopt pushd_silent                   # pushd,popdでサイレントにディレクトリスタックしない。
-unsetopt pushd_to_home                  # pushdを引数なしで実行した場合、ホームディレクトリへ移動しない。
-unsetopt chase_dots                     # cd時に、".."を論理パスを物理パスに変換しない。
-unsetopt chase_links                    # "chase_dots"と同様の効果を".."以外にも適用する。
+DIRSTACKSIZE=50           # ディレクトリスタック数。
+setopt auto_cd            # ディレクトリ名だけで移動する。
+setopt auto_pushd         # cd コマンドで自動スタックする。
+setopt cdable_vars        # / で始まらない && 存在しない場合、前に~を補って名前付きディレクトリへ。
+setopt pushd_ignore_dups  # ディレクトリスタックに同じものは追加しない。
+unsetopt pushd_minus      # ディレクトリスタックアクセス時に + / -を反転する。
+unsetopt pushd_silent     # pushd / popd をサイレント動作とする。
+unsetopt pushd_to_home    # pushd を引数なしで実行した場合、ホームディレクトリへ移動する。
+unsetopt chase_dots       # cd の際に .. が含まれるとき、論理パスではなく物理パスとして解釈する。
+                          # $ cd; ln -s /opt; cd opt; cd .. # によって / に移動することとなる。
+unsetopt chase_links      # chase_dots と同様の効果を .. 以外にも適用する。
+                          # cd -L/-P でも無効/有効にできる。
 # }}}1
 
 # Other Settings {{{1
 # -------------------
-# setopt correct                          # Command revise
-# setopt list_packed                      # Complement closely
-# setopt nolistbeep                       # No Beep
-# setopt multios                          # multios (redirect)
-zstyle ':completion:*' list-colors ''   # Complement Color
+# setopt correct           # Command revise
+# setopt list_packed       # Complement closely
+# setopt nolistbeep        # No Beep
+# setopt multios           # multios (redirect)
+zstyle ':completion:*' list-colors '' # Complement Color
 
 ## run-help
 autoload -Uz run-help

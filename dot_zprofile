@@ -1,6 +1,7 @@
 export GOPATH=$HOME/dev
 
-typeset -U path
-export path=(~/bin ~/.local/bin $GOPATH/bin $path)
+typeset -U cdpath path
+path=(~/bin ~/.local/bin $GOPATH/bin $path)
+cdpath=(~)
 
 export MOZ_DISABLE_RDD_SANDBOX=1
