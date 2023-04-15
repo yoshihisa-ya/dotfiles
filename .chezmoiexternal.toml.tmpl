@@ -138,15 +138,6 @@
     command = "bash"
     args = ["-c", "tmpdir=$(mktemp -d); cat > $tmpdir/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip && unzip -p $tmpdir/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}/ghq"]
 
-[".local/bin/navi"]
-  type = "file"
-  url = "https://github.com/denisidoro/navi/releases/download/{{ (gitHubLatestRelease "denisidoro/navi").TagName }}/navi-{{ (gitHubLatestRelease "denisidoro/navi").TagName }}-{{ $arch }}-{{ $rustOS }}.tar.gz"
-  executable = true
-  refreshPeriod = "168h"
-  [".local/bin/navi".filter]
-    command = "tar"
-    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "navi"]
-
 {{ if (and (eq .role "desktop") (eq .chezmoi.os "linux")) -}}
 [".local/bin/espanso"]
   type = "file"
