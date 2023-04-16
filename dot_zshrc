@@ -6,7 +6,7 @@
 export PAGER=less
 export EDITOR=nvim
 export LESS='-g -i -M -R -W -x2 -S'
-export TERM=xterm-256color
+# export TERM=xterm-256color
 export MAKEOBJDIRPREFIX=$HOME/.obj
 export ANSIBLE_NOCOWS=1
 export BR2_DL_DIR=~/buildroot/download
@@ -36,32 +36,40 @@ compinit
 # promptinit
 # prompt walters
 setopt always_last_prompt       # 候補をプロンプト下に出したあと、現在のプロンプトを再利用する。
-setopt complete_in_word         # TODO: カーソル位置に*を置いたかのような保管をする。
+setopt complete_in_word         # カーソル位置に*を置いたかのような保管をする。
 setopt auto_list                # 候補がある場合、^Dを利用せずともTABだけで候補を表示する。
-unsetopt bash_auto_list         # 2度補完キーを押さなくても、1度目から補完する。
+unsetopt bash_auto_list         # 2度補完キーを押した場合に候補を表示する。
 setopt auto_menu                # メニュー補完を有効にする。
-unsetopt menu_complete          # いきなりメニュー補完へ移行しない。
-# setopt auto_param_keys          # 変数補完時に補完された記号を、次に入力されたものによって、必要ならば削除を行う。
-# setopt auto_param_slash         # 変数補完時にディレクトリ名である場合、末尾にスラッシュを付加。
-setopt auto_remove_slash        # ディレクトリ名補完時に、後にデリミタを入力すると、保管されたスラッシュを削除。
+unsetopt menu_complete          # いきなりメニュー補完へ移行する。
+setopt auto_param_keys          # 変数補完時に補完された記号を、次に入力されたものによって、必要ならば削除を行う。
+setopt auto_param_slash         # 変数補完時にディレクトリ名である場合、末尾にスラッシュを付加。
+setopt auto_remove_slash        # ディレクトリ名補完時に、後にデリミタを入力すると、補完されたスラッシュを削除。
 unsetopt complete_aliases       # コマンドのオプション等の補完時に、そのコマンドエイリアスを内部的に置き換えない。
-# unsetopt glob_complete
-# setopt hash_list_all
-# setopt list_ambiguous
-unsetopt list_beep              # 補完結果が1つにならない時にビープを鳴らさない。
+setopt glob_complete            # グロッビングパターンで補完した場合に、その結果を全て挿入せずメニュー補完とする。
+setopt hash_list_all            # コマンド補完時にハッシュする。
+setopt list_ambiguous           #
+unsetopt list_beep              # 補完結果が1つにならない時にビープを鳴らす。
 setopt list_packed              # 一覧行数を少なくする。
-unsetopt list_rows_first        # 候補一覧を横進みにしない。
+unsetopt list_rows_first        # 候補一覧を横進みとする。
 setopt list_types               # 候補一覧に種類を表す記号を付ける。
-# unsetopt rec_exact
+unsetopt rec_exact              # 完全一致する場合は、他候補が存在する場合でも確定する。
+# 近似補完, パス途中の補完を有効とする。
+zstyle ':completion:*' completer _complete _approximate _prefix _ignored
 # 方向キーで選択可能とする。
 zstyle ':completion:*' menu true select
-# マッチング時に大文字と小文字を区別しない。"._-"の前は*を入れる。(ht.c → httpd.conf)
+# マッチング時に小文字は大文字も対象に含める。
+# "._-"の前は*を入れる。(ht.c → httpd.conf)
+# 先頭一致に限らず、中間文字列マッチを有効とする。
 # 但し、通常のマッチングで候補が無い場合のみ。
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[._-]=*'
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z} r:|[._-]=* l:|=*'
 # 指定コマンドで候補表示を無効にする。マッチングは有効。
 zstyle ':completion:*:(rm|rmdir):*' menu false
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%BCompleting %d%b'
 # zstyle ':completion:*:ping:*' hosts \
-#     www.google.{com,co.jp} www.yahoo.{com,co.jp}
+#     www.google.{com,co.jp}
+# zstyle ':completion:*:ping:*' menu true
+# zstyle ':completion:*:ping:*' sort false
 zstyle ':completion:*:ssh:*' users \
     yoshihisa\
     y-yamano\
@@ -75,6 +83,14 @@ zstyle ':completion:*:(ping|ssh):*' sort false
 # 既に指定されている引数を候補としない。
 zstyle ':completion:*:(less|rm|rmdir|cp|mv|vi|vim):*' ignore-line true
 setopt completealiases
+# ./configure での補完は危険なので置き換える。
+configure-fake-help() {
+    grep -- '^[ \t]*--[A-Za-z]' ${^words[1]} | egrep -v '\[|\]'
+}
+zstyle ':completion:*:configure:*:options' \
+    command configure-fake-help
+# ../ 候補としてカレントディレクトリを除外する。
+zstyle ':completion:*' ignore-parents parent pwd
 # }}}1
 
 # Alias {{{1
@@ -226,7 +242,6 @@ RPROMPT="%{${fg[yellow]}%}[%~]%{${reset_color}%}"
     RPROMPT="%{${fg[red]}%}[%~]%{${reset_color}%}"
 
 
-unsetopt prompt_subst           # プロンプトで、変数展開・コマンド置換・算術展開を施す。
 setopt prompt_bang              # プロンプト文字列内の!を次に保存されるヒストリ番号に置換する。
 setopt prompt_percent           # %記号の展開を行う。
 setopt prompt_cr                # プロンプト文字列発生時に、復帰文字(CR)を出力する。
@@ -301,7 +316,7 @@ unsetopt chase_links      # chase_dots と同様の効果を .. 以外にも適�
 # setopt list_packed       # Complement closely
 # setopt nolistbeep        # No Beep
 # setopt multios           # multios (redirect)
-zstyle ':completion:*' list-colors '' # Complement Color
+zstyle ':completion:*' list-colors '' # ファイル属性に応じて表示形式を変更する。
 
 ## run-help
 autoload -Uz run-help
@@ -313,7 +328,7 @@ autoload -Uz run-help-git run-help-ip run-help-openssl run-help-p4 run-help-sudo
 # Git prompt {{{1
 # ---------------
 autoload -Uz vcs_info
-setopt prompt_subst
+setopt prompt_subst # プロンプトで、変数展開・コマンド置換・算術展開を施す。
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{cyan}+"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}-"
@@ -373,6 +388,6 @@ export ZENO_ENABLE_FZF_TMUX=1
 if [[ -n $ZENO_LOADED ]]; then
   bindkey ' '  zeno-auto-snippet
   bindkey '^i' zeno-completion
-  bindkey '^x' zeno-insert-snippet
+  # bindkey '^x' zeno-insert-snippet
   bindkey '^U' backward-kill-line
 fi
