@@ -226,7 +226,7 @@ RPROMPT="%{${fg[yellow]}%}[%~]%{${reset_color}%}"
     RPROMPT="%{${fg[red]}%}[%~]%{${reset_color}%}"
 
 
-# setopt prompt_subst             # プロンプトで、変数展開・コマンド置換・算術展開を施す。
+unsetopt prompt_subst           # プロンプトで、変数展開・コマンド置換・算術展開を施す。
 setopt prompt_bang              # プロンプト文字列内の!を次に保存されるヒストリ番号に置換する。
 setopt prompt_percent           # %記号の展開を行う。
 setopt prompt_cr                # プロンプト文字列発生時に、復帰文字(CR)を出力する。
@@ -241,19 +241,19 @@ HISTFILE=~/.zsh_history         # HistoryFile.
 HISTSIZE=10000                  # HistorySize (Memory).
 SAVEHIST=10000                  # HistorySize (File).
 setopt append_history           # シェル終了時に、ヒストリファイルにヒストリを上書きするのではなく追加する。
-setopt extended_history         # ヒストリファイルに、拡張フォーマットで保存する。
-unsetopt hist_allow_clobber     # ファイルへのリダイレクトを行った際、ヒストリには「>|」に置き換えない。
+setopt extended_history         # ヒストリファイルを拡張フォーマットで保存する。
+unsetopt hist_allow_clobber     # ファイルへのリダイレクトを行った際、ヒストリでは「>|」に置き換える。 setopt noclobber で有用。
 setopt hist_beep                # ヒストリに無いものを取り出そうとしたときにベルを鳴らす。
 setopt hist_expire_dups_first   # HISTSIZEに達したとき、重複があるものを消去する。
-# setopt hist_find_no_dups        # ラインエディタでヒストリ検索を行う際、一度見つかったものは更に先に重複したものがあってもないものとみなす。
-setopt hist_ignore_all_dups     # ヒストリリストに登録する際、既に同じものがあればそれを削除する。
+unsetopt hist_find_no_dups      # ラインエディタでヒストリ検索を行う際、一度見つかったものは更に先に重複したものがあってもないものとみなす。
+unsetopt hist_ignore_all_dups   # ヒストリリストに登録する際、既に同じものがあればそれを削除する。
 setopt hist_ignore_dups         # ヒストリリストに登録する際、直前のものと同じであれば登録しない。
 setopt hist_ignore_space        # 先頭にスペースを入れた際に、ヒストリリストに登録しない。
 setopt hist_no_functions        # 関数定義をヒストリリストから消去。
 setopt hist_no_store            # history,fcコマンドは、ヒストリリストから消去する。
 setopt hist_reduce_blanks       # 余分なスペースを、ヒストリリストに登録する際に削除する。
 setopt hist_save_no_dups        # ヒストリファイルに保存する際、重複したコマンドラインは、古い方を削除する。
-#setopt hist_verify              # ヒストリ展開の際にいきなり実行せず、マッチしたものを一旦提示する。
+unsetopt hist_verify            # ヒストリ展開の際にいきなり実行せず、マッチしたものを一旦提示する。
 setopt inc_append_history       # ヒストリリストに登録すると直ちに、ヒストリファイルにも追加で書き込む。
 setopt share_history            # 稼働中のすべてのzshプロセスで、ヒストリリストを共有する。(悩み中)
 # }}}1
