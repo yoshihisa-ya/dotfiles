@@ -87,19 +87,19 @@ snippets:
 
   - name: devnull
     keyword: "devnull"
-    snippet: ">/dev/null 2>&1"
+    snippet: "/dev/null 2>&1"
     context:
       lbuffer: '.+\s'
 
   - name: awk sum
     keyword: "awksum"
-    snippet: "| awk '{sum+=$NF{{field}}} END {print sum}'"
+    snippet: "awk '{sum+=$NF{{field}}} END {print sum}'"
     context:
       lbuffer: '.+\s'
 
   - name: awk ave
     keyword: "awkave"
-    snippet: "| awk '{sum+=$NF{{field}}} END {print sum/NR}'"
+    snippet: "awk '{sum+=$NF{{field}}} END {print sum/NR}'"
     context:
       lbuffer: '.+\s'
 
