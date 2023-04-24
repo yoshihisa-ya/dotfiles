@@ -137,11 +137,3 @@
   [".local/bin/ghq".filter]
     command = "bash"
     args = ["-c", "tmpdir=$(mktemp -d); cat > $tmpdir/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip && unzip -p $tmpdir/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}/ghq"]
-
-{{ if (and (eq .role "desktop") (eq .chezmoi.os "linux")) -}}
-[".local/bin/espanso"]
-  type = "file"
-  url = "https://github.com/espanso/espanso/releases/latest/download/Espanso-X11.AppImage"
-  executable = true
-  refreshPeriod = "168h"
-{{ end -}}
