@@ -107,7 +107,7 @@ alias cp='cp -i --reflink=auto'
 alias cat='bat --paging=never'
 
 # /etc/ssh/ssh_config で SendEnv が設定されているのを無視する為。
-alias ssh='ssh -F ~/.ssh/config'
+alias ssh='TERM=xterm ssh -F ~/.ssh/config'
 
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=sxiv
 alias -s {html,htm,pdf}=firefox
