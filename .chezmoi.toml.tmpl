@@ -12,12 +12,12 @@
 {{ $is_bitwarden := false -}}
 {{ $is_syncmaildir := false -}}
 {{ $pkginstall := "" -}}
-
-{{ $is_wsl := or (env "WSL_DISTRO_NAME") (env "IS_WSL") | not | not -}}
+{{ $is_wsl := false -}}
 
 {{ if stdinIsATTY -}}
 {{   $email = promptStringOnce . "email" "Your email address" "yoshihisa.yamano@gmail.com" -}}
 {{   $name = promptStringOnce . "name" "Your name (git name)" "Yoshihisa Yamano" -}}
+{{   $is_wsl = promptBoolOnce . "is_wsl" "Is WSL" false -}}
 {{   if (and (not $is_wsl) (eq .chezmoi.os "linux")) -}}
 {{     $role = promptStringOnce . "role" "Machine role [desktop|terminal]" "terminal" -}}
 {{   end -}}
