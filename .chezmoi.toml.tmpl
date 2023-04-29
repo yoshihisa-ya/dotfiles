@@ -2,6 +2,7 @@
 {{ $name := "Yoshihisa Yamano" -}}
 {{ $role := "terminal" -}}
 {{ $git_gpgsign := "" -}}
+{{ $ssh_gpgkey := "" -}}
 {{ $is_work := false -}}
 {{ $work_github_url := "" -}}
 {{ $work_github_username := "" -}}
@@ -21,6 +22,7 @@
 {{     $role = promptStringOnce . "role" "Machine role [desktop|terminal]" "terminal" -}}
 {{   end -}}
 {{   $git_gpgsign = promptStringOnce . "git_gpgsign" "Git gpg key" -}}
+{{   $ssh_gpgkey = promptStringOnce . "ssh_gpgkey" "SSH gpg key" -}}
 {{   $is_work = promptBoolOnce . "is_work" "Work machine" false -}}
 {{   if $is_work -}}
 {{     $work_github_url = promptStringOnce . "work_github_url" "GitHub Enterprise URL" "github.example.com" -}}
@@ -45,6 +47,7 @@
   name = {{ $name | quote }}
   role = {{ $role | quote }}
   git_gpgsign = {{ $git_gpgsign | quote }}
+  ssh_gpgkey = {{ $ssh_gpgkey | quote }}
   is_work = {{ $is_work }}
   is_syncthing = {{ $is_syncthing }}
   is_bitwarden = {{ $is_bitwarden }}
