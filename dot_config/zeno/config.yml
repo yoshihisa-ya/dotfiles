@@ -17,6 +17,14 @@ snippets:
     evaluate: true
     global: true
 
+  - name: nvim
+    keyword: nvim
+    snippet: vi
+
+  - name: vim
+    keyword: vim
+    snippet: vi
+
   - name: git
     keyword: g
     snippet: git
