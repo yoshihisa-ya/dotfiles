@@ -416,20 +416,20 @@ label-close-foreground = ${colors.secondary}
 label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
 
-menu-0-0 = reboot
+menu-0-0 = power off
 menu-0-0-exec = menu-open-1
-menu-0-1 = power off
+menu-0-1 = hibernate
 menu-0-1-exec = menu-open-2
 menu-0-2 = suspend-then-hibernate
 menu-0-2-exec = menu-open-3
 
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
+menu-1-0 = power off
+menu-1-0-exec = sudo poweroff
+menu-1-1 = cancel
+menu-1-1-exec = menu-open-0
 
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
+menu-2-0 = hibernate
+menu-2-0-exec = sudo systemctl hibernate
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
