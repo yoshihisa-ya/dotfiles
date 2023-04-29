@@ -1,7 +1,7 @@
 Include ~/.ssh/conf.d/*
 
 Host *
-  HashKnownHosts no
+  HashKnownHosts yes
   TCPKeepAlive yes
   ServerAliveInterval 30
   ServerAliveCountMax 10
