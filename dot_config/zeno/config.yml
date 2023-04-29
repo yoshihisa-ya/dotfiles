@@ -25,6 +25,10 @@ snippets:
     keyword: vim
     snippet: vi
 
+  - name: gpg-agent updatestartuptty
+    keyword: gr
+    snippet: gpg-connect-agent updatestartuptty /bye
+
   - name: git
     keyword: g
     snippet: git
