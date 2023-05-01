@@ -6,8 +6,9 @@
 call plug#begin()
 
 " bundle LSP
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -17,6 +18,9 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 
 " tag
 Plug 'vim-scripts/gtags.vim'
@@ -39,9 +43,6 @@ Plug 'tomtom/tcomment_vim'
 " markdown
 Plug 'kannokanno/previm'
 Plug 'tyru/open-browser.vim'
-
-" bash
-Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 
 " indent
 Plug 'nathanaelkane/vim-indent-guides'
@@ -179,6 +180,39 @@ END
 
 " LSP
 lua << END
+
+  require("mason").setup()
+  require("mason-lspconfig").setup()
+  require("mason-lspconfig").setup_handlers {
+    function (server_name)
+      require("lspconfig")[server_name].setup {}
+    end
+  }
+
+  local null_ls = require("null-ls")
+  local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+  null_ls.setup({
+      sources = {
+          null_ls.builtins.formatting.shfmt.with({
+              extra_args = { "-i", "4" },
+          }),
+      },
+      -- you can reuse a shared lspconfig on_attach callback here
+      on_attach = function(client, bufnr)
+          if client.supports_method("textDocument/formatting") then
+              vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                  group = augroup,
+                  buffer = bufnr,
+                  callback = function()
+                      vim.lsp.buf.format({ bufnr = bufnr })
+                      -- vim.lsp.buf.formatting_sync()
+                  end,
+              })
+          end
+      end,
+  })
+
   local cmp = require'cmp'
 
   cmp.setup({
@@ -262,35 +296,7 @@ lua << END
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   end
 
-  local lsp_installer = require("nvim-lsp-installer")
-  lsp_installer.on_server_ready(function(server)
-    local opts = {}
-    opts.on_attach = on_attach
-    opts.capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-    opts.capabilities.textDocument.completion.completionItem.snippetSupport = true
-    if server.name == 'gopls' then
-      opts.settings = {
-        gopls = {
-          experimentalPostfixCompletions = true,
-          analyses = {
-            unusedparams = true,
-            shadow = true,
-            },
-          staticcheck = true,
-          },
-        }
-      opts.init_options = {
-        usePlaceholders = true,
-        }
-    end
-    server:setup(opts)
-    vim.cmd [[ do User LspAttachBuffers ]]
-  end)
 END
-
-" z0mbix/vim-shfmt
-let g:shfmt_extra_args = '-i 4'
-let g:shfmt_fmt_on_save = 1
 
 " vim-indent-guides
 let g:indent_guides_enable_on_vim_startup = 1
