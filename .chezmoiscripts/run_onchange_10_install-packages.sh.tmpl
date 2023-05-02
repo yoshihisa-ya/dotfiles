@@ -50,7 +50,7 @@ if [ "$IS_WSL" == "false" ]; then
     pkgs+=(snapper snap-pac snapper-gui-git)
 fi
 if [ "$IS_WSL" == "true" ] || [ "${ROLE}" == "desktop" ]; then
-    pkgs+=(xorg-xrdb xclip)
+    pkgs+=(xorg-xrdb xclip xorg-xeyes)
     pkgs+=(xterm rxvt-unicode urxvt-resize-font-git urxvt-tabbedex)
     pkgs+=(feh)
     pkgs+=(ibus ibus-skk skk-jisyo)
