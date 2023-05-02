@@ -90,8 +90,9 @@ nmap t <Plug>(easymotion-t2)
 lua << END
 require('lualine').setup {
   options = {
-    icons_enabled = false,
+    icons_enabled = true,
     theme = 'material',
+    colored = true,
   },
 }
 END
