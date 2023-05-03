@@ -16,7 +16,11 @@ return {
     { key = 'a', mods = 'LEADER|CTRL', action = wezterm.action.SendString '\x01', },
   },
   font_size = 11,
+  use_fancy_tab_bar = false,
+  enable_tab_bar = true,
   hide_tab_bar_if_only_one_tab = false,
+  tab_bar_at_bottom = true,
+  tab_max_width = 16,
   adjust_window_size_when_changing_font_size = false,
   window_padding = {
     left = 0,
@@ -50,6 +54,10 @@ return {
       '#00ffff',
       '#ffffff',
     },
+  },
+  inactive_pane_hsb = {
+    saturation = 0.7,
+    brightness = 0.3,
   },
   window_background_image = '/home/yoshihisa/Sync/wallpaper/2ec475b3-173e-4ecb-b594-38bc3ca6e36a.jpg',
   window_background_image_hsb = {
