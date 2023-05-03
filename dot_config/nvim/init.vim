@@ -5,7 +5,7 @@
 
 call plug#begin()
 
-" bundle LSP
+" LSP
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
@@ -21,6 +21,10 @@ Plug 'hrsh7th/vim-vsnip-integ'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
+
+Plug 'j-hui/fidget.nvim'
+
+Plug 'ErichDonGubler/lsp_lines.nvim'
 
 " tag
 Plug 'vim-scripts/gtags.vim'
@@ -45,7 +49,13 @@ Plug 'kannokanno/previm'
 Plug 'tyru/open-browser.vim'
 
 " indent
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'lukas-reineke/indent-blankline.nvim'
+
+" autopair
+Plug 'windwp/nvim-autopairs'
+
+" color highlighter
+Plug 'norcalli/nvim-colorizer.lua'
 
 " display
 " Plug 'petertriho/nvim-scrollbar'
@@ -60,6 +70,9 @@ Plug 'easymotion/vim-easymotion'
 Plug 'fuenor/JpFormat.vim'
 Plug 'skanehira/translate.vim'
 Plug 'tyru/eskk.vim'
+
+" search
+Plug 'kevinhwang91/nvim-hlslens'
 
 call plug#end()
 " }}}
@@ -76,15 +89,35 @@ nmap s <Plug>(easymotion-s2)
 nmap t <Plug>(easymotion-t2)
 
 " lewis6991/gitsigns.nvim
-" lua << END
-" require('gitsigns').setup {
-"   current_line_blame = false,
-"   current_line_blame_opts = {
-"     virt_text_pos = 'right_align',
-"     delay = 100,
-"   },
-" }
-" END
+lua << END
+require('gitsigns').setup {
+  current_line_blame = false,
+  current_line_blame_opts = {
+    virt_text_pos = 'right_align',
+    delay = 100,
+  },
+}
+END
+
+" j-hui/fidget.nvim
+lua << EOF
+require"fidget".setup{}
+EOF
+
+" ErichDonGubler/lsp_lines.nvim
+lua << EOF
+require("lsp_lines").setup()
+EOF
+
+" windwp/nvim-autopairs
+lua << EOF
+require("nvim-autopairs").setup {}
+EOF
+
+" kevinhwang91/nvim-hlslens
+lua << EOF
+require('hlslens').setup()
+EOF
 
 " nvim-lualine/lualine.nvim
 lua << END
@@ -92,7 +125,10 @@ require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'material',
+    component_separators = { left = '|', right = '|'},
+    section_separators = { left = '', right = ''},
     colored = true,
+    globalstatus = false,
   },
 }
 END
@@ -300,8 +336,30 @@ lua << END
 END
 
 " vim-indent-guides
-let g:indent_guides_enable_on_vim_startup = 1
+" let g:indent_guides_enable_on_vim_startup = 1
 "let g:indent_guides_guide_size = 1
+lua << END
+vim.opt.termguicolors = true
+vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
+
+vim.opt.list = true
+
+require("indent_blankline").setup {
+    char_highlight_list = {
+        "IndentBlanklineIndent1",
+        "IndentBlanklineIndent2",
+        "IndentBlanklineIndent3",
+        "IndentBlanklineIndent4",
+        "IndentBlanklineIndent5",
+        "IndentBlanklineIndent6",
+    },
+}
+END
 
 " Shougo/defx.nvim
 " autocmd FileType defx call s:defx_my_settings()
@@ -445,6 +503,10 @@ augroup END
 
 " colorscheme
 " colorscheme morning
+set termguicolors
+
+" norcalli/nvim-colorizer.lua
+lua require'colorizer'.setup()
 
 " Git commit で差分を表示
 autocmd FileType gitcommit DiffGitCached | wincmd x | resize 10
