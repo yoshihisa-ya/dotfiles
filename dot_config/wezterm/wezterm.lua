@@ -3,8 +3,20 @@ local wezterm = require 'wezterm';
 return {
   font = wezterm.font("HackGen35 Console NFJ", {weight="Regular", stretch="Normal", style="Normal"}),
   use_ime = true,
+  -- disable_default_key_bindings = true,
+  leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 },
+  keys = {
+    -- tmux like keybinds
+    { key = '\"', mods = 'LEADER|SHIFT', action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' }, },
+    { key = '%', mods = 'LEADER|SHIFT', action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' }, },
+    { key = 'c', mods = 'LEADER', action = wezterm.action.SpawnTab 'CurrentPaneDomain' },
+    { key = 'p', mods = 'LEADER', action = wezterm.action.ActivateTabRelative(-1) },
+    { key = 'n', mods = 'LEADER', action = wezterm.action.ActivateTabRelative(1) },
+    { key = 'z', mods = 'LEADER', action = wezterm.action.TogglePaneZoomState },
+    { key = 'a', mods = 'LEADER|CTRL', action = wezterm.action.SendString '\x01', },
+  },
   font_size = 11,
-  hide_tab_bar_if_only_one_tab = true,
+  hide_tab_bar_if_only_one_tab = false,
   adjust_window_size_when_changing_font_size = false,
   window_padding = {
     left = 0,
