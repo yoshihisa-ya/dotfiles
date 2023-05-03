@@ -51,7 +51,7 @@ if [ "$IS_WSL" == "false" ]; then
 fi
 if [ "$IS_WSL" == "true" ] || [ "${ROLE}" == "desktop" ]; then
     pkgs+=(xorg-xrdb xclip xorg-xeyes)
-    pkgs+=(xterm rxvt-unicode urxvt-resize-font-git urxvt-tabbedex alacritty)
+    pkgs+=(xterm rxvt-unicode urxvt-resize-font-git urxvt-tabbedex alacritty wezterm)
     pkgs+=(feh)
     pkgs+=(ibus ibus-skk skk-jisyo)
     pkgs+=(freerdp remmina)
