@@ -29,9 +29,12 @@ Plug 'ErichDonGubler/lsp_lines.nvim'
 " tag
 Plug 'vim-scripts/gtags.vim'
 
-" fzf
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" telescope.nvim
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+Plug 'nvim-telescope/telescope-frecency.nvim'
+Plug 'kkharji/sqlite.lua'
 
 " statusline
 Plug 'nvim-lualine/lualine.nvim'
@@ -77,6 +80,8 @@ Plug 'kevinhwang91/nvim-hlslens'
 call plug#end()
 " }}}
 
+let mapleader=","
+
 " Plugin config {{{
 " -------------
 " tryu/eskk.vim
@@ -103,6 +108,46 @@ END
 lua << EOF
 require"fidget".setup{}
 EOF
+
+" nvim-telescope/telescope.nvim
+lua << EOF
+local builtin = require('telescope.builtin')
+require('telescope').setup {
+  extensions = {
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = "smart_case",
+      }
+    }
+  }
+require('telescope').load_extension('fzf')
+require('telescope').load_extension('frecency')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fF', function() builtin.find_files({hidden = true, no_ignore = true}) end, {})
+vim.keymap.set('n', '<leader>fg', builtin.git_files, {})
+vim.keymap.set('n', '<leader>fr', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>fm', builtin.man_pages, {})
+vim.keymap.set('n', '<leader>fo', function () require('telescope').extensions.frecency.frecency() end, {})
+vim.keymap.set('n', '<leader>f<CR>', builtin.resume, {})
+vim.keymap.set('n', '<leader>gc', builtin.git_commits, {})
+vim.keymap.set('n', '<leader>gt', builtin.git_status, {})
+vim.keymap.set('n', '<leader>gd', function() require("gitsigns").diffthis() end, {})
+vim.keymap.set('n', '<leader>gl', function() require("gitsigns").blame_line() end, {})
+vim.keymap.set('n', '<leader>gs', function() require("gitsigns").stage_hunk() end, {})
+vim.keymap.set('n', '<leader>gS', function() require("gitsigns").stage_buffer() end, {})
+vim.keymap.set('n', '<leader>gu', function() require("gitsigns").undo_stage_hunk() end, {})
+EOF
+" nnoremap <silent> <Leader>,g :GFiles<CR>
+" nnoremap <silent> <Leader>,G :GFiles?<CR>
+" nnoremap <silent> <Leader>,f :Files<CR>
+" nnoremap <silent> <Leader>,r :Rg<CR>
+" nnoremap <silent> <Leader>,c :Commits<CR>
+" nnoremap <silent> <Leader>,b :Buffers<CR>
+" nnoremap <silent> <Leader>,h :History<CR>
 
 " ErichDonGubler/lsp_lines.nvim
 lua << EOF
@@ -361,82 +406,6 @@ require("indent_blankline").setup {
 }
 END
 
-" Shougo/defx.nvim
-" autocmd FileType defx call s:defx_my_settings()
-" function! s:defx_my_settings() abort
-"   " Define mappings
-"   nnoremap <silent><buffer><expr> <CR>
-"   \ defx#do_action('drop')
-"   nnoremap <silent><buffer><expr> c
-"   \ defx#do_action('copy')
-"   nnoremap <silent><buffer><expr> m
-"   \ defx#do_action('move')
-"   nnoremap <silent><buffer><expr> p
-"   \ defx#do_action('paste')
-"   nnoremap <silent><buffer><expr> l
-"   \ defx#do_action('drop')
-"   nnoremap <silent><buffer><expr> E
-"   \ defx#do_action('drop', 'vsplit')
-"   nnoremap <silent><buffer><expr> P
-"   \ defx#do_action('preview')
-"   nnoremap <silent><buffer><expr> o
-"   \ defx#do_action('open_tree', 'toggle')
-"   nnoremap <silent><buffer><expr> K
-"   \ defx#do_action('new_directory')
-"   nnoremap <silent><buffer><expr> N
-"   \ defx#do_action('new_file')
-"   nnoremap <silent><buffer><expr> M
-"   \ defx#do_action('new_multiple_files')
-"   nnoremap <silent><buffer><expr> C
-"   \ defx#do_action('toggle_columns',
-"   \                'mark:indent:icon:filename:type:size:time')
-"   nnoremap <silent><buffer><expr> S
-"   \ defx#do_action('toggle_sort', 'time')
-"   nnoremap <silent><buffer><expr> d
-"   \ defx#do_action('remove')
-"   nnoremap <silent><buffer><expr> r
-"   \ defx#do_action('rename')
-"   nnoremap <silent><buffer><expr> !
-"   \ defx#do_action('execute_command')
-"   nnoremap <silent><buffer><expr> x
-"   \ defx#do_action('execute_system')
-"   nnoremap <silent><buffer><expr> yy
-"   \ defx#do_action('yank_path')
-"   nnoremap <silent><buffer><expr> .
-"   \ defx#do_action('toggle_ignored_files')
-"   nnoremap <silent><buffer><expr> ;
-"   \ defx#do_action('repeat')
-"   nnoremap <silent><buffer><expr> h
-"   \ defx#do_action('cd', ['..'])
-"   nnoremap <silent><buffer><expr> ~
-"   \ defx#do_action('cd')
-"   nnoremap <silent><buffer><expr> q
-"   \ defx#do_action('quit')
-"   nnoremap <silent><buffer><expr> <Space>
-"   \ defx#do_action('toggle_select') . 'j'
-"   nnoremap <silent><buffer><expr> *
-"   \ defx#do_action('toggle_select_all')
-"   nnoremap <silent><buffer><expr> j
-"   \ line('.') == line('$') ? 'gg' : 'j'
-"   nnoremap <silent><buffer><expr> k
-"   \ line('.') == 1 ? 'G' : 'k'
-"   nnoremap <silent><buffer><expr> <C-l>
-"   \ defx#do_action('redraw')
-"   nnoremap <silent><buffer><expr> <C-g>
-"   \ defx#do_action('print')
-"   nnoremap <silent><buffer><expr> cd
-"   \ defx#do_action('change_vim_cwd')
-" endfunction
-" call defx#custom#option('_', {
-"       \ 'winwidth': 50,
-"       \ 'split': 'vertical',
-"       \ 'direction': 'topleft',
-"       \ 'show_ignored_files': 1,
-"       \ 'buffer_name': 'exlorer',
-"       \ 'toggle': 1,
-"       \ 'resume': 1,
-"       \ })
-
 " Gtags
 let Gtags_Auto_Map = 1
 
@@ -464,7 +433,6 @@ set autoread       " 自動的に読み直す
 noremap <C-n> :cnext<CR>
 noremap <C-p> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
-let mapleader=","
 " 日付を入力する
 nnoremap <C-o><C-o> <ESC>i<C-R>=strftime("%Y-%m-%d")<CR>
 " C-jでC-^とする
@@ -474,16 +442,6 @@ nnoremap n nzz
 nnoremap N Nzz
 " ZZ無効化
 nnoremap ZZ <Nop>
-" Shougo/defx.nvim
-nnoremap <silent> <Leader>f :<C-u> Defx -toggle<CR>
-" junegunn/fzf
-nnoremap <silent> <Leader>,g :GFiles<CR>
-nnoremap <silent> <Leader>,G :GFiles?<CR>
-nnoremap <silent> <Leader>,f :Files<CR>
-nnoremap <silent> <Leader>,r :Rg<CR>
-nnoremap <silent> <Leader>,c :Commits<CR>
-nnoremap <silent> <Leader>,b :Buffers<CR>
-nnoremap <silent> <Leader>,h :History<CR>
 "}}}
 
 " Display {{{
