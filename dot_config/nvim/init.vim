@@ -511,7 +511,7 @@ nnoremap ZZ <Nop>
 " Display {{{
 " -------
 
-set number " 行番号
+set number relativenumber" 行番号
 set ruler  " ルーラー
 " set list listchars=tab:^_,trail:_ " 不可視文字
 
