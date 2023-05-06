@@ -36,9 +36,16 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCM
 Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'kkharji/sqlite.lua'
 
+" tab
+Plug 'akinsho/bufferline.nvim'
+
 " statusline
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
+
+" file explorer
+Plug 'nvim-neo-tree/neo-tree.nvim'
+Plug 'MunifTanjim/nui.nvim'
 
 " git
 Plug 'tpope/vim-fugitive'
@@ -107,6 +114,12 @@ END
 " j-hui/fidget.nvim
 lua << EOF
 require"fidget".setup{}
+EOF
+
+" akinsho/bufferline.nvim
+lua << EOF
+vim.opt.termguicolors = true
+require("bufferline").setup{}
 EOF
 
 " nvim-telescope/telescope.nvim
