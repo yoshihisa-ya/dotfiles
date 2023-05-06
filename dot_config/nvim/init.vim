@@ -36,6 +36,10 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCM
 Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'kkharji/sqlite.lua'
 
+" treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-context'
+
 " tab
 Plug 'akinsho/bufferline.nvim'
 
@@ -84,6 +88,9 @@ Plug 'tyru/eskk.vim'
 " search
 Plug 'kevinhwang91/nvim-hlslens'
 
+" colorscheme
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+
 call plug#end()
 " }}}
 
@@ -119,7 +126,20 @@ EOF
 " akinsho/bufferline.nvim
 lua << EOF
 vim.opt.termguicolors = true
-require("bufferline").setup{}
+require("bufferline").setup{
+options = {
+  numbers = "buffer_id",
+offsets = {
+  {
+      filetype = "neo-tree",
+      text = "File Explorer",
+      text_align = "left",
+      separator = true
+
+  }
+  },
+  }
+}
 EOF
 
 " nvim-telescope/telescope.nvim
@@ -154,13 +174,28 @@ vim.keymap.set('n', '<leader>gs', function() require("gitsigns").stage_hunk() en
 vim.keymap.set('n', '<leader>gS', function() require("gitsigns").stage_buffer() end, {})
 vim.keymap.set('n', '<leader>gu', function() require("gitsigns").undo_stage_hunk() end, {})
 EOF
-" nnoremap <silent> <Leader>,g :GFiles<CR>
-" nnoremap <silent> <Leader>,G :GFiles?<CR>
-" nnoremap <silent> <Leader>,f :Files<CR>
-" nnoremap <silent> <Leader>,r :Rg<CR>
-" nnoremap <silent> <Leader>,c :Commits<CR>
-" nnoremap <silent> <Leader>,b :Buffers<CR>
-" nnoremap <silent> <Leader>,h :History<CR>
+
+" treesitter
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = 'all',
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
+}
+require'treesitter-context'.setup{
+  enable = true,
+  max_lines = 0,
+  min_window_height = 0,
+  line_numbers = true,
+  multiline_threshold = 20,
+  trim_scope = 'outer',
+  mode = 'cursor',
+  separator = nil,
+  zindex = 20,
+}
+EOF
 
 " ErichDonGubler/lsp_lines.nvim
 lua << EOF
@@ -473,8 +508,9 @@ augroup highlightIdegraphicSpace
 augroup END
 
 " colorscheme
-" colorscheme morning
 set termguicolors
+colorscheme tokyonight
+set pumblend=10
 
 " norcalli/nvim-colorizer.lua
 lua require'colorizer'.setup()
