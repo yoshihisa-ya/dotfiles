@@ -74,14 +74,8 @@ Plug 'windwp/nvim-autopairs'
 " color highlighter
 Plug 'norcalli/nvim-colorizer.lua'
 
-" display
-" Plug 'petertriho/nvim-scrollbar'
-
 " move
 Plug 'easymotion/vim-easymotion'
-
-" filer
-" Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " japanese
 Plug 'fuenor/JpFormat.vim'
@@ -136,9 +130,15 @@ EOF
 set list listchars=tab:^_,trail:_ " 不可視文字
 lua << EOF
 vim.opt.termguicolors = true
-require("bufferline").setup{
+local bufferline = require('bufferline')
+bufferline.setup{
 options = {
-  numbers = "buffer_id",
+  numbers = "none",
+  style_preset = bufferline.style_preset.default,
+  indicator = {
+    style= 'icon'
+    },
+    diagnostics = "nvim_lsp",
 offsets = {
   {
       filetype = "neo-tree",
@@ -250,88 +250,6 @@ require('lualine').setup {
   }
 }
 END
-
-" petertriho/nvim-scrollbar
-" lua << END
-"   require("scrollbar").setup({
-"       show = true,
-"       set_highlights = true,
-"       handle = {
-"           text = " ",
-"           color = nil,
-"           cterm = nil,
-"           highlight = "CursorColumn",
-"           hide_if_all_visible = true,
-"       },
-"       marks = {
-"           Search = {
-"               text = { "-", "=" },
-"               priority = 0,
-"               color = nil,
-"               cterm = nil,
-"               highlight = "Search",
-"           },
-"           Error = {
-"               text = { "-", "=" },
-"               priority = 1,
-"               color = nil,
-"               cterm = nil,
-"               highlight = "DiagnosticVirtualTextError",
-"           },
-"           Warn = {
-"               text = { "-", "=" },
-"               priority = 2,
-"               color = nil,
-"               cterm = nil,
-"               highlight = "DiagnosticVirtualTextWarn",
-"           },
-"           Info = {
-"               text = { "-", "=" },
-"               priority = 3,
-"               color = nil,
-"               cterm = nil,
-"               highlight = "DiagnosticVirtualTextInfo",
-"           },
-"           Hint = {
-"               text = { "-", "=" },
-"               priority = 4,
-"               color = nil,
-"               cterm = nil,
-"               highlight = "DiagnosticVirtualTextHint",
-"           },
-"           Misc = {
-"               text = { "-", "=" },
-"               priority = 5,
-"               color = nil,
-"               cterm = nil,
-"               highlight = "Normal",
-"           },
-"       },
-"       excluded_buftypes = {
-"           "terminal",
-"       },
-"       excluded_filetypes = {
-"           "prompt",
-"           "TelescopePrompt",
-"       },
-"       autocmd = {
-"           render = {
-"               "BufWinEnter",
-"               "TabEnter",
-"               "TermEnter",
-"               "WinEnter",
-"               "CmdwinLeave",
-"               "TextChanged",
-"               "VimResized",
-"               "WinScrolled",
-"           },
-"       },
-"       handlers = {
-"           diagnostic = true,
-"           search = true,
-"       },
-"   })
-" END
 
 " LSP
 lua << END
