@@ -29,6 +29,9 @@ Plug 'ErichDonGubler/lsp_lines.nvim'
 " tag
 Plug 'vim-scripts/gtags.vim'
 
+" akinsho/toggleterm.nvim
+Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+
 " telescope.nvim
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
@@ -118,12 +121,19 @@ require('gitsigns').setup {
 }
 END
 
+" toggleterm
+lua << EOF
+vim.keymap.set('n', '<leader>tt', "<cmd>ToggleTerm direction=float<cr>", {})
+require("toggleterm").setup()
+EOF
+
 " j-hui/fidget.nvim
 lua << EOF
 require"fidget".setup{}
 EOF
 
 " akinsho/bufferline.nvim
+set list listchars=tab:^_,trail:_ " 不可視文字
 lua << EOF
 vim.opt.termguicolors = true
 require("bufferline").setup{
@@ -141,6 +151,18 @@ offsets = {
   }
 }
 EOF
+
+" neo-tree
+lua << EOF
+vim.keymap.set('n', '<leader>e', "<cmd>Neotree toggle<cr>", {})
+require("neo-tree").setup{
+window = {
+  position = "left",
+  width = 30
+  }
+}
+EOF
+
 
 " nvim-telescope/telescope.nvim
 lua << EOF
@@ -221,8 +243,11 @@ require('lualine').setup {
     component_separators = { left = '|', right = '|'},
     section_separators = { left = '', right = ''},
     colored = true,
-    globalstatus = false,
+    globalstatus = true,
   },
+  extensions = {
+    "neo-tree"
+  }
 }
 END
 
@@ -433,24 +458,15 @@ END
 "let g:indent_guides_guide_size = 1
 lua << END
 vim.opt.termguicolors = true
-vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
 
 vim.opt.list = true
+vim.opt.listchars:append "space:⋅"
+vim.opt.listchars:append "eol:↴"
 
 require("indent_blankline").setup {
-    char_highlight_list = {
-        "IndentBlanklineIndent1",
-        "IndentBlanklineIndent2",
-        "IndentBlanklineIndent3",
-        "IndentBlanklineIndent4",
-        "IndentBlanklineIndent5",
-        "IndentBlanklineIndent6",
-    },
+    space_char_blankline = " ",
+    show_current_context = true,
+    show_current_context_start = true,
 }
 END
 
@@ -497,7 +513,7 @@ nnoremap ZZ <Nop>
 
 set number " 行番号
 set ruler  " ルーラー
-set list listchars=tab:^_,trail:_ " 不可視文字
+" set list listchars=tab:^_,trail:_ " 不可視文字
 
 " 全角スペースをハイライト
 scriptencoding utf-8
@@ -525,8 +541,8 @@ autocmd BufReadPost *
   \ | endif
 
 " cmdline & statusline
-set cmdheight=1  " コマンドラインバッファ行数
-set laststatus=2 " ステータスラインを常に出力
+" set cmdheight=1  " コマンドラインバッファ行数
+" set laststatus=2 " ステータスラインを常に出力
 "let ff_type = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
 "set statusline=%f%m%=%r%h%w%{FugitiveStatusline()}[%Y,%{ff_type[&ff]}(%{&ff})][%{(&fenc!=''?&fenc:&enc)}][%03l/%03L,%03c][%02p%%]
 " }}}
