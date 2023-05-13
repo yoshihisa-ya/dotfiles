@@ -432,10 +432,8 @@ set autoread       " 自動的に読み直す
 noremap <C-n> :cnext<CR>
 noremap <C-p> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
-" 日付を入力する
-nnoremap <C-o><C-o> <ESC>i<C-R>=strftime("%Y-%m-%d")<CR>
 " C-jでC-^とする
-nnoremap <C-j> <C-^>
+"nnoremap <C-j> <C-^>
 " 探索結果を中心とする
 nnoremap n nzz
 nnoremap N Nzz
@@ -449,6 +447,7 @@ nnoremap ZZ <Nop>
 set number relativenumber" 行番号
 set ruler  " ルーラー
 " set list listchars=tab:^_,trail:_ " 不可視文字
+hi Comment gui=NONE
 
 " 全角スペースをハイライト
 scriptencoding utf-8
