@@ -222,7 +222,7 @@ require("lazy").setup({
             "clangd",
             "dockerls",
             "docker_compose_language_service",
-            "gopls",
+            -- "gopls",
             "html",
             "jsonls",
             "texlab",
@@ -421,6 +421,7 @@ set cursorline     " カーソル行をハイライト
 set nocursorcolumn " カーソルカラムをハイライトしない
 set nobackup       " バックアップファイルを作成しない
 set noswapfile     " スワップファイルを作成しない
+set backupcopy=yes
 set hidden         " 未保存バッファを許容する
 set autowrite      " 一部コマンドで自動保存する
 set autoread       " 自動的に読み直す
