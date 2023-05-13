@@ -295,7 +295,64 @@ require("lazy").setup({
       }
 
   },
-  { 'tyru/eskk.vim' }, -- ToDo: 他のプラグインを探す, 日本語表示がおかしいのを直す。
+  {
+      'vim-skk/skkeleton',
+      dependencies = 'vim-denops/denops.vim',
+  },
+  {
+      "numToStr/Comment.nvim",
+      config = true,
+  },
+  {
+      "s1n7ax/nvim-comment-frame",
+      dependencies = "nvim-treesitter/nvim-treesitter",
+      config = true,
+  },
+  {
+      "danymat/neogen", 
+      dependencies = "nvim-treesitter/nvim-treesitter",
+      config = true,
+  },
+  {
+      "andymass/vim-matchup",
+      config = true,
+  },
+  {
+      "windwp/nvim-autopairs",
+      config = true,
+  },
+  {
+      "norcalli/nvim-colorizer.lua", -- # TODO: 動作していないので確認する。
+      config = true,
+  },
+  {
+      "kevinhwang91/nvim-hlslens",
+      config = true,
+  },
+  { "vim-scripts/gtags.vim" },
+  { "voldikss/vim-translator" },
+  { "fuenor/JpFormat.vim" },
+  {
+      "iamcco/markdown-preview.nvim",
+      ft = "markdown",
+      build = function()
+      vim.fn["mkdp#util#install"]()
+      end,
+  },
+  {
+      "phaazon/hop.nvim",
+      config = function()
+      require('hop').setup()
+      local hop = require('hop')
+      local directions = require('hop.hint').HintDirection
+      vim.keymap.set('', 'f', function()
+      hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = false })
+      end, {remap=true})
+      vim.keymap.set('', 'F', function()
+      hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = false })
+      end, {remap=true})
+      end
+  },
 })
 
 local cmp = require'cmp'
@@ -356,57 +413,18 @@ cmp.setup.cmdline(':', {
 EOF
 
 
-"END
-" " tag
-" Plug 'vim-scripts/gtags.vim'
-"
-" " comment
-" Plug 'tomtom/tcomment_vim'
-"
-" " markdown
-" Plug 'kannokanno/previm'
-" Plug 'tyru/open-browser.vim'
-"
-" " autopair
-" Plug 'windwp/nvim-autopairs'
-"
-" " color highlighter
-" Plug 'norcalli/nvim-colorizer.lua'
-"
-" " move
-" Plug 'easymotion/vim-easymotion'
-"
-" " japanese
-" Plug 'fuenor/JpFormat.vim'
-" Plug 'skanehira/translate.vim'
-"
-" " search
-" Plug 'kevinhwang91/nvim-hlslens'
-
-
 " Plugin config {{{
 " -------------
-" tryu/eskk.vim
-let g:eskk#directory = "~/.config/eskk"
-let g:eskk#dictionary = { 'path': "~/.config/ibus-skk/user.dict", 'sorted': 0, 'encoding': 'euc-jp',}
-let g:eskk#large_dictionary = {'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}
-
-" easymotion/vim-easymotion
-" nmap s <Plug>(easymotion-s2)
-" nmap t <Plug>(easymotion-t2)
-
-" windwp/nvim-autopairs
-"lua << EOF
-"require("nvim-autopairs").setup {}
-"EOF
-
-" kevinhwang91/nvim-hlslens
-"lua << EOF
-"require('hlslens').setup()
-"EOF
+" vim-skk/skkeleton
+imap <C-j> <Plug>(skkeleton-enable)
+cmap <C-j> <Plug>(skkeleton-enable)
 
 " Gtags
 let Gtags_Auto_Map = 1
+
+" voldikss/vim-translator
+let g:translator_target_lang = "ja"
+let g:translator_default_engines = ['google']
 
 " }}}
 
@@ -461,9 +479,6 @@ augroup END
 " colorscheme
 " colorscheme tokyonight
 set pumblend=10
-
-" norcalli/nvim-colorizer.lua
-"lua require'colorizer'.setup()
 
 " Git commit で差分を表示
 autocmd FileType gitcommit DiffGitCached | wincmd x | resize 10
