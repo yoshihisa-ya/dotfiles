@@ -402,3 +402,7 @@ if [[ -n $ZENO_LOADED ]]; then
   # bindkey '^x' zeno-insert-snippet
   bindkey '^U' backward-kill-line
 fi
+
+if [ $(hostname) = "desktop" ] || [ $(hostname) = "nb" ]; then
+  eval "$(atuin init zsh)"
+fi
