@@ -5,3 +5,5 @@ path=(~/bin ~/.local/bin $GOPATH/bin $path)
 cdpath=(~)
 
 export MOZ_DISABLE_RDD_SANDBOX=1
+
+export DENO_NO_UPDATE_CHECK=1
