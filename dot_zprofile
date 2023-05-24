@@ -7,3 +7,8 @@ cdpath=(~)
 export MOZ_DISABLE_RDD_SANDBOX=1
 
 export DENO_NO_UPDATE_CHECK=1
+
+# ssh 接続先のターミナルマルチプレクサで、 ssh 再接続後も agent を利用できるようにする。
+agent="$HOME/.ssh/agent.sock"
+[ ! -L "$SSH_AUTH_SOCK" ] && [ -S "$SSH_AUTH_SOCK" ] && ln -snf "$SSH_AUTH_SOCK" "$agent"
+[ -S "$agent" ] && export SSH_AUTH_SOCK="$agent"
