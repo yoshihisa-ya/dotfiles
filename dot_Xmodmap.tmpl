@@ -1,8 +1,4 @@
-! CapsLock to Ctrl
-remove Lock = Caps_Lock
-keysym Caps_Lock = Control_L
-add Control = Control_L
-{{- if eq .chezmoi.hostname "nb" }}
+{{- if eq .chezmoi.hostname "nb" -}}
 ! Swap ThinkPad x1c3 Super_L, Alt_L
 remove mod1 = Alt_L
 remove mod4 = Super_L
