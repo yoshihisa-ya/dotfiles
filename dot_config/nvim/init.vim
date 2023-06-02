@@ -353,6 +353,7 @@ require("lazy").setup({
       end, {remap=true})
       end
   },
+  {'segeljakt/vim-silicon'},
 })
 
 local cmp = require'cmp'
@@ -425,6 +426,14 @@ let Gtags_Auto_Map = 1
 " voldikss/vim-translator
 let g:translator_target_lang = "ja"
 let g:translator_default_engines = ['google']
+
+" segeljakt/vim-silicon
+let g:silicon = {
+      \   'pad-horiz':                                   0,
+      \   'pad-vert':                                    0,
+      \   'output': '~/silicon-{time:%Y-%m-%d-%H%M%S}.png',
+      \   'window-controls':                       v:false,
+      \ }
 
 " }}}
 
