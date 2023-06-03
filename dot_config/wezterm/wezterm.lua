@@ -1,6 +1,13 @@
 local wezterm = require 'wezterm';
 
 return {
+  ssh_domains = {
+    {
+      name = 'linux-work1',
+      remote_address = 'linux-work1.yoshihisa.link',
+      username = 'yoshihisa',
+    },
+  },
   font = wezterm.font("HackGen35 Console NFJ", {weight="Regular", stretch="Normal", style="Normal"}),
   use_ime = true,
   -- disable_default_key_bindings = true,
