@@ -126,7 +126,10 @@ require("lazy").setup({
   {
       'akinsho/toggleterm.nvim',
       config = true,
-      vim.keymap.set('n', '<leader>tt', "<cmd>ToggleTerm direction=float<cr>", {})
+      opts = {
+        open_mapping = [[<c-\>]],
+        vim.keymap.set('n', '<leader>tf', "<cmd>ToggleTerm direction=float<cr>", {})
+      }
   },
   {
       'akinsho/bufferline.nvim',
