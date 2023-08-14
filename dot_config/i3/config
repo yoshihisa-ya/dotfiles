@@ -190,6 +190,9 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 for_window [class="virt-manager"] floating enable
 for_window [class="virt-viewer"] floating enable
 
+for_window [class="^Spotify$"] floating enable
+for_window [class="^Spotify Premium$"] floating enable
+
 exec --no-startup-id redshift-gtk -l 35.650583:139.540667
 exec --no-startup-id "sh -c 'sleep 1; exec bash ~/Sync/screenlayout/default.sh'"
 exec --no-startup-id "sh -c 'sleep 2; exec bash ~/.config/polybar/launch.sh'"
