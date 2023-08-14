@@ -1,0 +1,8 @@
+#!/bin/bash
+
+readonly BASEDIR="/var/lib/libvirt/images"
+
+# Arch Linux ISO
+DIR="${BASEDIR}/archlinux/iso"
+rsync -av --delete --include='latest' --include='20*/' --include '*.iso' --include '*.iso.sig' --exclude '*' rsync://ftp.jaist.ac.jp/pub/Linux/ArchLinux/iso/ "${DIR}" || exit 1
+find "${DIR}" -type f -name '*.iso.sig' -print0 | xargs -0 -n1 pacman-key -v || exit 1
