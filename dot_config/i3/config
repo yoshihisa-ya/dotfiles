@@ -187,8 +187,8 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
 
-for_window [class="virt-manager"] floating enable
-for_window [class="virt-viewer"] floating enable
+for_window [class="Virt-manager"] floating enable
+for_window [class="Virt-viewer"] floating enable
 
 for_window [class="^Spotify$"] floating enable
 for_window [class="^Spotify Premium$"] floating enable
