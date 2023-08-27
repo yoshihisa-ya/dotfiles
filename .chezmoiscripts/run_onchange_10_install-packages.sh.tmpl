@@ -69,6 +69,7 @@ if [ "$IS_WSL" == "true" ] || [ "${ROLE}" == "desktop" ]; then
     pkgs+=(libvirt virt-manager bridge-utils guestfs-tools virt-viewer)
     pkgs+=(sxiv mpv gimp)
     pkgs+=(firefox firefox-i18n-ja)
+    pkgs+=(mkdocs-material)
 fi
 if [ "${ROLE}" == "desktop" ]; then
     pkgs+=(xorg-server xorg-xinit xorg-xwininfo xorg-xrandr autorandr arandr xautolock)
