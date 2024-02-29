@@ -303,6 +303,12 @@ require("lazy").setup({
   {
       'vim-skk/skkeleton',
       dependencies = 'vim-denops/denops.vim',
+      config = function()
+        vim.fn["skkeleton#config"]({
+          globalDictionaries = {"/usr/share/skk/SKK-JISYO.L"}
+        })
+        vim.fn["skkeleton#initialize"]()
+      end,
   },
   {
       "numToStr/Comment.nvim",
