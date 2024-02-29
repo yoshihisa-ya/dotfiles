@@ -60,7 +60,7 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       config = function()
       require('nvim-treesitter.configs').setup({
-      ensure_installed = 'all',
+      ensure_installed ={ "c", "lua", "vim", "vimdoc", "bash", "c_sharp", "git_config", "git_rebase", "html", "jq", "json", "latex", "make", "markdown", "muttrc", "printf", "promql", "python", "rst", "ssh_config", "strace", "systemtap", "terraform", "toml", "xml", "yaml"},
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
