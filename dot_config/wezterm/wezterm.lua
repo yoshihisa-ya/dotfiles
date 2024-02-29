@@ -8,7 +8,7 @@ return {
       username = 'yoshihisa',
     },
   },
-  font = wezterm.font("HackGen35 Console NFJ", {weight="Regular", stretch="Normal", style="Normal"}),
+  font = wezterm.font("HackGen35 Console NF", {weight="Regular", stretch="Normal", style="Normal"}),
   use_ime = true,
   -- disable_default_key_bindings = true,
   leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 },
