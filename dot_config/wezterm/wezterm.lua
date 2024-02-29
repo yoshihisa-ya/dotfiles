@@ -66,12 +66,12 @@ return {
     saturation = 0.7,
     brightness = 0.3,
   },
-  window_background_image = '/home/yoshihisa/Sync/wallpaper/2ec475b3-173e-4ecb-b594-38bc3ca6e36a.jpg',
   window_background_image_hsb = {
     brightness = 0.15,
     hue = 1.0,
     saturation = 1.0,
   },
   text_background_opacity = 1.0,
+  window_background_opacity = 0.7
 }
 
