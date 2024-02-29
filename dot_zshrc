@@ -134,8 +134,8 @@ function extract() {
 }
 alias -s {gz,tgz,zip,bz2,tbz,tar}=extract
 
-alias n='mpc next'
-alias p='mpc pause'
+alias n='playerctl next'
+alias p='playerctl play-pause'
 alias xclip='xclip -selection clipboard'
 windowid() {
     xwininfo | awk '/Window id/{print$4}'
