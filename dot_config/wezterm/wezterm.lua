@@ -11,7 +11,7 @@ return {
   font = wezterm.font("HackGen35 Console NF", {weight="Regular", stretch="Normal", style="Normal"}),
   use_ime = true,
   -- disable_default_key_bindings = true,
-  leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 },
+  leader = { key = 't', mods = 'CTRL', timeout_milliseconds = 1000 },
   keys = {
     -- tmux like keybinds
     { key = '\"', mods = 'LEADER|SHIFT', action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' }, },
@@ -20,7 +20,7 @@ return {
     { key = 'p', mods = 'LEADER', action = wezterm.action.ActivateTabRelative(-1) },
     { key = 'n', mods = 'LEADER', action = wezterm.action.ActivateTabRelative(1) },
     { key = 'z', mods = 'LEADER', action = wezterm.action.TogglePaneZoomState },
-    { key = 'a', mods = 'LEADER|CTRL', action = wezterm.action.SendString '\x01', },
+    { key = 't', mods = 'LEADER|CTRL', action = wezterm.action.SendString '\x14', },
   },
   font_size = 11,
   use_fancy_tab_bar = false,
