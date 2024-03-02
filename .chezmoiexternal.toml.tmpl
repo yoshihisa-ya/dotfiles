@@ -11,31 +11,6 @@
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--xz", "--to-stdout", "shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck"]
 
-[".local/bin/fzf"]
-  type = "file"
-  url = "https://github.com/junegunn/fzf/releases/download/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/fzf-{{ (gitHubLatestRelease "junegunn/fzf").TagName }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
-  executable = true
-  refreshPeriod = "168h"
-  [".local/bin/fzf".filter]
-    command = "tar"
-    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
-
-[".local/bin/fzf-tmux"]
-  type = "file"
-  url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/bin/fzf-tmux"
-  executable = true
-  refreshPeriod = "168h"
-
-[".local/share/fzf/shell/key-bindings.zsh"]
-  type = "file"
-  url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/key-bindings.zsh"
-  refreshPeriod = "168h"
-
-[".local/share/zsh-completions/_fzf"]
-  type = "file"
-  url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/completion.zsh"
-  refreshPeriod = "168h"
-
 [".local/bin/lsd"]
   type = "file"
   url = "https://github.com/Peltoche/lsd/releases/download/{{ (gitHubLatestRelease "Peltoche/lsd").TagName }}/lsd-{{ (gitHubLatestRelease "Peltoche/lsd").TagName }}-{{ $arch }}-{{ $rustOS }}.tar.gz"
