@@ -365,6 +365,11 @@ require("lazy").setup({
       end
   },
   {'segeljakt/vim-silicon'},
+  {
+    "vimwiki/vimwiki",
+    init = function()
+    end,
+  },
 })
 
 local cmp = require'cmp'
