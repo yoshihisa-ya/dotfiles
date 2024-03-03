@@ -7,6 +7,7 @@ lua << EOF
 vim.opt.list = true
 vim.opt.listchars:append "space:⋅"
 vim.opt.listchars:append "eol:↴"
+vim.g.maplocalleader = '_'
 EOF
 
 " Plugin {{{
@@ -60,7 +61,7 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       config = function()
       require('nvim-treesitter.configs').setup({
-      ensure_installed ={ "c", "lua", "vim", "vimdoc", "bash", "c_sharp", "git_config", "git_rebase", "html", "jq", "json", "latex", "make", "markdown", "muttrc", "printf", "promql", "python", "rst", "ssh_config", "strace", "systemtap", "terraform", "toml", "xml", "yaml"},
+      ensure_installed ={ "c", "lua", "vim", "vimdoc", "bash", "c_sharp", "git_config", "git_rebase", "html", "jq", "json", "latex", "make", "markdown", "muttrc", "printf", "promql", "python", "rst", "ssh_config", "strace", "systemtap", "terraform", "toml", "xml", "yaml", "norg"},
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
@@ -370,6 +371,31 @@ require("lazy").setup({
     init = function()
     end,
   },
+  {
+    "nvim-neorg/neorg",
+    tag = "v7.0.0",
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {},
+          ["core.concealer"] = {},
+          ["core.dirman"] = {
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+              default_workspace = "notes",
+            },
+          },
+        },
+      }
+
+      vim.wo.foldlevel = 99
+      vim.wo.conceallevel = 2
+    end,
+  }
 })
 
 local cmp = require'cmp'
