@@ -1,6 +1,5 @@
 README.md
 {{- if (or (ne .role "desktop") (ne .chezmoi.os "linux")) }}
-.config/espanso/
 .config/polybar/
 .config/rofi/
 .config/alacritty/
