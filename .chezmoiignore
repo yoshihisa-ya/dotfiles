@@ -1,6 +1,5 @@
 README.md
 {{- if (or (ne .role "desktop") (ne .chezmoi.os "linux")) }}
-.config/rofi/
 .config/wezterm/
 {{- end}}
 {{- if (or (ne .role "desktop") (ne .chezmoi.os "linux") (eq .is_work true)) }}
