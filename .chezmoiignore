@@ -1,12 +1,5 @@
 README.md
-{{- if (or (ne .chezmoi.hostname "nb") (ne .role "desktop") (ne .chezmoi.os "linux")) }}
-.Xmodmap
-.xbindkeysrc
-{{- end}}
 {{- if (or (ne .role "desktop") (ne .chezmoi.os "linux")) }}
-.xinitrc
-.xscreensaver
-.config/i3/
 .config/espanso/
 .config/polybar/
 .config/rofi/
