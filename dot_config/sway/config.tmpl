@@ -1,4 +1,8 @@
+{{- if .is_wsl -}}
+set $mod Mod1+Control
+{{- else -}}
 set $mod Mod4
+{{- end }}
 
 set $left h
 set $down j
@@ -7,6 +11,7 @@ set $right l
 
 include /etc/sway/config-vars.d/*
 
+{{ if not .is_wsl -}}
 output * bg /home/yoshihisa/Sync/wallpaper/2ec475b3-173e-4ecb-b594-38bc3ca6e36a.jpg fill
 
 output HEADLESS-1 resolution 1280x720 position 0,1080
@@ -14,8 +19,9 @@ output HEADLESS-1 bg "#708090" solid_color
 workspace 0 output HEADLESS-1
 bindsym $mod+0 workspace number 0
 bindsym $mod+Shift+0 move container to workspace number 0
+{{- end }}
 
-{{- if eq .chezmoi.hostname "desktop" }}
+{{ if eq .chezmoi.hostname "desktop" -}}
 output DP-2 pos 0 330 res 2560 1440 bg /home/yoshihisa/Sync/wallpaper/b1110b46-80ad-4585-b93c-cf4c550a625e.png fill
 output DP-4 pos 2560 0 res 2560 1440 transform 90 bg /home/yoshihisa/Sync/wallpaper/1a3f5385-5153-4889-879f-135bc5e97696.jpg fill
 
@@ -27,18 +33,20 @@ gaps inner 10
 gaps outer 5
 default_border pixel 1
 
+{{ if not .is_wsl -}}
 ## TODO: swaylock keyboard bind
 
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f -c 000000'
+{{- end }}
 
 bindsym $mod+Return exec wezterm
 bindsym $mod+Shift+q kill
 set $menu wofi --show
 bindsym $mod+d exec $menu
-floating_modifier $mod normal
+floating_modifier Mod1 normal
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
@@ -127,8 +135,10 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 
-exec --no-startup-id fcitx5 -dr
+{{ if not .is_wsl -}}
 exec --no-startup-id gammastep-indicator -l 35.650583:139.540667
 exec --no-startup-id blueman-applet
 exec --no-startup-id nm-applet --indicator
+{{- end }}
+exec --no-startup-id fcitx5 -dr
 exec --no-startup-id swaync
