@@ -12,8 +12,8 @@ bind index,pager B sidebar-toggle-visible
 bind index,pager \CP sidebar-prev
 bind index,pager \CN sidebar-next
 bind index,pager \CO sidebar-open
-mailboxes +/
-mailboxes `find ~/mail/yamano -mindepth 1 -type d -not \( -name new -o -name tmp -o -name cur \) -printf "+%P "`
+mailboxes +/ +/YouTube +/RSS/Phoronix +/RSS/LWN
+mailboxes `find ~/mail/yamano -mindepth 1 -type d -not \( -name new -o -name tmp -o -name cur -o -name .notmuch -o -name xapian \) -printf "+%P "`
 
 set realname = 'Yoshihisa Yamano'
 set from = {{ (bitwarden "item" "mail/yamano").login.username }}

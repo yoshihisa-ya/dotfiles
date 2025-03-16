@@ -47,6 +47,12 @@ ML/JPCERT/
 :0
 * ^User-Agent: rss2email.*
 * ^List-Id: .*<\/[^.]*
+* List-ID: .*<YouTube-.*
+YouTube/
+
+:0
+* ^User-Agent: rss2email.*
+* ^List-Id: .*<\/[^.]*
 RSS/$MATCH/
 
 :0
