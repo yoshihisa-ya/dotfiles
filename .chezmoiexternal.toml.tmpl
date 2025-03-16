@@ -74,7 +74,7 @@
 
 [".local/bin/nvim"]
   type = "file"
-  url = "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+  url = "https://github.com/neovim/neovim/releases/latest/download/nvim-{{ .chezmoi.os | replace "darwin" "macos" }}-{{ .chezmoi.arch | replace "amd64" "x86_64" }}.appimage "
   executable = true
   refreshPeriod = "168h"
 
