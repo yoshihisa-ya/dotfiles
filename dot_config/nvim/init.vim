@@ -61,7 +61,7 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       config = function()
       require('nvim-treesitter.configs').setup({
-      ensure_installed ={ "c", "lua", "vim", "vimdoc", "bash", "c_sharp", "git_config", "git_rebase", "html", "jq", "json", "latex", "make", "markdown", "muttrc", "printf", "promql", "python", "rst", "ssh_config", "strace", "systemtap", "terraform", "toml", "xml", "yaml", "norg"},
+      ensure_installed ={ "c", "lua", "vim", "vimdoc", "bash", "c_sharp", "git_config", "git_rebase", "html", "jq", "json", "make", "markdown", "muttrc", "printf", "promql", "python", "rst", "ssh_config", "strace", "systemtap", "terraform", "toml", "xml", "yaml", "norg"},
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
@@ -87,7 +87,7 @@ require("lazy").setup({
       end,
   },
   {
-      "nvim-telescope/telescope.nvim", tag = '0.1.1',
+      "nvim-telescope/telescope.nvim", tag = '0.1.8',
       dependencies = {
         "nvim-lua/plenary.nvim",
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -245,7 +245,7 @@ require("lazy").setup({
       end,
   },
   {
-      "jose-elias-alvarez/null-ls.nvim",
+      "nvimtools/none-ls.nvim",
       -- :MasonInstall shellcheck shfmt
       dependencies = {
         "nvim-lua/plenary.nvim",
@@ -373,14 +373,14 @@ require("lazy").setup({
   },
   {
     "nvim-neorg/neorg",
-    tag = "v7.0.0",
-    build = ":Neorg sync-parsers",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    lazy = false,
+    version = "*",
     config = function()
       require("neorg").setup {
         load = {
           ["core.defaults"] = {},
           ["core.concealer"] = {},
+          ["core.summary"] = {},
           ["core.dirman"] = {
             config = {
               workspaces = {
@@ -389,12 +389,12 @@ require("lazy").setup({
               default_workspace = "notes",
             },
           },
+          ['core.esupports.metagen'] = { config = { update_date = false } }, -- https://github.com/nvim-neorg/neorg/issues/1579
         },
       }
-
       vim.wo.foldlevel = 99
       vim.wo.conceallevel = 2
-    end,
+      end,
   }
 })
 
