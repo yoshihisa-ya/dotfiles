@@ -22,11 +22,13 @@ bindsym $mod+Shift+0 move container to workspace number 0
 {{- end }}
 
 {{ if eq .chezmoi.hostname "desktop" -}}
-output DP-2 pos 0 330 res 2560 1440 bg /home/yoshihisa/Sync/wallpaper/b1110b46-80ad-4585-b93c-cf4c550a625e.png fill
-output DP-4 pos 2560 0 res 2560 1440 transform 90 bg /home/yoshihisa/Sync/wallpaper/1a3f5385-5153-4889-879f-135bc5e97696.jpg fill
+output DP-4 pos 0 0 res 2560x1440 transform 270 bg /home/yoshihisa/Sync/wallpaper/1a3f5385-5153-4889-879f-135bc5e97696.jpg fill
+output HDMI-A-1 scale 1.25 pos 1440 0 res 3840x2160 bg /home/yoshihisa/Sync/wallpaper/b1110b46-80ad-4585-b93c-cf4c550a625e.png fill
+output DP-2 pos 4512 0 res 2560x1440 transform 90 bg /home/yoshihisa/Sync/wallpaper/fee4f984-1db8-4b9d-b64b-7deec8fe4d57.jpg fill
 
-workspace 1 output DP-2
-workspace 2 output DP-4
+workspace 9 output DP-4
+workspace 1 output HDMI-A-1
+workspace 2 output DP-2
 {{- end }}
 
 gaps inner 10
