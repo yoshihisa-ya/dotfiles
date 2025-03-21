@@ -11,32 +11,6 @@
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--xz", "--to-stdout", "shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck"]
 
-[".local/bin/lsd"]
-  type = "file"
-  url = "https://github.com/Peltoche/lsd/releases/download/{{ (gitHubLatestRelease "Peltoche/lsd").TagName }}/lsd-{{ (gitHubLatestRelease "Peltoche/lsd").TagName }}-{{ $arch }}-{{ $rustOS }}.tar.gz"
-  executable = true
-  refreshPeriod = "168h"
-  [".local/bin/lsd".filter]
-    command = "tar"
-    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "lsd-{{ (gitHubLatestRelease "Peltoche/lsd").TagName }}-{{ $arch }}-{{ $rustOS }}/lsd"]
-
-[".local/bin/bat"]
-  type = "file"
-  url = "https://github.com/sharkdp/bat/releases/download/{{ (gitHubLatestRelease "sharkdp/bat").TagName }}/bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-{{ $arch }}-{{ $rustOS }}.tar.gz"
-  executable = true
-  refreshPeriod = "168h"
-  [".local/bin/bat".filter]
-    command = "tar"
-    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-{{ $arch }}-{{ $rustOS }}/bat"]
-
-[".local/share/zsh-completions/_bat"]
-  type = "file"
-  url = "https://github.com/sharkdp/bat/releases/download/{{ (gitHubLatestRelease "sharkdp/bat").TagName }}/bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-{{ $arch }}-{{ $rustOS }}.tar.gz"
-  refreshPeriod = "168h"
-  [".local/share/zsh-completions/_bat".filter]
-    command = "tar"
-    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-{{ $arch }}-{{ $rustOS }}/autocomplete/bat.zsh"]
-
 [".local/bin/rg"]
   type = "file"
   url = "https://github.com/BurntSushi/ripgrep/releases/download/{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}/ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-{{ $arch }}-{{ $rustOS }}.tar.gz"

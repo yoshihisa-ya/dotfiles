@@ -104,7 +104,6 @@ zstyle ':completion:*' ignore-parents parent pwd
 
 # Alias {{{1
 # ----------
-alias ls='lsd'
 alias vi='nvim'
 alias vim='nvim'
 alias grep="grep --color=auto"
@@ -113,7 +112,6 @@ alias ip="ip -color=auto"
 alias rm=" rm -iv"
 alias mv=" mv -iv"
 alias cp='cp -i --reflink=auto'
-alias cat='bat --paging=never'
 
 # /etc/ssh/ssh_config で SendEnv が設定されているのを無視する為。
 alias ssh='TERM=xterm ssh -F ~/.ssh/config'
