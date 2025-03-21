@@ -1,7 +1,9 @@
 export GOPATH=$HOME/dev
 
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 typeset -U cdpath path
-path=(~/bin ~/.local/bin $GOPATH/bin $path)
+path=(~/bin ~/.local/bin $GOPATH/bin /opt/homebrew/opt/findutils/libexec/gnubin $path)
 cdpath=(~)
 
 export MOZ_DISABLE_RDD_SANDBOX=1
