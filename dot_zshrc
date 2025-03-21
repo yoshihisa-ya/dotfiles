@@ -27,7 +27,7 @@ export LESS_TERMCAP_so=$'\E[00;47;30m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-. /etc/os-release
+[ -r /etc/os-release ] && . /etc/os-release
 
 if [ "$ID" = "arch" ] || [ "$ID" = "debian" ]; then
   # gpg-agent
