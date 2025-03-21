@@ -1,5 +1,8 @@
 # vim: set foldmethod=marker :
 
+OS="$(uname)"
+[ "${OS}" = "Darwin" ] && stty discard undef # Default macOS ctrl-o discard
+
 # . $HOME/.asdf/asdf.sh
 # fpath=(${ASDF_DIR}/completions $fpath)
 
