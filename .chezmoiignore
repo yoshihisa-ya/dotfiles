@@ -2,6 +2,15 @@ README.md
 {{- if (or (ne .role "desktop") (ne .chezmoi.os "linux") (eq .is_work true)) }}
 .config/mpd/
 {{- end}}
+{{- if eq .chezmoi.os "darwin" }}
+.config/atuin/
+.config/mpd/
+.config/gtk-3.0/
+.config/sway/
+.config/waybar/
+.config/wofi/
+.inputrc
+{{- end}}
 {{- if ne .is_syncmaildir true }}
 .config/mutt/
 .getmail/
