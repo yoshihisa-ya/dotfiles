@@ -11,6 +11,9 @@ README.md
 .config/wofi/
 .inputrc
 {{- end}}
+{{- if ne .chezmoi.os "darwin" }}
+.aerospace.toml
+{{- end}}
 {{- if ne .is_syncmaildir true }}
 .config/mutt/
 .getmail/
