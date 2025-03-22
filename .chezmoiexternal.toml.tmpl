@@ -68,29 +68,30 @@
   refreshPeriod = "168h"
 {{ end }}
 
-[".local/share/fonts/DejaVuSansMono"]
+{{ $fontsPath := .chezmoi.os | replace "darwin" "Library/Fonts" | replace "linux" ".local/share/fonts" -}}
+["{{ $fontsPath }}/DejaVuSansMono"]
   type = "archive"
   url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/DejaVuSansMono.zip"
   refreshPeriod = "168h"
 
-[".local/share/fonts/RobotoMono"]
+["{{ $fontsPath }}/RobotoMono"]
   type = "archive"
   url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/RobotoMono.zip"
   refreshPeriod = "168h"
 
-[".local/share/fonts/PlemolJP_NF"]
+["{{ $fontsPath }}/PlemolJP_NF"]
   type = "archive"
   url = "https://github.com/yuru7/PlemolJP/releases/download/{{ (gitHubLatestRelease "yuru7/PlemolJP").TagName }}/PlemolJP_NF_{{ (gitHubLatestRelease "yuru7/PlemolJP").TagName }}.zip"
   refreshPeriod = "168h"
   stripComponents = 1
 
-[".local/share/fonts/HackGen_NF"]
+["{{ $fontsPath }}/HackGen_NF"]
   type = "archive"
   url = "https://github.com/yuru7/HackGen/releases/download/{{ (gitHubLatestRelease "yuru7/HackGen").TagName }}/HackGen_NF_{{ (gitHubLatestRelease "yuru7/HackGen").TagName }}.zip"
   refreshPeriod = "168h"
   stripComponents = 1
 
-[".local/share/fonts/Cica"]
+["{{ $fontsPath }}/Cica"]
   type = "archive"
   url = "https://github.com/miiton/Cica/releases/download/{{ (gitHubLatestRelease "miiton/Cica").TagName }}/Cica_{{ (gitHubLatestRelease "miiton/Cica").TagName }}.zip"
   refreshPeriod = "168h"
