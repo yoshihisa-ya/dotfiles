@@ -52,7 +52,7 @@
   executable = true
   refreshPeriod = "168h"
 
-{{ if (and (or (eq .chezmoi.os "linux") (eq .chezmoi.os "darwin") (eq .chezmoi.os "windows")) (eq .chezmoi.arch "amd64")) }}
+{{ if (and (or (eq .chezmoi.os "linux") (eq .chezmoi.os "windows")) (eq .chezmoi.arch "amd64")) }}
 {{ $jqOS := .chezmoi.os | replace "darwin" "osx-amd64" | replace "linux" "linux64" | replace "windows" "win64" -}}
 [".local/bin/jq"]
   type = "file"
@@ -66,6 +66,15 @@
   url = "https://github.com/mvdan/sh/releases/download/{{ (gitHubLatestRelease "mvdan/sh").TagName }}/shfmt_{{ (gitHubLatestRelease "mvdan/sh").TagName }}_{{ .chezmoi.os }}_{{ .chezmoi.arch }}"
   executable = true
   refreshPeriod = "168h"
+
+[".local/bin/ghq"]
+  type = "file"
+  url = "https://github.com/x-motemen/ghq/releases/download/{{ (gitHubLatestRelease "x-motemen/ghq").TagName }}/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip"
+  executable = true
+  refreshPeriod = "168h"
+  [".local/bin/ghq".filter]
+    command = "bash"
+    args = ["-c", "tmpdir=$(mktemp -d); cat > $tmpdir/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip && unzip -p $tmpdir/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}/ghq"]
 {{ end }}
 
 {{ $fontsPath := .chezmoi.os | replace "darwin" "Library/Fonts" | replace "linux" ".local/share/fonts" -}}
@@ -95,12 +104,3 @@
   type = "archive"
   url = "https://github.com/miiton/Cica/releases/download/{{ (gitHubLatestRelease "miiton/Cica").TagName }}/Cica_{{ (gitHubLatestRelease "miiton/Cica").TagName }}.zip"
   refreshPeriod = "168h"
-
-[".local/bin/ghq"]
-  type = "file"
-  url = "https://github.com/x-motemen/ghq/releases/download/{{ (gitHubLatestRelease "x-motemen/ghq").TagName }}/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip"
-  executable = true
-  refreshPeriod = "168h"
-  [".local/bin/ghq".filter]
-    command = "bash"
-    args = ["-c", "tmpdir=$(mktemp -d); cat > $tmpdir/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip && unzip -p $tmpdir/ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}.zip ghq_{{ .chezmoi.os }}_{{ .chezmoi.arch }}/ghq"]
