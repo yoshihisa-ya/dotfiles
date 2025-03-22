@@ -109,6 +109,7 @@ zstyle ':completion:*' ignore-parents parent pwd
 # ----------
 alias vi='nvim'
 alias vim='nvim'
+alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 alias diff="diff --color=auto"
 alias ip="ip -color=auto"
