@@ -9,7 +9,7 @@ password = {{ (bitwarden "item" "mail/yamano").login.password }}
 type = MDA_external
 {{- if eq .chezmoi.os "darwin" }}
 path = /opt/homebrew/bin/procmail
-{{ else -}}
+{{ else }}
 path = /usr/bin/procmail
 {{- end }}
 [options]
