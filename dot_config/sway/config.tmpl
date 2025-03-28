@@ -1,8 +1,4 @@
-{{- if .is_wsl -}}
-set $mod Mod1+Control
-{{- else -}}
-set $mod Mod4
-{{- end }}
+set $mod Mod1
 
 set $left h
 set $down j
@@ -28,21 +24,19 @@ output DP-2 pos 4512 0 res 2560x1440 transform 90 bg /home/yoshihisa/Sync/wallpa
 
 workspace 9 output DP-4
 workspace 1 output HDMI-A-1
-workspace 2 output DP-2
+workspace 8 output DP-2
 {{- end }}
 
 gaps inner 10
 gaps outer 5
 default_border pixel 1
 
-{{ if not .is_wsl -}}
 ## TODO: swaylock keyboard bind
 
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f -c 000000'
-{{- end }}
 
 bindsym $mod+Return exec wezterm
 bindsym $mod+Shift+q kill
@@ -137,10 +131,8 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 
-{{ if not .is_wsl -}}
 exec --no-startup-id gammastep-indicator -l 35.650583:139.540667
 exec --no-startup-id blueman-applet
 exec --no-startup-id nm-applet --indicator
-{{- end }}
 exec --no-startup-id fcitx5 -dr
 exec --no-startup-id swaync
