@@ -65,7 +65,7 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       config = function()
       require('nvim-treesitter.configs').setup({
-      ensure_installed ={ "c", "lua", "vim", "vimdoc", "bash", "c_sharp", "git_config", "git_rebase", "html", "jq", "json", "make", "markdown", "muttrc", "printf", "promql", "python", "rst", "ssh_config", "strace", "systemtap", "terraform", "toml", "xml", "yaml", "norg"},
+      ensure_installed ={ "c", "lua", "vim", "vimdoc", "bash", "c_sharp", "git_config", "git_rebase", "html", "jq", "json", "make", "markdown", "muttrc", "printf", "promql", "python", "rst", "ssh_config", "strace", "systemtap", "terraform", "toml", "xml", "yaml"},
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
@@ -386,31 +386,6 @@ require("lazy").setup({
     "tools-life/taskwiki",
     init = function()
     end,
-  },
-  {
-    "nvim-neorg/neorg",
-    lazy = false,
-    version = "*",
-    config = function()
-      require("neorg").setup {
-        load = {
-          ["core.defaults"] = {},
-          ["core.concealer"] = {},
-          ["core.summary"] = {},
-          ["core.dirman"] = {
-            config = {
-              workspaces = {
-                notes = "~/notes",
-              },
-              default_workspace = "notes",
-            },
-          },
-          ['core.esupports.metagen'] = { config = { update_date = false } }, -- https://github.com/nvim-neorg/neorg/issues/1579
-        },
-      }
-      vim.wo.foldlevel = 99
-      vim.wo.conceallevel = 2
-      end,
   },
   {
     "folke/todo-comments.nvim",
