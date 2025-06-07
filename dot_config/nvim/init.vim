@@ -407,6 +407,10 @@ require("lazy").setup({
       vim.wo.foldlevel = 99
       vim.wo.conceallevel = 2
       end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
   }
 })
 
@@ -464,6 +468,14 @@ cmp.setup.cmdline(':', {
   { name = 'cmdline' }
   })
 })
+
+vim.keymap.set("n", "]t", function()
+  require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+
+vim.keymap.set("n", "[t", function()
+  require("todo-comments").jump_prev()
+end, { desc = "Previous todo comment" })
 
 EOF
 
