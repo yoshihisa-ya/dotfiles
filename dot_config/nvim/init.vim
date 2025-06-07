@@ -369,6 +369,18 @@ require("lazy").setup({
   {
     "vimwiki/vimwiki",
     init = function()
+    vim.g.vimwiki_list = {
+      {
+          path = "~/notes/wiki",
+          syntax = "markdown",
+          ext = "md",
+      },
+    }
+    end,
+  },
+  {
+    "tools-life/taskwiki",
+    init = function()
     end,
   },
   {
