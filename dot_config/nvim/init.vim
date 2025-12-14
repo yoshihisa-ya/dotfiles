@@ -349,13 +349,6 @@ require("lazy").setup({
   { "voldikss/vim-translator" },
   { "fuenor/JpFormat.vim" },
   {
-      "iamcco/markdown-preview.nvim",
-      ft = "markdown",
-      build = function()
-      vim.fn["mkdp#util#install"]()
-      end,
-  },
-  {
       "phaazon/hop.nvim",
       config = function()
       require('hop').setup()
