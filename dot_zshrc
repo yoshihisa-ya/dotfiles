@@ -118,6 +118,9 @@ alias ip="ip -color=auto"
 alias rm=" rm -iv"
 alias mv=" mv -iv"
 alias cp='cp -i --reflink=auto'
+alias khal='LANG=C khal'
+alias ikhal='LANG=C ikhal'
+alias cal='LANG=C khal calendar'
 
 # /etc/ssh/ssh_config で SendEnv が設定されているのを無視する為。
 alias ssh='TERM=xterm ssh -F ~/.ssh/config'
