@@ -63,6 +63,7 @@ require("lazy").setup({
   },
   {
       "nvim-treesitter/nvim-treesitter",
+      branch = 'master',
       config = function()
       require('nvim-treesitter.configs').setup({
       ensure_installed ={ "c", "lua", "vim", "vimdoc", "bash", "c_sharp", "git_config", "git_rebase", "html", "jq", "json", "make", "markdown", "muttrc", "printf", "promql", "python", "rst", "ssh_config", "strace", "systemtap", "terraform", "toml", "xml", "yaml"},
