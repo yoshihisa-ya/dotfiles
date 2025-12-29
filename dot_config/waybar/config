@@ -2,7 +2,7 @@
     "layer": "bottom",
     "position": "top",
     "output": "!HEADLESS-1",
-    "height": 30,
+    "height": 35,
     "spacing": 4,
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
     "modules-center": ["sway/window"],
@@ -65,12 +65,13 @@
         "spacing": 10
     },
     "clock": {
-        "interval": 10,
+        "interval": 1,
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format": "{:%T}",
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
+        "interval": 2,
         "format": "{avg_frequency}GHz {usage}% ",
         "tooltip": false
     },
@@ -79,6 +80,7 @@
     },
     "temperature": {
         "critical-threshold": 70,
+        "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
         "format": "{temperatureC}°C ",
     },
     "backlight": {
@@ -129,15 +131,15 @@
         "on-click": "pavucontrol"
     },
     "custom/media": {
-        "format": "{icon} {}",
+        "format": "{icon} {text}",
         "return-type": "json",
         "max-length": 40,
         "format-icons": {
             "spotify": "",
-            "default": "🎜"
+            "default": ""
         },
         "escape": true,
-        "exec": "$HOME/Sync/waybar/mediaplayer.py --player spotify 2> /dev/null"
+        "exec": "$HOME/Sync/waybar/mediaplayer.py 2> /dev/null"
     },
     "custom/notification": {
       "tooltip": false,
