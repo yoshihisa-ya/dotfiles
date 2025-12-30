@@ -1,7 +1,7 @@
 {{ $arch := .chezmoi.arch | replace "amd64" "x86_64" | replace "arm64" "aarch64" -}}
 {{ $rustOS := .chezmoi.os | replace "linux" "unknown-linux-musl" | replace "darwin" "apple-darwin" | replace "windows" "pc-windows-msvc" -}}
 
-{{ if (and (eq .chezmoi.os "linux") (or (ne .chezmoi.osRelease.id "arch") (and (eq .is_autoinstall false) (eq .chezmoi.osRelease.id "arch")))) }}
+{{ if (and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.id "arch")) }}
 [".local/bin/shellcheck"]
   type = "file"
   url = "https://github.com/koalaman/shellcheck/releases/download/{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}/shellcheck-{{ (gitHubLatestRelease "koalaman/shellcheck").TagName }}.{{ .chezmoi.os }}.{{ $arch }}.tar.xz"

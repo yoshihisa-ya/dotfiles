@@ -7,7 +7,6 @@
 {{ $is_work := false -}}
 {{ $work_github_url := "" -}}
 {{ $work_github_username := "" -}}
-{{ $is_autoinstall := false -}}
 {{ $is_syncthing := false -}}
 {{ $is_pass := true -}}
 {{ $is_bitwarden := false -}}
@@ -37,7 +36,6 @@
 {{     $is_syncmaildir = promptBoolOnce . "is_syncmaildir" "Use shared maildir in Syncthing" false -}}
 {{   end -}}
 {{   $is_pass = promptBoolOnce . "is_pass" "Installed pass" true -}}
-{{   $is_autoinstall = promptBoolOnce . "is_autoinstall" "Auto install packages with administrative privileges" false -}}
 {{ end -}}
 
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) -}}
@@ -56,7 +54,6 @@
   is_bitwarden = {{ $is_bitwarden }}
   is_pass = {{ $is_pass }}
   is_syncmaildir = {{ $is_syncmaildir }}
-  is_autoinstall = {{ $is_autoinstall }}
   is_wsl = {{ $is_wsl }}
 
 [data.work]
@@ -70,7 +67,6 @@
   IS_BITWARDEN = {{ $is_bitwarden | quote }}
   IS_PASS = {{ $is_pass | quote }}
   IS_SYNCMAILDIR = {{ $is_syncmaildir | quote }}
-  IS_AUTOINSTALL = {{ $is_autoinstall | quote }}
   IS_WSL = {{ $is_wsl | quote }}
   PKGINSTALL = {{ $pkginstall | quote }}
 
