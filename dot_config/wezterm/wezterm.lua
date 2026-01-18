@@ -1,4 +1,5 @@
 local wezterm = require 'wezterm';
+local act = wezterm.action
 
 return {
   font = wezterm.font("HackGen35 Console NF", {weight="Regular", stretch="Normal", style="Normal"}),
@@ -12,8 +13,47 @@ return {
     { key = 'c', mods = 'LEADER', action = wezterm.action.SpawnTab 'CurrentPaneDomain' },
     { key = 'p', mods = 'LEADER', action = wezterm.action.ActivateTabRelative(-1) },
     { key = 'n', mods = 'LEADER', action = wezterm.action.ActivateTabRelative(1) },
-    { key = 'z', mods = 'LEADER', action = wezterm.action.TogglePaneZoomState },
     { key = 't', mods = 'LEADER|CTRL', action = wezterm.action.SendString '\x14', },
+    { key = "[", mods = "LEADER", action = wezterm.action_callback(function(window, pane)
+        window:perform_action(wezterm.action.ActivateCopyMode, pane)
+        window:perform_action(wezterm.action.CopyMode("MoveUp"), pane)
+        window:perform_action(wezterm.action.CopyMode({ SetSelectionMode = "Line" }), pane)
+      end),
+    },
+  },
+    key_tables = {
+    copy_mode = {
+      { key = '$', mods = 'NONE', action = act.CopyMode 'MoveToEndOfLineContent' },
+      { key = '$', mods = 'SHIFT', action = act.CopyMode 'MoveToEndOfLineContent' },
+      { key = '0', mods = 'NONE', action = act.CopyMode 'MoveToStartOfLine' },
+      { key = 'G', mods = 'NONE', action = act.CopyMode 'MoveToScrollbackBottom' },
+      { key = 'G', mods = 'SHIFT', action = act.CopyMode 'MoveToScrollbackBottom' },
+      { key = 'g', mods = 'NONE', action = act.CopyMode 'MoveToScrollbackTop' },
+      { key = 'Space', mods = 'NONE', action = act.CopyMode{ SetSelectionMode =  'Cell' } },
+      { key = 'V', mods = 'NONE', action = act.CopyMode{ SetSelectionMode =  'Line' } },
+      { key = 'V', mods = 'SHIFT', action = act.CopyMode{ SetSelectionMode =  'Line' } },
+      { key = '^', mods = 'NONE', action = act.CopyMode 'MoveToStartOfLineContent' },
+      { key = '^', mods = 'SHIFT', action = act.CopyMode 'MoveToStartOfLineContent' },
+      { key = 'q', mods = 'NONE', action = act.Multiple{ 'ScrollToBottom', { CopyMode =  'Close' } } },
+      { key = 'v', mods = 'NONE', action = act.CopyMode{ SetSelectionMode =  'Cell' } },
+      { key = 'v', mods = 'CTRL', action = act.CopyMode{ SetSelectionMode =  'Block' } },
+      { key = 'PageUp', mods = 'NONE', action = act.CopyMode 'PageUp' },
+      { key = 'PageDown', mods = 'NONE', action = act.CopyMode 'PageDown' },
+      { key = 'h', mods = 'NONE', action = act.CopyMode 'MoveLeft' },
+      { key = 'j', mods = 'NONE', action = act.CopyMode 'MoveDown' },
+      { key = 'k', mods = 'NONE', action = act.CopyMode 'MoveUp' },
+      { key = 'l', mods = 'NONE', action = act.CopyMode 'MoveRight' },
+      { key = 'y', mods = 'NONE', action = act.Multiple{ { CopyTo =  'ClipboardAndPrimarySelection' }, { Multiple = { 'ScrollToBottom', { CopyMode =  'Close' } } } } },
+      { key = 'Escape', mods = 'NONE', action = act.Multiple{ 'ScrollToBottom', { CopyMode =  'Close' } } },
+      { key = "p", mods = "NONE", action = wezterm.action.Multiple({
+          wezterm.action.CopyMode({ MoveBackwardZoneOfType = "Input" }),
+        }),
+      },
+      { key = "n", mods = "NONE", action = wezterm.action.Multiple({
+        wezterm.action.CopyMode({ MoveForwardZoneOfType = "Prompt" }),
+      }),
+    },
+    },
   },
   font_size = 11,
   use_fancy_tab_bar = false,
