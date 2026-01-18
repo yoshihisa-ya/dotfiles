@@ -415,3 +415,67 @@ fi
 if [ $(hostname) = "desktop" ] || [ $(hostname) = "nb" ]; then
   eval "$(atuin init --disable-ctrl-r zsh)"
 fi
+
+: ${ZSH_LONGCMD_NOTIFY_THRESHOLD:=15}
+: ${ZSH_LONGCMD_NOTIFY_EXCLUDE:="ssh vi vim nvim yay yum apt top htop journalctl neomutt"}
+
+typeset -g __longcmd_start=0
+typeset -g __longcmd_cmd=''
+
+__wezterm_notify() {
+  emulate -L zsh
+  setopt localoptions noshwordsplit
+
+  local title="${1:-done}"
+  local body="${2:-}"
+
+  printf '\e]777;notify;%s;%s\e\\' "$title" "$body" 2>/dev/null || printf '\e]9;%s\e\\' "$title: $body" 2>/dev/null
+}
+
+__longcmd_preexec() {
+  emulate -L zsh
+  setopt localoptions noshwordsplit
+
+  local cmdline="$1"
+  local -a words
+  words=(${=cmdline})
+
+  local i=1 cmd=""
+  while (( i <= ${#words} )); do
+    case "${words[i]}" in
+      ([A-Za-z_][A-Za-z0-9_]#=*) (( i++ )) ;;
+      (command|builtin|noglob|nocorrect|env) (( i++ )) ;;
+      (*) cmd="${words[i]}"; break ;;
+    esac
+  done
+
+  [[ -z "$cmd" ]] && cmd="$words[1]"
+
+  if [[ " $ZSH_LONGCMD_NOTIFY_EXCLUDE " == *" ${cmd} "* ]]; then
+    __longcmd_start=0
+    __longcmd_cmd=''
+    return 0
+  fi
+
+  __longcmd_start=$EPOCHSECONDS
+  __longcmd_cmd="$cmdline"
+}
+
+__longcmd_precmd() {
+  emulate -L zsh
+  local end=$EPOCHSECONDS
+  local elapsed=$(( end - __longcmd_start ))
+
+  (( __longcmd_start > 0 )) || return 0
+
+  if (( elapsed >= ZSH_LONGCMD_NOTIFY_THRESHOLD )); then
+    __wezterm_notify "cmd done (${elapsed}s)" "$__longcmd_cmd"
+  fi
+
+  __longcmd_start=0
+  __longcmd_cmd=''
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec __longcmd_preexec
+add-zsh-hook precmd  __longcmd_precmd
