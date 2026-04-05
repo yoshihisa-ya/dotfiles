@@ -316,11 +316,6 @@ require("lazy").setup({
       end,
   },
   {
-      "s1n7ax/nvim-comment-frame",
-      dependencies = "nvim-treesitter/nvim-treesitter",
-      config = true,
-  },
-  {
       "danymat/neogen", 
       dependencies = "nvim-treesitter/nvim-treesitter",
       config = true,
