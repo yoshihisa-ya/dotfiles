@@ -1,30 +1,3 @@
-" vim: set foldmethod=marker :
-
-let mapleader=","
-set list listchars=tab:^_,trail:_ " 不可視文字
-set termguicolors
-lua << EOF
-vim.opt.list = true
-vim.opt.listchars:append "space:⋅"
-vim.opt.listchars:append "eol:↴"
-vim.g.maplocalleader = '_'
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.opt.winblend = 0
-vim.opt.pumblend = 0
-vim.diagnostic.config({
-  virtual_lines = true,
-  virtual_text = false,
-  signs = true,
-  update_in_insert = false,
-  severity_sort = true,
-})
-EOF
-
-" Plugin {{{
-" ------
-
-lua << EOF
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -360,6 +333,10 @@ require("lazy").setup({
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    keys = {
+      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
+    },
   },
   {
     "pwntester/octo.nvim",
@@ -410,116 +387,3 @@ require("lazy").setup({
 }, {
   rocks = { enabled = false },
 })
-
-vim.keymap.set("n", "]t", function()
-  require("todo-comments").jump_next()
-end, { desc = "Next todo comment" })
-
-vim.keymap.set("n", "[t", function()
-  require("todo-comments").jump_prev()
-end, { desc = "Previous todo comment" })
-
-EOF
-
-
-" Plugin config {{{
-" -------------
-" vim-skk/skkeleton
-imap <C-j> <Plug>(skkeleton-enable)
-cmap <C-j> <Plug>(skkeleton-enable)
-
-" Gtags
-let Gtags_Auto_Map = 1
-
-" }}}
-
-" Basic {{{
-" -----
-
-syntax enable      " シンタックスハイライト
-set mouse=a        " マウス有効
-set title          " タイトルを設定
-set modeline       " モードライン
-set cursorline     " カーソル行をハイライト
-set nocursorcolumn " カーソルカラムをハイライトしない
-set nobackup       " バックアップファイルを作成しない
-set noswapfile     " スワップファイルを作成しない
-set backupcopy=yes
-set hidden         " 未保存バッファを許容する
-set autowrite      " 一部コマンドで自動保存する
-set autoread       " 自動的に読み直す
-" }}}
-
-" Keybind {{{
-" -------
-
-noremap <C-n> :cnext<CR>
-noremap <C-p> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
-" C-jでC-^とする
-"nnoremap <C-j> <C-^>
-" 探索結果を中心とする
-nnoremap n nzz
-nnoremap N Nzz
-" ZZ無効化
-nnoremap ZZ <Nop>
-"}}}
-
-" Display {{{
-" -------
-
-set number relativenumber" 行番号
-set ruler  " ルーラー
-hi Comment gui=NONE
-
-" 全角スペースをハイライト
-scriptencoding utf-8
-augroup highlightIdegraphicSpace
-  autocmd!
-  autocmd ColorScheme * highlight IdeographicSpace term=underline ctermbg=DarkGreen guibg=DarkGreen
-  autocmd VimEnter,WinEnter * match IdeographicSpace /　/
-augroup END
-
-set pumblend=10
-
-" Git commit で差分を表示
-autocmd FileType gitcommit DiffGitCached | wincmd x | resize 10
-
-" 最後の編集位置にカーソルを復元
-autocmd BufReadPost *
-  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-  \ |   exe "normal! g`\""
-  \ | endif
-" }}}
-
-" Code format {{{
-" -----------
-
-" Indent
-set expandtab     " tab の代わりに space を利用する
-set tabstop=2     " ハードタブを指定空白として表示する
-set softtabstop=0 " tab の代わりに指定空白を入力する
-set shiftwidth=2  " 自動インデントに利用される空白数
-set autoindent    " 改行した際にインデントを継続する
-set cindent       " Cプログラムファイルのインデントを行う
-set showmatch     " 対応する括弧にわずかにジャンプする
-autocmd FileType * setlocal formatoptions-=ro " 自動コメントアウトを無効にする
-
-augroup foldmethod
-  autocmd!
-  autocmd FileType sh setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=0
-  autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=0
-augroup END
-" }}}
-
-" Search {{{
-"-------
-
-set ignorecase " 大文字, 小文字を無視する
-set smartcase  " 大文字を含む場合は区別する
-set incsearch  " インクリメンタルサーチ
-set hlsearch   " ハイライトする
-set wrapscan   " 末尾の次に先頭に戻る
-" ハイライトの解除
-nnoremap <ESC><ESC> :nohlsearch<CR>
-" }}}
