@@ -422,6 +422,8 @@ require("lazy").setup({
       "nvim-tree/nvim-web-devicons",
     },
   }
+}, {
+  rocks = { enabled = false },
 })
 
 local cmp = require'cmp'
