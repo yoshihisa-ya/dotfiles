@@ -316,10 +316,6 @@ require("lazy").setup({
       end,
   },
   {
-      "numToStr/Comment.nvim",
-      config = true,
-  },
-  {
       "s1n7ax/nvim-comment-frame",
       dependencies = "nvim-treesitter/nvim-treesitter",
       config = true,
