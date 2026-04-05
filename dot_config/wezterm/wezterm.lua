@@ -8,16 +8,16 @@ return {
   leader = { key = 't', mods = 'CTRL', timeout_milliseconds = 1000 },
   keys = {
     -- tmux like keybinds
-    { key = '\"', mods = 'LEADER|SHIFT', action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' }, },
-    { key = '%', mods = 'LEADER|SHIFT', action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' }, },
-    { key = 'c', mods = 'LEADER', action = wezterm.action.SpawnTab 'CurrentPaneDomain' },
-    { key = 'p', mods = 'LEADER', action = wezterm.action.ActivateTabRelative(-1) },
-    { key = 'n', mods = 'LEADER', action = wezterm.action.ActivateTabRelative(1) },
-    { key = 't', mods = 'LEADER|CTRL', action = wezterm.action.SendString '\x14', },
+    { key = '\"', mods = 'LEADER|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' }, },
+    { key = '%', mods = 'LEADER|SHIFT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' }, },
+    { key = 'c', mods = 'LEADER', action = act.SpawnTab 'CurrentPaneDomain' },
+    { key = 'p', mods = 'LEADER', action = act.ActivateTabRelative(-1) },
+    { key = 'n', mods = 'LEADER', action = act.ActivateTabRelative(1) },
+    { key = 't', mods = 'LEADER|CTRL', action = act.SendString '\x14', },
     { key = "[", mods = "LEADER", action = wezterm.action_callback(function(window, pane)
-        window:perform_action(wezterm.action.ActivateCopyMode, pane)
-        window:perform_action(wezterm.action.CopyMode("MoveUp"), pane)
-        window:perform_action(wezterm.action.CopyMode({ SetSelectionMode = "Line" }), pane)
+        window:perform_action(act.ActivateCopyMode, pane)
+        window:perform_action(act.CopyMode("MoveUp"), pane)
+        window:perform_action(act.CopyMode({ SetSelectionMode = "Line" }), pane)
       end),
     },
     -- i3 like keybinds
@@ -31,13 +31,13 @@ return {
     { key = '8', mods = 'ALT', action = act.ActivateTab(7) },
     { key = '9', mods = 'ALT', action = act.ActivateTab(8) },
     { key = '0', mods = 'ALT', action = act.ActivateTab(-1) },
-    { key = 'h', mods = 'ALT', action = wezterm.action.ActivatePaneDirection 'Left' },
-    { key = 'j', mods = 'ALT', action = wezterm.action.ActivatePaneDirection 'Down' },
-    { key = 'k', mods = 'ALT', action = wezterm.action.ActivatePaneDirection 'Up' },
-    { key = 'l', mods = 'ALT', action = wezterm.action.ActivatePaneDirection 'Right' },
+    { key = 'h', mods = 'ALT', action = act.ActivatePaneDirection 'Left' },
+    { key = 'j', mods = 'ALT', action = act.ActivatePaneDirection 'Down' },
+    { key = 'k', mods = 'ALT', action = act.ActivatePaneDirection 'Up' },
+    { key = 'l', mods = 'ALT', action = act.ActivatePaneDirection 'Right' },
     { key = 's', mods = 'ALT', action = act.PaneSelect { mode = 'SwapWithActiveKeepFocus' } },
   },
-    key_tables = {
+  key_tables = {
     copy_mode = {
       { key = '$', mods = 'NONE', action = act.CopyMode 'MoveToEndOfLineContent' },
       { key = '$', mods = 'SHIFT', action = act.CopyMode 'MoveToEndOfLineContent' },
@@ -61,14 +61,14 @@ return {
       { key = 'l', mods = 'NONE', action = act.CopyMode 'MoveRight' },
       { key = 'y', mods = 'NONE', action = act.Multiple{ { CopyTo =  'ClipboardAndPrimarySelection' }, { Multiple = { 'ScrollToBottom', { CopyMode =  'Close' } } } } },
       { key = 'Escape', mods = 'NONE', action = act.Multiple{ 'ScrollToBottom', { CopyMode =  'Close' } } },
-      { key = "p", mods = "NONE", action = wezterm.action.Multiple({
-          wezterm.action.CopyMode({ MoveBackwardZoneOfType = "Input" }),
+      { key = "p", mods = "NONE", action = act.Multiple({
+          act.CopyMode({ MoveBackwardZoneOfType = "Input" }),
         }),
       },
-      { key = "n", mods = "NONE", action = wezterm.action.Multiple({
-        wezterm.action.CopyMode({ MoveForwardZoneOfType = "Prompt" }),
-      }),
-    },
+      { key = "n", mods = "NONE", action = act.Multiple({
+          act.CopyMode({ MoveForwardZoneOfType = "Prompt" }),
+        }),
+      },
     },
   },
   font_size = 11,
@@ -115,13 +115,7 @@ return {
     saturation = 0.7,
     brightness = 0.3,
   },
-  window_background_image_hsb = {
-    brightness = 0.15,
-    hue = 1.0,
-    saturation = 1.0,
-  },
   text_background_opacity = 1.0,
   window_background_opacity = 0.7,
   notification_handling = "SuppressFromFocusedPane"
 }
-
