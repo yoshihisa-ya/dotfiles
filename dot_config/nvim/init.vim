@@ -8,6 +8,8 @@ vim.opt.list = true
 vim.opt.listchars:append "space:⋅"
 vim.opt.listchars:append "eol:↴"
 vim.g.maplocalleader = '_'
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
 vim.opt.winblend = 0
 vim.opt.pumblend = 0
 EOF
