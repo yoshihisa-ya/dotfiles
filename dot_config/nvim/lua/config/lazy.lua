@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -144,10 +144,11 @@ require("lazy").setup({
 	},
 	{
 		"akinsho/toggleterm.nvim",
-		config = true,
 		opts = {
 			open_mapping = [[<c-\>]],
-			vim.keymap.set("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", {}),
+		},
+		keys = {
+			{ "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" },
 		},
 	},
 	{
@@ -172,21 +173,13 @@ require("lazy").setup({
 				virt_text_pos = "right_align",
 				delay = 100,
 			},
-			vim.keymap.set("n", "<leader>gd", function()
-				require("gitsigns").diffthis()
-			end, {}),
-			vim.keymap.set("n", "<leader>gl", function()
-				require("gitsigns").blame_line()
-			end, {}),
-			vim.keymap.set("n", "<leader>gs", function()
-				require("gitsigns").stage_hunk()
-			end, {}),
-			vim.keymap.set("n", "<leader>gS", function()
-				require("gitsigns").stage_buffer()
-			end, {}),
-			vim.keymap.set("n", "<leader>gu", function()
-				require("gitsigns").undo_stage_hunk()
-			end, {}),
+		},
+		keys = {
+			{ "<leader>gd", function() require("gitsigns").diffthis() end,       desc = "Gitsigns diff this" },
+			{ "<leader>gl", function() require("gitsigns").blame_line() end,      desc = "Gitsigns blame line" },
+			{ "<leader>gs", function() require("gitsigns").stage_hunk() end,      desc = "Gitsigns stage hunk" },
+			{ "<leader>gS", function() require("gitsigns").stage_buffer() end,    desc = "Gitsigns stage buffer" },
+			{ "<leader>gu", function() require("gitsigns").undo_stage_hunk() end, desc = "Gitsigns undo stage hunk" },
 		},
 	},
 	{
@@ -202,44 +195,29 @@ require("lazy").setup({
 		},
 		config = function()
 			local on_attach = function(client, bufnr)
-				local opts = { noremap = true, silent = true }
-				vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+				vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
-				vim.api.nvim_set_keymap("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-				vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-				vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-				vim.api.nvim_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-				vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-				vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-				vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-				vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-				vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-				vim.api.nvim_buf_set_keymap(
-					bufnr,
-					"n",
-					"<space>wa",
-					"<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>",
-					opts
-				)
-				vim.api.nvim_buf_set_keymap(
-					bufnr,
-					"n",
-					"<space>wr",
-					"<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>",
-					opts
-				)
-				vim.api.nvim_buf_set_keymap(
-					bufnr,
-					"n",
-					"<space>wl",
-					"<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
-					opts
-				)
-				vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-				vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-				vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-				vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-				vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+				local map = function(keys, func, desc)
+					vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
+				end
+
+				map("gD",        vim.lsp.buf.declaration,             "Go to declaration")
+				map("gd",        vim.lsp.buf.definition,              "Go to definition")
+				map("K",         vim.lsp.buf.hover,                   "Hover documentation")
+				map("gi",        vim.lsp.buf.implementation,          "Go to implementation")
+				map("<C-k>",     vim.lsp.buf.signature_help,          "Signature help")
+				map("<space>wa", vim.lsp.buf.add_workspace_folder,    "Add workspace folder")
+				map("<space>wr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder")
+				map("<space>wl", function()
+					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+				end,                                                   "List workspace folders")
+				map("<space>D",  vim.lsp.buf.type_definition,         "Type definition")
+				map("<space>rn", vim.lsp.buf.rename,                  "Rename symbol")
+				map("<space>ca", vim.lsp.buf.code_action,             "Code action")
+				map("gr",        vim.lsp.buf.references,              "References")
+				map("<space>f",  function()
+					vim.lsp.buf.format({ async = true, bufnr = bufnr })
+				end,                                                   "Format buffer")
 			end
 			require("mason-lspconfig").setup({
 				ensure_installed = {
@@ -257,14 +235,14 @@ require("lazy").setup({
 					"marksman",
 					"esbonio",
 				},
-			})
-			require("mason-lspconfig").setup({
-				function(server_name)
-					require("lspconfig")[server_name].setup({
-						on_attach = on_attach,
-						capabilities = require("blink.cmp").get_lsp_capabilities(),
-					})
-				end,
+				handlers = {
+					function(server_name)
+						require("lspconfig")[server_name].setup({
+							on_attach = on_attach,
+							capabilities = require("blink.cmp").get_lsp_capabilities(),
+						})
+					end,
+				},
 			})
 		end,
 	},
@@ -429,11 +407,11 @@ require("lazy").setup({
 	},
 	{
 		"tools-life/taskwiki",
-		init = function() end,
 	},
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {},
 		keys = {
 			{
 				"]t",

@@ -10,3 +10,8 @@ map("n", "<ESC><ESC>", "<cmd>nohlsearch<CR>")
 
 map("i", "<C-j>", "<Plug>(skkeleton-enable)", { remap = true })
 map("c", "<C-j>", "<Plug>(skkeleton-enable)", { remap = true })
+
+map("n", "<space>e", vim.diagnostic.open_float, { desc = "Diagnostic: open float" })
+map("n", "[d",       vim.diagnostic.goto_prev,  { desc = "Diagnostic: previous" })
+map("n", "]d",       vim.diagnostic.goto_next,  { desc = "Diagnostic: next" })
+map("n", "<space>q", vim.diagnostic.setloclist, { desc = "Diagnostic: set loclist" })

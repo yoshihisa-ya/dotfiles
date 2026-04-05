@@ -19,10 +19,8 @@ opt.mouse = "a"
 
 opt.backup = false
 opt.swapfile = false
-opt.hidden = true
 opt.autowrite = true
 opt.autoread = true
-opt.backupcopy = "yes"
 
 opt.expandtab = true
 opt.tabstop = 2
