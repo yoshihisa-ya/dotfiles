@@ -342,7 +342,6 @@ require("lazy").setup({
       config = true,
   },
   { "vim-scripts/gtags.vim" },
-  { "fuenor/JpFormat.vim" },
   {
       "folke/flash.nvim",
       event = "VeryLazy",
