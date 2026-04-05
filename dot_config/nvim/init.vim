@@ -12,6 +12,13 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.opt.winblend = 0
 vim.opt.pumblend = 0
+vim.diagnostic.config({
+  virtual_lines = true,
+  virtual_text = false,
+  signs = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
 EOF
 
 " Plugin {{{
@@ -277,9 +284,6 @@ require("lazy").setup({
   {
       'j-hui/fidget.nvim',
       config= true
-  },
-  {
-      'ErichDonGubler/lsp_lines.nvim'
   },
   {
       "lukas-reineke/indent-blankline.nvim",
