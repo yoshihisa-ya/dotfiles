@@ -11,7 +11,6 @@
 {{ $is_pass := true -}}
 {{ $is_bitwarden := false -}}
 {{ $is_syncmaildir := false -}}
-{{ $pkginstall := "" -}}
 {{ $is_wsl := false -}}
 
 {{ if stdinIsATTY -}}
@@ -36,10 +35,6 @@
 {{     $is_syncmaildir = promptBoolOnce . "is_syncmaildir" "Use shared maildir in Syncthing" false -}}
 {{   end -}}
 {{   $is_pass = promptBoolOnce . "is_pass" "Installed pass" true -}}
-{{ end -}}
-
-{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) -}}
-{{   $pkginstall = "yay -S --needed --noconfirm" -}}
 {{ end -}}
 
 [data]
@@ -68,7 +63,6 @@
   IS_PASS = {{ $is_pass | quote }}
   IS_SYNCMAILDIR = {{ $is_syncmaildir | quote }}
   IS_WSL = {{ $is_wsl | quote }}
-  PKGINSTALL = {{ $pkginstall | quote }}
 
 [gitHub]
   refreshPeriod = "24h"
