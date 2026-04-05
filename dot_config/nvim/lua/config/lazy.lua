@@ -245,7 +245,8 @@ require("lazy").setup({
         nerd_font_variant = 'mono',
       },
       completion = {
-        documentation = { auto_show = true },
+        documentation = { auto_show = true, window = { winblend = 10 } },
+        menu = { winblend = 10 },
       },
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },

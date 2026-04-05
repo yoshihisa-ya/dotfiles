@@ -14,7 +14,7 @@ opt.cursorcolumn   = false
 opt.title          = true
 opt.termguicolors  = true
 opt.winblend       = 0
-opt.pumblend       = 0
+opt.pumblend       = 10
 opt.mouse          = "a"
 
 opt.backup     = false
