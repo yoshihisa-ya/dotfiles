@@ -59,9 +59,6 @@ require("lazy").setup({
         colored = true,
         globalstatus = true,
         },
-        extensions = {
-          "neo-tree"
-        }
         })
       end,
   },
@@ -152,32 +149,8 @@ require("lazy").setup({
             style= 'none'
           },
           diagnostics = "nvim_lsp",
-          offsets = {
-            {
-                filetype = "neo-tree",
-                text = "File Explorer",
-                text_align = "left",
-                separator = true
-
-            }
-          },
         },
       },
-  },
-  {
-      'nvim-neo-tree/neo-tree.nvim',
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-web-devicons",
-        "MunifTanjim/nui.nvim",
-      },
-      opts = {
-        window = {
-          position = "left",
-          width = 30
-        },
-        vim.keymap.set('n', '<leader>fe', "<cmd>Neotree toggle<cr>", {})
-      }
   },
   {
       'lewis6991/gitsigns.nvim',
