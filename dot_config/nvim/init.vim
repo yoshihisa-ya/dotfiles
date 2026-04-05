@@ -431,14 +431,6 @@ cmap <C-j> <Plug>(skkeleton-enable)
 " Gtags
 let Gtags_Auto_Map = 1
 
-" segeljakt/vim-silicon
-let g:silicon = {
-      \   'pad-horiz':                                   0,
-      \   'pad-vert':                                    0,
-      \   'output': '~/silicon-{time:%Y-%m-%d-%H%M%S}.png',
-      \   'window-controls':                       v:false,
-      \ }
-
 " }}}
 
 " Basic {{{
@@ -478,7 +470,6 @@ nnoremap ZZ <Nop>
 
 set number relativenumber" 行番号
 set ruler  " ルーラー
-" set list listchars=tab:^_,trail:_ " 不可視文字
 hi Comment gui=NONE
 
 " 全角スペースをハイライト
@@ -489,8 +480,6 @@ augroup highlightIdegraphicSpace
   autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
 
-" colorscheme
-" colorscheme tokyonight
 set pumblend=10
 
 " Git commit で差分を表示
@@ -501,12 +490,6 @@ autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
   \ |   exe "normal! g`\""
   \ | endif
-
-" cmdline & statusline
-" set cmdheight=1  " コマンドラインバッファ行数
-" set laststatus=2 " ステータスラインを常に出力
-"let ff_type = {'dos' : 'CR+LF', 'unix' : 'LF', 'mac' : 'CR' }
-"set statusline=%f%m%=%r%h%w%{FugitiveStatusline()}[%Y,%{ff_type[&ff]}(%{&ff})][%{(&fenc!=''?&fenc:&enc)}][%03l/%03L,%03c][%02p%%]
 " }}}
 
 " Code format {{{
@@ -518,7 +501,6 @@ set tabstop=2     " ハードタブを指定空白として表示する
 set softtabstop=0 " tab の代わりに指定空白を入力する
 set shiftwidth=2  " 自動インデントに利用される空白数
 set autoindent    " 改行した際にインデントを継続する
-" set smartindent " C-likeなインデントを行う
 set cindent       " Cプログラムファイルのインデントを行う
 set showmatch     " 対応する括弧にわずかにジャンプする
 autocmd FileType * setlocal formatoptions-=ro " 自動コメントアウトを無効にする
