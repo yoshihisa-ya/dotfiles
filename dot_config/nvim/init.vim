@@ -339,10 +339,6 @@ require("lazy").setup({
       config = true,
   },
   {
-      "norcalli/nvim-colorizer.lua", -- # TODO: 動作していないので確認する。
-      config = true,
-  },
-  {
       "kevinhwang91/nvim-hlslens",
       config = true,
   },
