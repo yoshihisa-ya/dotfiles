@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CACHE_DIR=${XDG_CACHE_HOE:-"$HOME/.cache"}/mysrpmtools
+CACHE_DIR=${XDG_CACHE_HOME:-"$HOME/.cache"}/mysrpmtools
 TARGETS="https://dl.rockylinux.org/vault/fullfilelist
 https://vault.centos.org/filelist.gz"
 
