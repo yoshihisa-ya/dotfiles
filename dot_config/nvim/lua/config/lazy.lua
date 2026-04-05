@@ -215,9 +215,6 @@ require("lazy").setup({
 				map("<space>rn", vim.lsp.buf.rename,                  "Rename symbol")
 				map("<space>ca", vim.lsp.buf.code_action,             "Code action")
 				map("gr",        vim.lsp.buf.references,              "References")
-				map("<space>f",  function()
-					vim.lsp.buf.format({ async = true, bufnr = bufnr })
-				end,                                                   "Format buffer")
 			end
 			require("mason-lspconfig").setup({
 				ensure_installed = {
@@ -247,35 +244,32 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"nvimtools/none-ls.nvim",
-		-- :MasonInstall shellcheck shfmt
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		config = function()
-			local null_ls = require("null-ls")
-			local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-			null_ls.setup({
-				sources = {
-					null_ls.builtins.formatting.shfmt.with({
-						extra_args = { "-i", "4" },
-					}),
-					null_ls.builtins.formatting.stylua,
-				},
-				on_attach = function(client, bufnr)
-					if client.supports_method("textDocument/formatting") then
-						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							group = augroup,
-							buffer = bufnr,
-							callback = function()
-								vim.lsp.buf.format({ bufnr = bufnr })
-							end,
-						})
-					end
+		"stevearc/conform.nvim",
+		-- :MasonInstall shfmt stylua
+		event = "BufWritePre",
+		keys = {
+			{
+				"<space>f",
+				function()
+					require("conform").format({ async = true, lsp_fallback = true })
 				end,
-			})
-		end,
+				desc = "Format buffer",
+			},
+		},
+		opts = {
+			formatters_by_ft = {
+				sh = { "shfmt" },
+				lua = { "stylua" },
+			},
+			formatters = {
+				shfmt = {
+					prepend_args = { "-i", "4" },
+				},
+			},
+			format_on_save = {
+				lsp_fallback = true,
+			},
+		},
 	},
 	{
 		"saghen/blink.cmp",
@@ -393,7 +387,6 @@ require("lazy").setup({
 	},
 	{
 		"vimwiki/vimwiki",
-		event = "BufEnter *.md",
 		keys = { "<leader>ww", "<leader>wt" },
 		init = function()
 			vim.g.vimwiki_list = {
