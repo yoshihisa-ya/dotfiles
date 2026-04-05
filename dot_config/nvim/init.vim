@@ -347,7 +347,6 @@ require("lazy").setup({
       config = true,
   },
   { "vim-scripts/gtags.vim" },
-  { "voldikss/vim-translator" },
   { "fuenor/JpFormat.vim" },
   {
       "phaazon/hop.nvim",
@@ -507,10 +506,6 @@ cmap <C-j> <Plug>(skkeleton-enable)
 
 " Gtags
 let Gtags_Auto_Map = 1
-
-" voldikss/vim-translator
-let g:translator_target_lang = "ja"
-let g:translator_default_engines = ['google']
 
 " segeljakt/vim-silicon
 let g:silicon = {
