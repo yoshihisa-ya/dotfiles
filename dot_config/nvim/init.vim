@@ -353,6 +353,8 @@ require("lazy").setup({
   },
   {
     "vimwiki/vimwiki",
+    event = "BufEnter *.md",
+    keys = { "<leader>ww", "<leader>wt" },
     init = function()
     vim.g.vimwiki_list = {
       {
