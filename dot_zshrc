@@ -125,9 +125,7 @@ alias cal='LANG=C khal calendar'
 # /etc/ssh/ssh_config で SendEnv が設定されているのを無視する為。
 alias ssh='TERM=xterm ssh -F ~/.ssh/config'
 
-alias -s {png,jpg,bmp,PNG,JPG,BMP}=sxiv
 alias -s {html,htm,pdf}=firefox
-# alias -s {mp3,wma,wav}=rhythmbox
 
 function extract() {
   case $1 in
