@@ -416,15 +416,23 @@ require("lazy").setup({
 	{
 		"vimwiki/vimwiki",
 		event = "BufEnter *.md",
-		keys = { "<leader>ww", "<leader>wt" },
+		keys = { "<leader>ww", "<leader>wt", "<leader>ws", "<leader>wi" },
 		init = function()
 			vim.g.vimwiki_list = {
 				{
+					name = "notes",
 					path = "~/notes/wiki",
 					syntax = "markdown",
-					ext = "md",
+					ext = ".md",
+				},
+				{
+					name = "private",
+					path = "~/notes_private/wiki",
+					syntax = "markdown",
+					ext = ".md",
 				},
 			}
+			vim.g.vimwiki_global_ext = 0
 		end,
 	},
 	{
