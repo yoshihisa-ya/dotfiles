@@ -435,10 +435,10 @@ require("lazy").setup({
 			vim.g.vimwiki_global_ext = 0
 		end,
 	},
-	{
-		"tools-life/taskwiki",
-		init = function() end,
-	},
+	-- {
+	--   "tools-life/taskwiki",
+	--   init = function() end,
+	-- },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
