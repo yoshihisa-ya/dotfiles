@@ -30,8 +30,6 @@ export LESS_TERMCAP_so=$'\E[00;47;30m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-export ZENO_HOME=~/.config/zeno
-
 [ -r /etc/os-release ] && . /etc/os-release
 
 if [ "$ID" = "arch" ] || [ "$ID" = "debian" ]; then
@@ -400,19 +398,6 @@ zinit wait lucid for \
     zsh-users/zsh-autosuggestions
 
 zinit ice lucid depth"1" blockf
-zinit light yuki-yano/zeno.zsh
-export ZENO_FZF_COMMAND=fzf
-export ZENO_ENABLE_FZF_TMUX=1
-if [[ -n $ZENO_LOADED ]]; then
-  bindkey ' '  zeno-auto-snippet
-  bindkey '^i' zeno-completion
-  # bindkey '^x' zeno-insert-snippet
-  bindkey '^U' backward-kill-line
-fi
-
-if [ $(hostname) = "desktop" ] || [ $(hostname) = "nb" ]; then
-  eval "$(atuin init --disable-ctrl-r zsh)"
-fi
 
 : ${ZSH_LONGCMD_NOTIFY_THRESHOLD:=15}
 : ${ZSH_LONGCMD_NOTIFY_EXCLUDE:="ssh vi vim nvim yay yum apt top htop journalctl neomutt"}
