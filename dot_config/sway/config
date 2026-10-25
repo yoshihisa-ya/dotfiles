@@ -1,4 +1,4 @@
-set $mod Mod4
+set $mod Mod1
 
 set $left h
 set $down j
