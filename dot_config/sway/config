@@ -121,3 +121,4 @@ exec gammastep-indicator -l 35.650583:139.540667
 exec blueman-applet
 exec fcitx5 -dr
 exec swaync
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
