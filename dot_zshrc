@@ -462,3 +462,52 @@ __longcmd_precmd() {
 autoload -Uz add-zsh-hook
 add-zsh-hook preexec __longcmd_preexec
 add-zsh-hook precmd  __longcmd_precmd
+
+typeset -A _abbr_cmd=(
+  g        'git'
+  gs       'git status --branch'
+  gsw      'git switch'
+  gswc     'git switch -c'
+  gc       'git commit'
+  gcm      'git commit -m'
+  gb       'git branch -a'
+  ga       'git add'
+  gap      'git add -p'
+  gca      'git commit --amend --no-edit'
+  gd       'git diff'
+  gds      'git diff --staged'
+  gdt      'git difftool'
+  gdts     'git difftool --staged'
+  gl       'git --no-pager log --graph --oneline -n 10'
+  gp       'git pull'
+  gpush    'git push'
+  nvim     'vi'
+  vim      'vi'
+  chezmoiu 'chezmoi update'
+  chezmoia 'chezmoi apply'
+  chezmoid 'chezmoi diff'
+  chezmois 'chezmoi status'
+  chezmoic 'chezmoi git pull -- --autostash --rebase && chezmoi diff'
+  yays     "yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S"
+  yayr     "yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs -ro yay -Rns"
+)
+typeset -A _abbr_global=(
+  devnull  '> /dev/null 2>&1'
+  awksum   "awk '{sum+=$NF{{field}}} END {print sum}'"
+  awkave   "awk '{sum+=$NF{{field}}} END {print sum/NR}'"
+)
+
+_abbr_expand_space() {
+  local word=${LBUFFER##*[[:space:]]}
+  if [[ -n $word ]]; then
+    if [[ $LBUFFER == $word && -n ${_abbr_cmd[$word]-} ]]; then
+      LBUFFER=${_abbr_cmd[$word]}
+    elif [[ -n ${_abbr_global[$word]-} ]]; then
+      LBUFFER=${LBUFFER%$word}${_abbr_global[$word]}
+    fi
+  fi
+  zle self-insert
+}
+zle -N _abbr_expand_space
+bindkey ' '  _abbr_expand_space
+bindkey -M isearch ' ' self-insert
