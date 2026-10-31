@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Proxmox SPICE
+GenericName=VM Console
+Keywords=proxmox;pve;spice;vm;console;
+Exec=pve-spice
+Icon=computer
+Terminal=false

@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+NODES=(pve101 pve102)
+DOMAIN=yoshihisa.link
+API_PORT=8006
+PASS_ENTRY=proxmox/SPICE_Viwer
+
+TOKEN=$(pass show "$PASS_ENTRY" | head -n1) || exit 1
+[[ -n $TOKEN ]] || exit 1
+
+api() {
+    local method=$1 path=$2
+    shift 2
+    curl -fsS --connect-timeout 3 -X "$method" \
+        -H @<(printf 'Authorization: PVEAPIToken=%s\n' "$TOKEN") \
+        "https://$HOST.$DOMAIN:$API_PORT/api2/json$path" "$@"
+}
+
+resources=""
+for HOST in "${NODES[@]}"; do
+    resources=$(api GET '/cluster/resources?type=vm' 2>/dev/null) && break
+    resources=""
+done
+[[ -n $resources ]] || exit 1
+
+list=$(jq -r '.data[]
+  | select(.type == "qemu" and .status == "running")
+  | [(.vmid | tostring), (.name // "-"), .node] | @tsv' <<<"$resources" | sort -n)
+[[ -n $list ]] || exit 1
+
+sel=$(awk -F'\t' '{ printf "%-6s %-28s %s\n", $1, $2, $3 }' <<<"$list" |
+    wofi --dmenu -i -p VM) || exit 0
+read -r vmid _ node <<<"$sel"
+[[ $vmid =~ ^[0-9]+$ && -n $node ]] || exit 0
+
+vv=$(mktemp --tmpdir pve-spice.XXXXXX.vv) # remote-viwer によって自動削除される
+api POST "/nodes/$node/qemu/$vmid/spiceproxy" --data-urlencode "proxy=$node.$DOMAIN" |
+    jq -r '"[virt-viewer]", (.data | to_entries[] | "\(.key)=\(.value | tostring)")' >"$vv" ||
+    {
+        rm -f "$vv"
+        exit 1
+    }
+
+exec env remote-viewer -z 200 "$vv"
