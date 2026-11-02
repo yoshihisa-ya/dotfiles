@@ -48,3 +48,26 @@ opt.listchars = {
 }
 
 opt.modeline = true
+
+-- Docker Compose と Ansible のファイルに複合 filetype を付ける (docker_compose_language_service と ansiblels を起動するため)
+vim.filetype.add({
+	filename = {
+		["compose.yaml"] = "yaml.docker-compose",
+		["compose.yml"] = "yaml.docker-compose",
+		["docker-compose.yaml"] = "yaml.docker-compose",
+		["docker-compose.yml"] = "yaml.docker-compose",
+	},
+	pattern = {
+		-- roles/<role>/tasks/main.yml など (リポジトリ直下と ansible/ の下の両方)
+		[".*/roles/[^/]+/tasks/.*%.ya?ml"] = "yaml.ansible",
+		[".*/roles/[^/]+/handlers/.*%.ya?ml"] = "yaml.ansible",
+		[".*/roles/[^/]+/defaults/.*%.ya?ml"] = "yaml.ansible",
+		[".*/roles/[^/]+/vars/.*%.ya?ml"] = "yaml.ansible",
+		[".*/roles/[^/]+/meta/.*%.ya?ml"] = "yaml.ansible",
+		-- ansible/ ディレクトリの下 (ansible/site.yml、ansible/group_vars/ など)
+		[".*/ansible/.*%.ya?ml"] = "yaml.ansible",
+		-- 名前に ansible や playbook を含むリポジトリの直下 (site.yml など)。.github/ などの下は対象外
+		[".*/[^/]*[Aa]nsible[^/]*/[^/]+%.ya?ml"] = "yaml.ansible",
+		[".*/[^/]*[Pp]laybook[^/]*/[^/]+%.ya?ml"] = "yaml.ansible",
+	},
+})
