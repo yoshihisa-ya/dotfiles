@@ -453,6 +453,7 @@ require("lazy").setup({
       dash = { enabled = false },
       link = { enabled = false },
       sign = { enabled = false },
+      latex = { enabled = false },
     },
   },
   -- {
